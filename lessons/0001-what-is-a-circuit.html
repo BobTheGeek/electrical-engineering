@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1 — What a Circuit Really Is</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 1</p>
+  <h1>What a Circuit Really Is</h1>
+  <p class="subtitle">Voltage, current, and resistance — using water, not math.</p>
+
+  <p>You've blinked an LED before. This lesson is about the <em>why</em> underneath it: the three
+  ideas that explain every circuit you'll ever build, from that LED to the relay that will one day
+  switch a lamp in your home. Get these three into your bones and almost everything else becomes
+  common sense.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    By the end, you'll be able to look at a simple LED circuit and explain, out loud,
+    <em>where the current flows and why the resistor has to be there.</em> That single skill is the
+    seed of reading any schematic and debugging any project.
+  </div>
+
+  <h2>A circuit is a loop</h2>
+
+  <p>Here's the first and most important truth: <span class="term">electric current only flows
+  around a complete loop.</span> Charge leaves the <strong>+</strong> side of a power source, travels
+  through your components, and must return to the <strong>−</strong> side. Break the loop anywhere —
+  pull a wire, flip a switch off — and <em>everything</em> stops. Not just the part after the break.
+  Everything.</p>
+
+  <p>This is why a switch turning off a light works: the switch simply opens the loop.
+  A <a href="../reference/glossary.html#circuit">circuit</a> that's complete is <em>closed</em>;
+  a broken one is <em>open</em>.</p>
+
+  <h2>The water analogy</h2>
+
+  <p>Electricity is invisible, so borrow a picture you already understand: water in pipes.
+  This analogy is used by nearly every good electronics teacher
+  <a href="https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law/all">(here's SparkFun's version)</a>,
+  and it will carry you a remarkably long way.</p>
+
+  <div class="analogy">
+    <table>
+      <thead>
+        <tr><th>Electrical idea</th><th>Water version</th><th>What it means</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="term">Voltage</span> (volts, V)</td>
+          <td>Water <strong>pressure</strong></td>
+          <td>The push. How hard the charge is being shoved. Measured <em>between two points</em>.</td>
+        </tr>
+        <tr>
+          <td><span class="term">Current</span> (amps, A)</td>
+          <td>Rate of <strong>flow</strong></td>
+          <td>How much charge is actually moving past a point each second.</td>
+        </tr>
+        <tr>
+          <td><span class="term">Resistance</span> (ohms, Ω)</td>
+          <td>A <strong>narrow pipe</strong></td>
+          <td>How much the path fights the flow. Narrower pipe → less flow.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Now the relationship between them, in one plain sentence — no equation needed:</p>
+
+  <div class="callout rule">
+    <span class="label">Ohm's Law, in words</span>
+    <strong>More pressure pushes more flow. More resistance allows less flow.</strong><br>
+    (The formula is <code>V = I × R</code>, but you'll reason with the sentence far more often than the algebra.)
+  </div>
+
+  <p>Three things worth burning in now, because beginners trip on each:</p>
+  <ul>
+    <li><strong>Voltage is <em>across</em>; current is <em>through</em>.</strong> You measure voltage
+    <em>between</em> two points (like pressure difference across a valve). Current flows <em>through</em>
+    a component (like water through a pipe). Mixing these up is the #1 source of confusion.</li>
+    <li><strong>Current is the same all the way around a single loop.</strong> Water doesn't pile up;
+    what flows out of the source flows through every part in the line and back.</li>
+    <li><strong>Components <em>use up</em> voltage, not current.</strong> Each part along the loop
+    "drops" some of the pressure. Hold that thought — it's why the next part matters.</li>
+  </ul>
+
+  <h2>Why the LED needs that resistor</h2>
+
+  <p>Here's your blink circuit, drawn properly:</p>
+
+  <figure>
+    <svg viewBox="0 0 420 220" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="A loop: 5 volt source, resistor, LED, back to ground.">
+      <!-- wires -->
+      <g fill="none" stroke="#b3461f" stroke-width="2.5">
+        <path d="M60 40 H360"/>            <!-- top -->
+        <path d="M360 40 V90"/>            <!-- down to resistor -->
+        <path d="M360 150 V180 H60"/>      <!-- bottom return -->
+        <path d="M60 180 V40"/>            <!-- left side to source -->
+      </g>
+
+      <!-- battery / source symbol on left wire -->
+      <g stroke="#1a1a1a" stroke-width="2.5">
+        <line x1="48" y1="100" x2="72" y2="100"/>
+        <line x1="54" y1="112" x2="66" y2="112"/>
+      </g>
+      <text x="20" y="104" font-size="13" fill="#1f6f8b">5V</text>
+      <text x="78" y="90"  font-size="12" fill="#6b6b6b">+</text>
+      <text x="78" y="128" font-size="12" fill="#6b6b6b">−</text>
+
+      <!-- resistor (zigzag) on right wire -->
+      <polyline points="360,90 352,98 368,106 352,114 368,122 352,130 368,138 360,150"
+                fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+      <text x="375" y="124" font-size="13" fill="#1a1a1a">R</text>
+      <text x="375" y="140" font-size="11" fill="#6b6b6b">220Ω</text>
+
+      <!-- LED (triangle + bar) on bottom wire -->
+      <g transform="translate(210,180)">
+        <polygon points="-12,-10 -12,10 6,0" fill="#1a1a1a"/>
+        <line x1="6" y1="-10" x2="6" y2="10" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="-2" y1="-16" x2="4" y2="-22" stroke="#1a1a1a" stroke-width="1.5"/>
+        <line x1="2" y1="-16" x2="8" y2="-22" stroke="#1a1a1a" stroke-width="1.5"/>
+      </g>
+      <text x="195" y="208" font-size="13" fill="#1a1a1a">LED</text>
+
+      <!-- current direction arrow -->
+      <g fill="#b3461f">
+        <polygon points="200,34 212,40 200,46"/>
+      </g>
+      <text x="150" y="30" font-size="11" fill="#b3461f" font-style="italic">current flows this way →</text>
+    </svg>
+    <figcaption>A complete loop: the 5&nbsp;V source pushes current through the resistor, through the
+    LED, and back. Break it anywhere and the LED goes dark.</figcaption>
+  </figure>
+
+  <p>An <a href="../reference/glossary.html#resistor">LED</a> is greedy. On its own, it offers very
+  little resistance once it turns on, so — by our sentence, <em>less resistance allows more flow</em> —
+  it will gulp far more current than it can survive, and burn out (sometimes instantly). It can't
+  protect itself.</p>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    An LED almost always needs a <strong>resistor in series</strong> with it to limit the current.
+    For a 5&nbsp;V Arduino pin, a resistor of <strong>about 220&nbsp;Ω to 330&nbsp;Ω</strong> is the
+    classic safe choice. You don't need to calculate it every time — keep a handful of 220Ω resistors
+    around and reach for one.
+  </div>
+
+  <p>The resistor is the deliberate "narrow pipe" you add so the flow stays gentle. This is the same
+  logic — protect the delicate part by controlling current — that will keep you from frying sensors,
+  microcontroller pins, and other components throughout your home-automation builds.</p>
+
+  <div class="callout danger">
+    <span class="label">The failure to fear</span>
+    A <a href="../reference/glossary.html#short">short circuit</a> is a loop with almost no resistance —
+    so current shoots up enormously. That's what melts wires and pops parts. Most beginner "magic smoke"
+    moments are an accidental short. The whole game is keeping current under control.
+  </div>
+
+  <h2>Check yourself</h2>
+  <p>Don't re-read first — try to <em>recall</em> the answers. Effortful retrieval is what makes this stick.</p>
+
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law/all">
+    SparkFun Learn — Voltage, Current, Resistance, and Ohm's Law</a>.
+    The clearest beginner treatment of today's three ideas, with the same water-tank picture.
+    Skim it; let it reinforce, not overwhelm.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> If the loop idea, the "across vs. through"
+    distinction, or why the LED needs a resistor feels even slightly fuzzy, ask. A two-minute question
+    now saves a fried component later. Tell me when you're ready and I'll set up Lesson 2.
+  </div>
+
+  <nav class="lesson-nav">
+    <span></span>
+    <span>Next → <em>Reading a schematic (and your breadboard)</em></span>
+  </nav>
+
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a>
+  </p>
+
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "For current to flow through your LED, the circuit must be…",
+      options: [
+        "A complete, unbroken loop",
+        "Charged to a high voltage",
+        "Built without any resistor"
+      ],
+      answer: 0,
+      why: "Current only flows around a complete loop. Break it anywhere and everything stops — not just the parts after the break."
+    },
+    {
+      q: "In the water analogy, voltage is most like…",
+      options: [
+        "The pressure pushing water",
+        "The amount of flowing water",
+        "The narrowness of a pipe"
+      ],
+      answer: 0,
+      why: "Voltage = pressure (the push). Current = flow rate. Resistance = pipe narrowness. Voltage is measured across two points."
+    },
+    {
+      q: "An LED usually needs a series resistor because the LED…",
+      options: [
+        "Cannot limit its own current",
+        "Needs extra voltage to light",
+        "Stores charge while running"
+      ],
+      answer: 0,
+      why: "Once on, an LED offers little resistance and would draw far too much current, burning out. The resistor is the deliberate 'narrow pipe' that limits the flow."
+    },
+    {
+      q: "You should measure current as something that flows…",
+      options: [
+        "Through a component in the loop",
+        "Across the two ends of one part",
+        "Between the source and the air"
+      ],
+      answer: 0,
+      why: "Current flows THROUGH; voltage is measured ACROSS. Mixing these up is the most common early confusion — keep them straight."
+    }
+  ]);
+</script>
+</body>
+</html>

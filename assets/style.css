@@ -1,0 +1,212 @@
+/* ============================================================
+   Shared stylesheet for the "Electronics for Building Things" course.
+   Tufte-inspired: readable measure, generous margins, sidenotes,
+   restrained color, prints cleanly. Linked by every lesson and
+   reference document.
+   ============================================================ */
+
+:root {
+  --ink:        #1a1a1a;
+  --paper:      #fdfdfa;
+  --muted:      #6b6b6b;
+  --rule:       #e2e0d8;
+  --accent:     #b3461f;   /* warm copper — wires/current */
+  --accent-2:   #1f6f8b;   /* teal — voltage/info */
+  --good:       #2e7d32;
+  --bad:        #c62828;
+  --code-bg:    #f4f2ec;
+  --highlight:  #fff6d6;
+  --maxw:       42rem;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 18px; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: et-book, Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  line-height: 1.55;
+  margin: 0;
+  padding: 0;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* ---- Course / lesson header ---- */
+.eyebrow {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.4rem;
+}
+h1 {
+  font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 0 0 0.3rem;
+}
+.subtitle {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin: 0 0 1.5rem;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin: 2.6rem 0 0.6rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--rule);
+}
+h3 {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 1.6rem 0 0.4rem;
+}
+
+p { margin: 0.8rem 0; }
+
+a { color: var(--accent-2); text-decoration: none; border-bottom: 1px solid rgba(31,111,139,0.3); }
+a:hover { border-bottom-color: var(--accent-2); }
+
+strong { font-weight: 600; }
+em { font-style: italic; }
+
+/* ---- Key terms ---- */
+.term {
+  font-weight: 600;
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* ---- Callouts ---- */
+.callout {
+  border-left: 3px solid var(--accent-2);
+  background: #f3f7f8;
+  padding: 0.8rem 1.1rem;
+  margin: 1.4rem 0;
+  border-radius: 0 4px 4px 0;
+}
+.callout.rule   { border-left-color: var(--accent); background: #faf2ee; }
+.callout.danger { border-left-color: var(--bad);    background: #fcefef; }
+.callout .label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--muted);
+}
+.callout.rule .label   { color: var(--accent); }
+.callout.danger .label { color: var(--bad); }
+
+/* ---- The water analogy box ---- */
+.analogy {
+  background: var(--code-bg);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin: 1.4rem 0;
+}
+
+/* ---- Comparison table ---- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.4rem 0;
+  font-size: 0.95rem;
+}
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+th {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---- Inline code & key facts ---- */
+code {
+  font-family: "SF Mono", "Fira Code", Menlo, Consolas, monospace;
+  background: var(--code-bg);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.86em;
+}
+mark { background: var(--highlight); padding: 0 0.15rem; }
+
+/* ---- Figures / SVG diagrams ---- */
+figure { margin: 1.8rem 0; text-align: center; }
+figure svg { max-width: 100%; height: auto; }
+figcaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.6rem;
+}
+
+/* ---- Navigation footer between lessons ---- */
+.lesson-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+
+/* ---- "Ask your teacher" reminder ---- */
+.ask-teacher {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+  background: #f3f7f8;
+  border: 1px dashed var(--accent-2);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  margin: 2rem 0;
+}
+.ask-teacher strong { color: var(--accent-2); }
+
+/* ---- Primary source recommendation ---- */
+.primary-source {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.92rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin: 1.6rem 0;
+}
+.primary-source .label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* ---- Print ---- */
+@media print {
+  :root { --paper: #fff; }
+  body { font-size: 12pt; }
+  .ask-teacher, .lesson-nav, .quiz button { display: none; }
+  a { color: var(--ink); border: none; }
+  .wrap { max-width: 100%; }
+}

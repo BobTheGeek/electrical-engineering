@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — Electronics for Building Things</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  dl.glossary { margin: 1.5rem 0; }
+  dl.glossary dt { font-weight: 600; color: var(--accent); margin-top: 1.1rem; }
+  dl.glossary dd { margin: 0.2rem 0 0; }
+  dl.glossary dd .unit { color: var(--muted); font-style: italic; }
+  .toc { columns: 2; font-family: -apple-system, sans-serif; font-size: 0.85rem; column-gap: 2rem; }
+  .toc a { display: block; padding: 0.1rem 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Reference · Living document</p>
+  <h1>Glossary</h1>
+  <p class="subtitle">The shared vocabulary for the whole course. Terms are added as we meet them.</p>
+
+  <div class="callout">
+    This is the source of truth for terminology. If a lesson uses a word that lives here,
+    it means the same thing here as there. New terms get added each session.
+  </div>
+
+  <h2>Core electrical quantities</h2>
+  <dl class="glossary">
+    <dt id="voltage">Voltage <span class="unit">(volts, V)</span></dt>
+    <dd>The "push" or pressure that drives electric charge. It is always measured <em>between two points</em>
+        (a difference). In the water analogy: water pressure. Sometimes called <em>potential difference</em>.</dd>
+
+    <dt id="current">Current <span class="unit">(amps, A · often milliamps, mA)</span></dt>
+    <dd>The <em>flow</em> of electric charge — how much is moving past a point per second.
+        In the water analogy: the rate of water flow. 1000&nbsp;mA = 1&nbsp;A.</dd>
+
+    <dt id="resistance">Resistance <span class="unit">(ohms, Ω)</span></dt>
+    <dd>How much a material <em>opposes</em> the flow of current. In the water analogy: a
+        narrow or constricted pipe. Higher resistance → less current for the same voltage.</dd>
+
+    <dt id="ohms-law">Ohm's Law</dt>
+    <dd>The relationship between the three above: <code>V = I × R</code>. In plain words —
+        <em>more pressure pushes more flow; more resistance allows less flow.</em> You rarely
+        need the algebra; you need the intuition.</dd>
+
+    <dt id="power">Power <span class="unit">(watts, W)</span></dt>
+    <dd>The rate at which energy is used or delivered. <code>P = V × I</code>. What makes things
+        get hot, bright, or move. Added in a later lesson.</dd>
+  </dl>
+
+  <h2>Circuit fundamentals</h2>
+  <dl class="glossary">
+    <dt id="circuit">Circuit</dt>
+    <dd>A complete <em>loop</em> that current can flow around, from a source's positive terminal,
+        through components, and back to its negative terminal. Break the loop and current stops.</dd>
+
+    <dt id="closed-open">Closed vs. open circuit</dt>
+    <dd><strong>Closed</strong> = the loop is complete, current flows. <strong>Open</strong> = the
+        loop is broken (e.g. a switch off), no current flows.</dd>
+
+    <dt id="short">Short circuit</dt>
+    <dd>An accidental low-resistance path that lets current bypass the intended load. Causes a
+        large, often dangerous current. The thing rules of thumb exist to prevent.</dd>
+
+    <dt id="ground">Ground (GND)</dt>
+    <dd>The common reference point of a circuit — the "0&nbsp;V" against which voltages are measured,
+        and the return path for current. On an Arduino, the <code>GND</code> pins.</dd>
+
+    <dt id="series-parallel">Series vs. parallel</dt>
+    <dd><strong>Series</strong>: components in a single-file line, same current through each.
+        <strong>Parallel</strong>: components side by side across the same two points, same voltage across each.
+        Detailed in a later lesson.</dd>
+  </dl>
+
+  <h2>Building blocks &amp; gear</h2>
+  <dl class="glossary">
+    <dt id="breadboard">Breadboard</dt>
+    <dd>A reusable board for building circuits with no soldering. Internal metal strips connect
+        certain holes together (rows and power rails).</dd>
+
+    <dt id="microcontroller">Microcontroller</dt>
+    <dd>A tiny computer on a chip that runs your code and controls pins. The Arduino and ESP32
+        are boards built around one. The ESP32 also has built-in WiFi.</dd>
+
+    <dt id="resistor">Resistor</dt>
+    <dd>A component that adds a fixed resistance — used to limit current (e.g. protecting an LED)
+        or set voltages. Value read from color bands or printed digits.</dd>
+
+    <dt id="relay">Relay</dt>
+    <dd>An electrically-controlled switch. Lets a small, safe signal (from your microcontroller)
+        switch a much larger load (like a household lamp). Central to home automation — and to be
+        treated with respect when mains power is involved.</dd>
+  </dl>
+
+  <p style="margin-top:3rem"><a href="../lessons/0001-what-is-a-circuit.html">← Back to Lesson 1</a></p>
+</div>
+</body>
+</html>
