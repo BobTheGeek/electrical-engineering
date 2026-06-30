@@ -112,6 +112,52 @@
       <a href="../lessons/0007-relays-and-mains-safety.html">Lesson 7 →</a>
     </div>
 
+    <div class="card">
+      <h3>DC motor</h3>
+      <div class="row"><span class="k">Does</span> Spins continuously; polarity = direction.</div>
+      <div class="row"><span class="k">Check</span> Voltage &amp; stall current (sizes the driver).</div>
+      <div class="row"><span class="k">Drive</span> Via a motor driver — never straight from a pin.</div>
+      <div class="row rule">Rule: own supply, common ground; PWM = speed, 2 pins = direction.</div>
+      <a href="../lessons/0016-dc-motors-and-drivers.html">Lesson 16 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Motor driver (H-bridge)</h3>
+      <div class="row"><span class="k">Does</span> Switches motor current; both directions + speed.</div>
+      <div class="row"><span class="k">Check</span> Voltage &amp; current rating vs your motor.</div>
+      <div class="row"><span class="k">Examples</span> TB6612FNG, L298N.</div>
+      <div class="row rule">Rule: both dir pins same = brake; includes flyback protection.</div>
+      <a href="../lessons/0016-dc-motors-and-drivers.html">Lesson 16 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Servo (hobby)</h3>
+      <div class="row"><span class="k">Does</span> Moves to a commanded angle and holds.</div>
+      <div class="row"><span class="k">Wiring</span> 3 wires: power, ground, signal (to a GPIO).</div>
+      <div class="row"><span class="k">Control</span> Servo library: <code>write(angle)</code>.</div>
+      <div class="row rule">Rule: separate supply for all but tiny ones; share ground.</div>
+      <a href="../lessons/0017-servos-and-steppers.html">Lesson 17 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Stepper motor</h3>
+      <div class="row"><span class="k">Does</span> Precise, repeatable steps; holds position.</div>
+      <div class="row"><span class="k">Check</span> Steps/rev, voltage/current; needs a driver.</div>
+      <div class="row"><span class="k">Examples</span> A4988, 28BYJ-48 + ULN2003.</div>
+      <div class="row rule">Rule: choose for precise multi-turn positioning; library sequences steps.</div>
+      <a href="../lessons/0017-servos-and-steppers.html">Lesson 17 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Sensor (input)</h3>
+      <div class="row"><span class="k">Does</span> Turns the world into a signal.</div>
+      <div class="row"><span class="k">Digital</span> on/off — PIR, reed → <code>digitalRead</code>.</div>
+      <div class="row"><span class="k">Analog</span> level — photoresistor, thermistor → divider.</div>
+      <div class="row"><span class="k">Smart</span> I²C/SPI — BME280 → library call.</div>
+      <div class="row rule">Rule: check interface + voltage before wiring.</div>
+      <a href="../lessons/0018-sensors.html">Lesson 18 →</a>
+    </div>
+
   </div>
 
   <p style="margin-top:2rem"><a href="../index.html">← Course home</a> · <a href="rules-of-thumb.html">Rules of thumb</a></p>

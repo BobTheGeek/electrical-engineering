@@ -38,6 +38,18 @@
   Use for: Lesson 11. One-way behavior, types, protection circuits.
 - [SparkFun Learn: Integrated Circuits](https://learn.sparkfun.com/tutorials/integrated-circuits/all)
   Use for: Lesson 12. Packages, finding pin 1, and an entry point to datasheets.
+- [SparkFun Learn: ESP32 Thing Hookup Guide](https://learn.sparkfun.com/tutorials/esp32-thing-hookup-guide/all)
+  Use for: Lesson 13. ESP32 board anatomy and capabilities. Pair with a board-specific pinout diagram.
+- [SparkFun Learn: Pulse Width Modulation](https://learn.sparkfun.com/tutorials/pulse-width-modulation/all)
+  Use for: Lesson 14. Duty cycle and where PWM is used.
+- [SparkFun Learn: I²C](https://learn.sparkfun.com/tutorials/i2c/all) · [SPI](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all) · [Serial/UART](https://learn.sparkfun.com/tutorials/serial-communication/all)
+  Use for: Lesson 15. The three communication buses. I²C is the one to know best.
+- [SparkFun Learn: Driving Motors with Arduino](https://learn.sparkfun.com/tutorials/driving-motors-with-arduino/all) · [TB6612FNG Hookup Guide](https://learn.sparkfun.com/tutorials/tb6612fng-hookup-guide/all)
+  Use for: Lesson 16. DC motors, H-bridges, a concrete driver.
+- [SparkFun Learn: Hobby Servo Tutorial](https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all) · [Basic Servo Control](https://learn.sparkfun.com/tutorials/basic-servo-control-for-beginners/all)
+  Use for: Lesson 17. Servo signal, wiring, and code.
+- [SparkFun Learn: Sensors tutorials (tag)](https://learn.sparkfun.com/tutorials/tags/sensors?page=all)
+  Use for: Lesson 18. Per-sensor wiring and code guides.
 
 ## Wisdom (Communities)
 

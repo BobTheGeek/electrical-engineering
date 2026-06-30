@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 13 — Anatomy of a Microcontroller</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 13 · The Microcontroller</p>
+  <h1>Anatomy of a Microcontroller</h1>
+  <p class="subtitle">What's actually on your board — and why the ESP32 is the home-automation brain.</p>
+
+  <p>You've been driving pins since Lesson 1 without a clear picture of the thing behind them. This lesson
+  gives you that picture: what a microcontroller board <em>is</em>, what each pin can do, and how the
+  Arduino and ESP32 differ — so you can pick the right board and the right pin for a job.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can look at your board, name its main parts, and know what a given pin is capable of (and which
+    pins to avoid).
+  </div>
+
+  <h2>A computer shrunk onto a chip</h2>
+  <p>A <span class="term">microcontroller</span> is a whole small computer on one chip: a processor
+  (runs your code), memory (holds the program and variables), and built-in <span class="term">peripherals</span>
+  (the hardware that does timing, analog reading, PWM, and communication). It's an
+  <a href="0012-integrated-circuits.html">integrated circuit</a> — Lesson 12's ideas apply directly.</p>
+
+  <p>The <em>board</em> (Arduino, ESP32 dev board) wraps that chip with the support it needs: a
+  <strong>voltage regulator</strong> (clean power, from <a href="0004-power-and-powering-safely.html">Lesson 4</a>),
+  a <strong>USB connection</strong> (to upload code and power it), and the chip's pins
+  <strong>broken out</strong> to a row of labeled headers you can wire to.</p>
+
+  <h2>GPIO: the pins you program</h2>
+  <p>Most pins are <span class="term">GPIO</span> — General-Purpose Input/Output. Each can be a digital
+  output (drive HIGH/LOW) or input (read HIGH/LOW). Many pins have <em>extra</em> talents layered on:</p>
+  <ul>
+    <li><strong>Analog input (ADC)</strong> — read a varying voltage as a number (<a href="0010-potentiometers.html">Lesson 10</a>).</li>
+    <li><strong>PWM</strong> — "fake analog" output for dimming and speed (next lesson).</li>
+    <li><strong>Bus pins (I²C / SPI / UART)</strong> — talk to modules (<a href="0015-how-modules-talk.html">Lesson 15</a>).</li>
+    <li><strong>Power &amp; ground</strong> — <code>3V3</code>/<code>5V</code>/<code>VIN</code> and <code>GND</code> are not programmable; they feed your circuit.</li>
+  </ul>
+
+  <h2>Arduino Uno vs ESP32</h2>
+  <table>
+    <thead><tr><th></th><th>Arduino Uno</th><th>ESP32</th></tr></thead>
+    <tbody>
+      <tr><td>Logic voltage</td><td>5V</td><td><strong>3.3V</strong> (not 5V-tolerant)</td></tr>
+      <tr><td>Usable GPIO</td><td>~20</td><td>~25</td></tr>
+      <tr><td>PWM pins</td><td>6 specific pins</td><td>Almost any pin</td></tr>
+      <tr><td>Analog inputs</td><td>6 (10-bit)</td><td>Many (12-bit)</td></tr>
+      <tr><td>Wireless</td><td>None built in</td><td><strong>Wi-Fi + Bluetooth</strong></td></tr>
+      <tr><td>Processor</td><td>1 core, 8-bit</td><td>2 cores, 32-bit, faster</td></tr>
+    </tbody>
+  </table>
+  <p>For your mission, the deciding row is <strong>Wi-Fi</strong>: it's what lets a gadget report to or be
+  controlled from your phone or home server <a href="https://learn.sparkfun.com/tutorials/esp32-thing-hookup-guide/all">(SparkFun: ESP32 Thing Hookup Guide)</a>.</p>
+
+  <div class="callout danger">
+    <span class="label">Two pin cautions</span>
+    The ESP32 runs at <strong>3.3V and its pins are not 5V-tolerant</strong> (the trap from
+    <a href="0004-power-and-powering-safely.html">Lesson 4</a>). Also, a few GPIO are
+    <strong>input-only or have special roles at boot</strong> — always glance at a pinout diagram for your
+    exact board before choosing a pin.
+  </div>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    Keep a <strong>pinout diagram</strong> for your board handy (printed or bookmarked). It tells you which
+    pins do PWM, analog, I²C/SPI, and which to avoid. It's the single most useful reference for wiring.
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/esp32-thing-hookup-guide/all">SparkFun — ESP32 Thing Hookup Guide</a>,
+    and grab a pinout diagram for your specific ESP32 board.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Tell me which exact board you have and I'll help
+    you read its pinout and pick safe pins for your project.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0012-integrated-circuits.html">Lesson 12</a></span>
+    <span><a href="0014-digital-analog-pwm.html">Lesson 14</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/signals-and-buses.html">Signals &amp; buses</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "For a Wi-Fi home-automation gadget, the ESP32's deciding advantage over an Uno is its…",
+      options: [
+        "Built-in wireless connectivity",
+        "Higher operating voltage",
+        "Larger physical size"
+      ],
+      answer: 0,
+      why: "The ESP32 has Wi-Fi and Bluetooth built in — what lets a gadget talk to your phone or home server. (It also runs at 3.3V, not a higher voltage.)"
+    },
+    {
+      q: "A GPIO pin is one you can program as a…",
+      options: [
+        "Digital input or output",
+        "Fixed power supply only",
+        "Permanent ground only"
+      ],
+      answer: 0,
+      why: "GPIO = General-Purpose Input/Output. Each can read or drive HIGH/LOW, and many add analog, PWM, or bus functions. Power/GND pins are not programmable."
+    },
+    {
+      q: "Before choosing an ESP32 pin to wire to, you should always…",
+      options: [
+        "Check a pinout diagram",
+        "Apply 5V to test it",
+        "Pick the highest number"
+      ],
+      answer: 0,
+      why: "Some pins are input-only or have boot-time roles, and none are 5V-tolerant. A pinout diagram tells you each pin's abilities and which to avoid."
+    },
+    {
+      q: "The voltage regulator and USB port on the board are there to…",
+      options: [
+        "Support and power the chip",
+        "Run your program logic",
+        "Store your variables"
+      ],
+      answer: 0,
+      why: "The board wraps the microcontroller chip with support: clean regulated power, USB for upload/power, and the pins broken out to headers. The chip itself runs the code."
+    }
+  ]);
+</script>
+</body>
+</html>

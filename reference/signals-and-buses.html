@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signals &amp; Buses — Quick Reference</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Reference · Quick lookup</p>
+  <h1>Signals &amp; Buses</h1>
+  <p class="subtitle">The ways a microcontroller pin talks — and how modules connect. Print me.</p>
+
+  <div class="callout">
+    Distilled from <a href="../lessons/0014-digital-analog-pwm.html">Lesson 14</a> (signals) and
+    <a href="../lessons/0015-how-modules-talk.html">Lesson 15</a> (buses). Voltage still matters everywhere:
+    3.3V (ESP32) vs 5V (Uno).
+  </div>
+
+  <h2>Pin signal types</h2>
+  <table>
+    <thead><tr><th>Type</th><th>Direction</th><th>Code</th><th>Use for</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Digital</strong></td><td>In / Out</td><td><code>digitalRead</code> / <code>digitalWrite</code></td><td>On/off: LED, relay, button, PIR</td></tr>
+      <tr><td><strong>Analog in (ADC)</strong></td><td>In</td><td><code>analogRead</code> (Uno 0–1023, ESP32 0–4095)</td><td>Levels: pot, photoresistor, thermistor</td></tr>
+      <tr><td><strong>PWM ("fake analog")</strong></td><td>Out</td><td><code>analogWrite</code> (0–255 duty)</td><td>Dimming, motor speed, servo signal</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.85rem;color:var(--muted);font-family:-apple-system,sans-serif">
+    PWM = rapid on/off; the on-fraction (duty cycle) sets the average. Not a true steady voltage.</p>
+
+  <h2>Communication buses</h2>
+  <table>
+    <thead><tr><th>Bus</th><th>Wires</th><th>Devices</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td><strong>UART</strong> (Serial)</td><td><code>TX</code>, <code>RX</code></td><td>2 (point-to-point)</td><td>Board↔PC (Serial Monitor), GPS, a few modules</td></tr>
+      <tr><td><strong>I²C</strong></td><td><code>SDA</code>, <code>SCL</code> (shared) + pull-ups</td><td>Many (addressed)</td><td><strong>The hobby default</strong> — most sensors &amp; small displays</td></tr>
+      <tr><td><strong>SPI</strong></td><td><code>MOSI</code>, <code>MISO</code>, <code>SCK</code>, <code>CS</code>/device</td><td>Many (one CS each)</td><td>Fast: displays, SD cards, high-rate sensors</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout rule">
+    <span class="label">Wiring I²C (you'll do this most)</span>
+    <code>SDA→SDA</code>, <code>SCL→SCL</code>, power, ground; pull-ups on SDA/SCL (usually already on the
+    breakout). Then install the module's library and call its functions.
+  </div>
+
+  <div class="callout rule">
+    <span class="label">Choosing a bus</span>
+    Default to <strong>I²C</strong> (fewest wires, many devices). Use <strong>SPI</strong> for speed
+    (displays/SD). <strong>UART</strong> for the computer link and a handful of serial modules.
+  </div>
+
+  <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a> · <a href="rules-of-thumb.html">Rules of thumb</a></p>
+</div>
+</body>
+</html>

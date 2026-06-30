@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 14 — Digital, Analog &amp; PWM Signals</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 14 · The Microcontroller</p>
+  <h1>Digital, Analog &amp; PWM Signals</h1>
+  <p class="subtitle">The three ways a pin talks to the world — and the clever trick called PWM.</p>
+
+  <p>A pin only really knows two states: on and off. Yet you can read a dimmer knob and smoothly fade an
+  LED. This lesson explains the three signal types that make that possible — and clears up the most common
+  beginner confusion: how a digital pin "fakes" analog.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    For any task — switch a relay, read a sensor, dim a light, set motor speed — you can name which of the
+    three signal types you need.
+  </div>
+
+  <h2>1. Digital — on or off</h2>
+  <p>The basic mode. A digital <strong>output</strong> drives a pin HIGH or LOW (<code>digitalWrite</code>);
+  a digital <strong>input</strong> reads whether a pin is HIGH or LOW (<code>digitalRead</code>). Perfect
+  for on/off things: lighting an LED, switching a relay, reading a button (<a href="0005-buttons-and-inputs.html">Lesson 5</a>).</p>
+
+  <h2>2. Analog input — reading a level</h2>
+  <p>The real world isn't on/off — light, temperature, and knob position vary smoothly. An
+  <span class="term">analog-to-digital converter (ADC)</span> measures a pin's voltage and hands your code
+  a number (<code>analogRead</code>): 0–1023 on an Uno, 0–4095 on an ESP32. You met this with the
+  <a href="0010-potentiometers.html">potentiometer</a>.</p>
+
+  <h2>3. PWM — "fake analog" output</h2>
+  <p>Here's the trick that confuses everyone at first. Most pins <em>can't</em> output a true in-between
+  voltage. Instead they use <span class="term">PWM</span> (Pulse-Width Modulation): switch the pin on and
+  off very fast, and vary <em>what fraction of the time</em> it's on. The average comes out like a smaller
+  voltage <a href="https://learn.sparkfun.com/tutorials/pulse-width-modulation/all">(SparkFun: PWM)</a>.</p>
+
+  <p>That fraction is the <span class="term">duty cycle</span>:</p>
+  <figure>
+    <svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PWM duty cycles: 25, 50, 75 percent.">
+      <g font-family="sans-serif" font-size="10" fill="#6b6b6b">
+        <!-- 25% -->
+        <text x="2" y="28">25%</text>
+        <polyline points="40,35 50,35 50,15 70,15 70,35 100,35 100,15 120,35" fill="none" stroke="#b3461f" stroke-width="2"/>
+        <!-- 50% -->
+        <text x="2" y="78">50%</text>
+        <polyline points="40,85 60,85 60,65 90,65 90,85 110,85 110,65 140,65 140,85" fill="none" stroke="#b3461f" stroke-width="2"/>
+        <!-- 75% -->
+        <text x="2" y="128">75%</text>
+        <polyline points="40,135 50,135 50,115 90,115 90,135 100,135 100,115 140,115 140,135" fill="none" stroke="#b3461f" stroke-width="2"/>
+        <text x="170" y="28">dim / slow</text>
+        <text x="170" y="78">half</text>
+        <text x="170" y="128">bright / fast</text>
+      </g>
+    </svg>
+    <figcaption>Same fast on/off cycle, different "on" fractions. More on-time → higher average → brighter
+    LED or faster motor.</figcaption>
+  </figure>
+
+  <p>In code, <code>analogWrite(pin, 0–255)</code> sets the duty cycle: 0 = always off, 127 ≈ half, 255 =
+  always on. The switching is far too fast to see flicker.</p>
+
+  <div class="callout rule">
+    <span class="label">Where you'll use PWM</span>
+    Dimming LEDs, setting <strong>motor speed</strong> (<a href="0016-dc-motors-and-drivers.html">Lesson 16</a>),
+    and generating the control pulse for a <strong>servo</strong> (<a href="0017-servos-and-steppers.html">Lesson 17</a>).
+    It's the bridge from "on/off" to "how much."
+  </div>
+
+  <p><em>Note:</em> "analog output" via PWM isn't a steady voltage — it's a fast square wave whose
+  <em>average</em> acts like one. (A few chips, including the ESP32, have one or two true analog-out "DAC"
+  pins, but PWM is what you'll use almost always.)</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/pulse-width-modulation/all">SparkFun — Pulse Width Modulation</a>.
+    Clear visuals of duty cycle and where PWM shows up.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> If "PWM isn't really analog" still feels slippery,
+    ask me to walk through it with your specific example (a fading light, a motor).
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0013-anatomy-of-a-microcontroller.html">Lesson 13</a></span>
+    <span><a href="0015-how-modules-talk.html">Lesson 15</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/signals-and-buses.html">Signals &amp; buses</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "To smoothly dim an LED from a microcontroller pin, you use…",
+      options: [
+        "PWM (a varying duty cycle)",
+        "A higher digital voltage",
+        "An analog input read"
+      ],
+      answer: 0,
+      why: "PWM switches the pin on/off fast; the on-fraction (duty cycle) sets the average brightness. Pins can't usually output a true in-between voltage."
+    },
+    {
+      q: "Duty cycle describes…",
+      options: [
+        "The fraction of time on",
+        "The total supply voltage",
+        "The number of pins used"
+      ],
+      answer: 0,
+      why: "Duty cycle is the percentage of each cycle the signal is HIGH. Higher duty cycle → higher average → brighter/faster."
+    },
+    {
+      q: "Reading a temperature that varies smoothly calls for…",
+      options: [
+        "Analog input (ADC)",
+        "A digital on/off read",
+        "A PWM output pin"
+      ],
+      answer: 0,
+      why: "Smoothly varying real-world levels are read by the ADC via analogRead, which returns a number proportional to the voltage."
+    },
+    {
+      q: "Switching a relay on and off is a job for a…",
+      options: [
+        "Digital output",
+        "Analog input",
+        "PWM duty sweep"
+      ],
+      answer: 0,
+      why: "A relay is on/off, so a plain digital output (digitalWrite HIGH/LOW) is exactly right."
+    }
+  ]);
+</script>
+</body>
+</html>

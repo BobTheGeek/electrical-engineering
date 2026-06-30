@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 16 — DC Motors &amp; Motor Drivers</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 16 · Motion &amp; the Physical World</p>
+  <h1>DC Motors &amp; Motor Drivers</h1>
+  <p class="subtitle">Make something spin — in either direction, at any speed — without frying your board.</p>
+
+  <p>Motors are where your projects start to <em>move</em>. The motor itself is simple; the important part
+  is everything you learned earlier coming together: a pin can't drive it, it's an inductive coil, and it
+  needs its own power. Get the pattern once and every motor project follows it.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can spin a DC motor forwards and backwards and control its speed — through a driver, the safe way.
+  </div>
+
+  <h2>How a DC motor behaves</h2>
+  <p>A <span class="term">DC motor</span> spins when you apply voltage. Two simple rules:</p>
+  <ul>
+    <li><strong>Polarity sets direction.</strong> Swap + and − and it spins the other way.</li>
+    <li><strong>More voltage → faster</strong> (and we'll get "more voltage" using PWM).</li>
+  </ul>
+  <p>But a motor is a coil of wire — an inductive load. That means two warnings you already know:
+  it draws far more current than a pin can give (<a href="0004-power-and-powering-safely.html">Lesson 4</a>),
+  and it kicks back voltage spikes when switching (<a href="0011-diodes-in-depth.html">flyback, Lesson 11</a>).</p>
+
+  <div class="callout danger">
+    <span class="label">Never wire a motor straight to a pin</span>
+    It will brown out or destroy the pin. A motor needs <strong>its own power supply</strong> and a
+    <strong>driver</strong> in between.
+  </div>
+
+  <h2>The motor driver and the H-bridge</h2>
+  <p>A <span class="term">motor driver</span> board does the heavy lifting. At its heart is an
+  <span class="term">H-bridge</span>: four switches arranged so they can connect the motor to power in
+  <em>either</em> polarity — giving you both directions — plus built-in protection
+  <a href="https://learn.sparkfun.com/tutorials/driving-motors-with-arduino/all">(SparkFun: Driving Motors with Arduino)</a>.</p>
+
+  <figure>
+    <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Microcontroller to motor driver to motor with separate supply.">
+      <g font-family="sans-serif" font-size="11">
+        <rect x="10" y="50" width="80" height="50" rx="4" fill="#fff" stroke="#1f6f8b" stroke-width="2"/>
+        <text x="24" y="72" fill="#1f6f8b">ESP32</text>
+        <text x="20" y="90" fill="#6b6b6b" font-size="9">dir + PWM</text>
+        <line x1="90" y1="75" x2="130" y2="75" stroke="#1f6f8b" stroke-width="2"/>
+        <rect x="130" y="45" width="90" height="60" rx="4" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="142" y="70" fill="#1a1a1a">Motor</text>
+        <text x="142" y="86" fill="#1a1a1a">driver</text>
+        <line x1="160" y1="45" x2="160" y2="25" stroke="#c62828" stroke-width="2"/>
+        <text x="120" y="20" fill="#c62828" font-size="9">motor's own supply +</text>
+        <line x1="220" y1="75" x2="255" y2="75" stroke="#b3461f" stroke-width="2"/>
+        <circle cx="280" cy="75" r="22" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="272" y="79" fill="#1a1a1a">M</text>
+      </g>
+    </svg>
+    <figcaption>The board sends low-power control signals; the driver switches the motor's own supply.
+    Grounds are shared (common ground, Lesson 4).</figcaption>
+  </figure>
+
+  <p>Control is just digital + PWM from earlier lessons:</p>
+  <ul>
+    <li><strong>Two direction pins</strong> (digital): one HIGH, one LOW → spin one way; reverse them → other way.</li>
+    <li>Both the same (both HIGH or both LOW) → <strong>brake</strong>.</li>
+    <li><strong>One PWM pin</strong> (<a href="0014-digital-analog-pwm.html">Lesson 14</a>) sets the speed.</li>
+  </ul>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    Use a <strong>motor driver board</strong> (e.g. TB6612FNG or L298N) sized for your motor's voltage and
+    current. Give the motor its <strong>own supply</strong>, share <strong>ground</strong> with the board,
+    and you're set — the driver handles flyback and the heavy current.
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/driving-motors-with-arduino/all">SparkFun — Driving Motors with Arduino</a>,
+    and the <a href="https://learn.sparkfun.com/tutorials/tb6612fng-hookup-guide/all">TB6612FNG Hookup Guide</a> for a concrete driver.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Tell me the motor (voltage, current) and I'll help
+    you pick a matching driver and wire the direction/speed pins.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0015-how-modules-talk.html">Lesson 15</a></span>
+    <span><a href="0017-servos-and-steppers.html">Lesson 17</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/component-field-guide.html">Component field guide</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "To reverse a DC motor's spin direction, you…",
+      options: [
+        "Reverse the voltage polarity",
+        "Increase the supply voltage",
+        "Add a series resistor"
+      ],
+      answer: 0,
+      why: "Swapping + and − reverses direction. An H-bridge in a motor driver does this electronically via two direction pins."
+    },
+    {
+      q: "A DC motor must never be wired directly to a pin because it…",
+      options: [
+        "Draws too much current",
+        "Runs on digital data",
+        "Needs no ground wire"
+      ],
+      answer: 0,
+      why: "Motors pull far more current than a pin can supply (and kick back spikes). They need their own supply plus a driver in between."
+    },
+    {
+      q: "On an H-bridge driver, making both direction pins the same level causes the motor to…",
+      options: [
+        "Brake / stop",
+        "Spin twice as fast",
+        "Reverse instantly"
+      ],
+      answer: 0,
+      why: "Both pins HIGH (or both LOW) brakes the motor. One HIGH and one LOW selects a spin direction."
+    },
+    {
+      q: "Motor speed from a driver is controlled with a…",
+      options: [
+        "PWM signal",
+        "Analog input read",
+        "Pull-down resistor"
+      ],
+      answer: 0,
+      why: "A PWM pin sets the duty cycle feeding the driver, which sets the average power and thus the speed (Lesson 14)."
+    }
+  ]);
+</script>
+</body>
+</html>

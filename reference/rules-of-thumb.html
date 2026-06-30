@@ -102,6 +102,28 @@
     <span class="why">Check operating voltage first. Pins count counter-clockwise from pin 1.</span>
     <a href="../lessons/0012-integrated-circuits.html">Lesson 12</a></div>
 
+  <h2>Microcontroller &amp; signals</h2>
+  <div class="rot"><span class="r">Keep a pinout diagram for your exact board.</span>
+    <span class="why">It shows PWM/analog/I²C/SPI pins and which to avoid (input-only, boot pins). ESP32 = 3.3V, not 5V-tolerant.</span>
+    <a href="../lessons/0013-anatomy-of-a-microcontroller.html">Lesson 13</a></div>
+  <div class="rot"><span class="r">Match the signal to the task: digital (on/off), analog-in (level), PWM (how much).</span>
+    <span class="why">PWM "fakes" analog by varying duty cycle — for dimming, motor speed, servo pulses.</span>
+    <a href="../lessons/0014-digital-analog-pwm.html">Lesson 14</a></div>
+  <div class="rot"><span class="r">Default to I²C sensors; wire SDA→SDA, SCL→SCL, power, ground.</span>
+    <span class="why">Many devices on two wires + a library. SPI for speed (displays/SD), UART for the PC link.</span>
+    <a href="../lessons/0015-how-modules-talk.html">Lesson 15</a></div>
+
+  <h2>Motion &amp; the physical world</h2>
+  <div class="rot"><span class="r">Never wire a motor straight to a pin — use a driver + its own supply.</span>
+    <span class="why">2 direction pins (both same = brake) + 1 PWM pin = direction &amp; speed. Share ground.</span>
+    <a href="../lessons/0016-dc-motors-and-drivers.html">Lesson 16</a></div>
+  <div class="rot"><span class="r">Servo = angle (3 wires, Servo library); stepper = precise steps (needs a driver).</span>
+    <span class="why">Power servos (beyond tiny) from a separate supply, common ground; only signal goes to a pin.</span>
+    <a href="../lessons/0017-servos-and-steppers.html">Lesson 17</a></div>
+  <div class="rot"><span class="r">Before wiring a sensor, check its interface and voltage.</span>
+    <span class="why">Digital → digitalRead; analog → divider + analogRead; smart → I²C/SPI library. Sense → decide → act.</span>
+    <a href="../lessons/0018-sensors.html">Lesson 18</a></div>
+
   <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a></p>
 </div>
 </body>

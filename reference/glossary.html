@@ -215,6 +215,61 @@
         <code>GND</code>/<code>VSS</code> = ground (0 V).</dd>
   </dl>
 
+  <h2>Microcontroller, signals &amp; buses</h2>
+  <dl class="glossary">
+    <dt id="gpio">GPIO</dt>
+    <dd>General-Purpose Input/Output — a programmable pin you can set as a digital input or output, often
+        with extra functions (analog, PWM, bus). See <a href="../lessons/0013-anatomy-of-a-microcontroller.html">Lesson 13</a>.</dd>
+
+    <dt id="peripheral">Peripheral</dt>
+    <dd>Built-in hardware inside a microcontroller that handles a job for you — ADC, PWM/timers, and the
+        I²C/SPI/UART bus controllers.</dd>
+
+    <dt id="adc">ADC (analog-to-digital converter)</dt>
+    <dd>The peripheral that measures a pin's voltage and returns a number (<code>analogRead</code>): 0–1023
+        on an Uno, 0–4095 on an ESP32.</dd>
+
+    <dt id="pwm">PWM (pulse-width modulation)</dt>
+    <dd>"Fake analog" output: switch a pin on/off rapidly and vary the on-fraction. Used for dimming, motor
+        speed, and servo signals. Set with <code>analogWrite</code> (0–255). See
+        <a href="../lessons/0014-digital-analog-pwm.html">Lesson 14</a>.</dd>
+
+    <dt id="duty-cycle">Duty cycle</dt>
+    <dd>The fraction of each PWM cycle the signal is HIGH. Higher duty cycle → higher average → brighter/faster.</dd>
+
+    <dt id="bus">Bus (I²C / SPI / UART)</dt>
+    <dd>A shared set of wires for exchanging data with modules. <strong>I²C</strong>: 2 shared wires
+        (SDA/SCL), many addressed devices — the hobby default. <strong>SPI</strong>: 4 wires, fast, one CS
+        per device. <strong>UART</strong>: 2 wires (TX/RX), point-to-point, also the PC link. See
+        <a href="../lessons/0015-how-modules-talk.html">Lesson 15</a>.</dd>
+  </dl>
+
+  <h2>Motion &amp; the physical world</h2>
+  <dl class="glossary">
+    <dt id="dc-motor">DC motor</dt>
+    <dd>Spins when given voltage; polarity sets direction, voltage sets speed. An inductive load — needs a
+        driver and its own supply. See <a href="../lessons/0016-dc-motors-and-drivers.html">Lesson 16</a>.</dd>
+
+    <dt id="motor-driver">Motor driver / H-bridge</dt>
+    <dd>A board that switches a motor's current under low-power control. The <span class="term">H-bridge</span>
+        inside can reverse polarity (both directions) and includes flyback protection. Speed via PWM,
+        direction via two pins.</dd>
+
+    <dt id="servo">Servo</dt>
+    <dd>A geared motor + control electronics in one box that moves to a commanded <em>angle</em>. Three
+        wires (power, ground, signal); driven by a PWM-style pulse via the Servo library. See
+        <a href="../lessons/0017-servos-and-steppers.html">Lesson 17</a>.</dd>
+
+    <dt id="stepper">Stepper motor</dt>
+    <dd>Rotates in precise, counted steps and holds position without feedback. Needs a driver. Best for
+        repeatable, precise positioning.</dd>
+
+    <dt id="sensor">Sensor</dt>
+    <dd>An input device that turns a physical quantity into a signal — read as digital (on/off), analog (a
+        level via a divider), or over a bus (a "smart" I²C/SPI module). See
+        <a href="../lessons/0018-sensors.html">Lesson 18</a>.</dd>
+  </dl>
+
   <p style="margin-top:3rem"><a href="../index.html">← Course home</a></p>
 </div>
 </body>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 15 — How Modules Talk: I²C, SPI &amp; UART</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 15 · The Microcontroller</p>
+  <h1>How Modules Talk: I²C, SPI &amp; UART</h1>
+  <p class="subtitle">The three "languages" that connect your board to sensors and displays.</p>
+
+  <p>Most of the cool parts — temperature sensors, OLED screens, real-time clocks — aren't single
+  components but little <em>modules</em> that exchange <em>data</em> with your board over a
+  <span class="term">bus</span>. You don't need to understand the bus deeply; you need to recognize which
+  one a module uses and wire it correctly. Then a library does the talking.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    Given a sensor or display module, you can tell which bus it uses and connect the right wires.
+  </div>
+
+  <h2>The three buses</h2>
+  <table>
+    <thead><tr><th>Bus</th><th>Wires</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>UART</strong> (Serial)</td>
+        <td>2: <code>TX</code> → <code>RX</code> and back</td>
+        <td>Two devices, point-to-point. Also how your board talks to your computer (the Serial Monitor).</td>
+      </tr>
+      <tr>
+        <td><strong>I²C</strong></td>
+        <td>2 shared: <code>SDA</code> + <code>SCL</code></td>
+        <td><strong>Many</strong> modules on the same two wires, each with an address. The hobby default for sensors.</td>
+      </tr>
+      <tr>
+        <td><strong>SPI</strong></td>
+        <td>4: <code>MOSI</code>, <code>MISO</code>, <code>SCK</code>, <code>CS</code></td>
+        <td>Fast data — displays, SD cards, high-rate sensors. Each device needs its own <code>CS</code> line.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>(Sources: <a href="https://learn.sparkfun.com/tutorials/i2c/all">SparkFun I²C</a>,
+  <a href="https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all">SPI</a>,
+  <a href="https://learn.sparkfun.com/tutorials/serial-communication/all">Serial/UART</a>.)</p>
+
+  <h2>The one you'll use most: I²C</h2>
+  <p>I²C wins for hobby projects because <strong>many modules share just two wires.</strong> Every device
+  has an address, so your board can speak to each in turn. Wiring is delightfully repetitive:</p>
+  <ul>
+    <li><code>SDA</code> on the board → <code>SDA</code> on every module (data)</li>
+    <li><code>SCL</code> on the board → <code>SCL</code> on every module (clock)</li>
+    <li>Power and <code>GND</code> to each module</li>
+    <li>Two <strong>pull-up resistors</strong> on SDA and SCL (from <a href="0005-buttons-and-inputs.html">Lesson 5</a>) — usually already on breakout boards</li>
+  </ul>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    Reach for <strong>I²C sensors</strong> when you can — minimal wiring, many devices, tons of libraries.
+    Use <strong>SPI</strong> when you need speed (displays, SD). <strong>UART</strong> shows up for a few
+    specific modules (GPS, some serial sensors) and for the computer connection.
+  </div>
+
+  <h2>You rarely write the protocol</h2>
+  <p>The beautiful part: once wired, you install a <strong>library</strong> for the module and call simple
+  functions like <code>sensor.readTemperature()</code>. The library handles the bit-level conversation. Your
+  job is correct wiring and matching voltage (3.3V vs 5V — <a href="0004-power-and-powering-safely.html">Lesson 4</a>
+  still applies on these data lines!).</p>
+
+  <p>This is the doorway to the <a href="0018-sensors.html">sensors</a> in Lesson 18 — many of them are I²C
+  modules you'll connect exactly this way.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/i2c/all">SparkFun — I²C</a> (the one to know best), with
+    <a href="https://learn.sparkfun.com/tutorials/serial-communication/all">Serial Communication</a> and
+    <a href="https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all">SPI</a> alongside.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Send me a module you want to use and I'll tell you
+    its bus, the exact wiring, and which library to install.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0014-digital-analog-pwm.html">Lesson 14</a></span>
+    <span><a href="0016-dc-motors-and-drivers.html">Lesson 16</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/signals-and-buses.html">Signals &amp; buses</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "The bus that lets many sensor modules share just two wires is…",
+      options: [
+        "I²C (SDA + SCL)",
+        "SPI (four wires)",
+        "UART (TX + RX)"
+      ],
+      answer: 0,
+      why: "I²C uses two shared wires (SDA, SCL) and addresses each device, so many modules ride the same bus — the hobby default for sensors."
+    },
+    {
+      q: "SPI is the bus to choose when you need…",
+      options: [
+        "High speed (displays, SD)",
+        "The fewest possible wires",
+        "A link to your computer"
+      ],
+      answer: 0,
+      why: "SPI is fast and suits displays, SD cards, and high-rate sensors. It uses four wires, with a separate CS line per device."
+    },
+    {
+      q: "After wiring an I²C module correctly, you usually talk to it by…",
+      options: [
+        "Calling a library's functions",
+        "Hand-coding each data bit",
+        "Reading one analog pin"
+      ],
+      answer: 0,
+      why: "A library handles the bit-level protocol; you just call functions like sensor.readTemperature(). Your job is correct wiring and matching voltage."
+    },
+    {
+      q: "I²C data lines (SDA/SCL) normally need…",
+      options: [
+        "Pull-up resistors",
+        "A flyback diode",
+        "A large capacitor"
+      ],
+      answer: 0,
+      why: "I²C requires pull-ups on SDA and SCL (the pull-up idea from Lesson 5). On most breakout boards they're already included."
+    }
+  ]);
+</script>
+</body>
+</html>

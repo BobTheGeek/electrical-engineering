@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 18 — Sensors: Reading the Physical World</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 18 · Motion &amp; the Physical World</p>
+  <h1>Sensors: Reading the Physical World</h1>
+  <p class="subtitle">The input half of every gadget — and how each kind hands you its reading.</p>
+
+  <p>A home-automation device <em>senses</em>, then <em>decides</em>, then <em>acts</em>. You've built the
+  acting (relays, motors, servos) and the deciding (the microcontroller). This lesson completes the loop:
+  turning temperature, light, motion, and distance into numbers your code can use. The good news — you
+  already know all three ways to read a sensor.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    For any sensor, you can tell <em>how</em> it connects (digital pin, analog pin, or a bus) and how your
+    code will read it.
+  </div>
+
+  <h2>Three kinds, by how you read them</h2>
+
+  <h3>1. Digital (on / off)</h3>
+  <p>The sensor reports a yes/no, read with <code>digitalRead</code> (<a href="0014-digital-analog-pwm.html">Lesson 14</a>).
+  Examples: a <strong>PIR motion sensor</strong> (someone moved: yes/no), a <strong>reed switch</strong>
+  (door open/closed), a button. Often pair with a pull resistor (<a href="0005-buttons-and-inputs.html">Lesson 5</a>).</p>
+
+  <h3>2. Analog (a varying level)</h3>
+  <p>The sensor's resistance or voltage changes smoothly with the world; you read it with
+  <code>analogRead</code> (<a href="0010-potentiometers.html">Lesson 10</a>). Examples: a
+  <strong>photoresistor</strong> (light), a <strong>thermistor</strong> (temperature). These are usually
+  resistive, so you wire them as a <a href="0008-resistors-in-depth.html">voltage divider</a> — exactly the
+  Lesson 8 pattern.</p>
+
+  <h3>3. Digital-bus ("smart") sensors</h3>
+  <p>The richest type: a tiny module measures something precisely and reports real numbers over
+  <strong>I²C or SPI</strong> (<a href="0015-how-modules-talk.html">Lesson 15</a>). You install its library
+  and call <code>sensor.readTemperature()</code>. Examples: a <strong>BME280</strong> (temperature,
+  humidity, pressure), distance sensors, accelerometers. For home automation, these give you the cleanest
+  data with the least fuss.</p>
+
+  <table>
+    <thead><tr><th>Sensor</th><th>Senses</th><th>How you read it</th></tr></thead>
+    <tbody>
+      <tr><td>PIR</td><td>Motion</td><td>Digital pin</td></tr>
+      <tr><td>Reed switch</td><td>Door/window open</td><td>Digital pin</td></tr>
+      <tr><td>Photoresistor</td><td>Light level</td><td>Analog pin (divider)</td></tr>
+      <tr><td>Thermistor</td><td>Temperature</td><td>Analog pin (divider)</td></tr>
+      <tr><td>BME280 / DHT</td><td>Temp, humidity</td><td>I²C (library)</td></tr>
+      <tr><td>Ultrasonic / ToF</td><td>Distance</td><td>Digital timing or I²C</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    Before buying or wiring a sensor, check two things: its <strong>interface</strong> (digital / analog /
+    I²C-SPI) and its <strong>voltage</strong> (3.3V vs 5V — <a href="0004-power-and-powering-safely.html">Lesson 4</a>
+    still rules). When you want real units with little effort, prefer an <strong>I²C "smart" sensor</strong>.
+  </div>
+
+  <h2>The whole gadget, at last</h2>
+  <p>Put the course together and a home-automation device is a loop:</p>
+  <p style="text-align:center; font-family:-apple-system,sans-serif; font-size:0.95rem; color:var(--accent)">
+    <strong>SENSE</strong> (this lesson) → <strong>DECIDE</strong> (your code on the ESP32) →
+    <strong>ACT</strong> (relay / motor / servo) → and, with Wi-Fi, <strong>REPORT</strong>.
+  </p>
+  <p>Every piece of that sentence is something you can now reason about from first principles. That's the
+  whole point of the course.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    Browse <a href="https://learn.sparkfun.com/tutorials/tags/sensors?page=all">SparkFun's Sensors tutorials</a>
+    and pick the guide for a sensor you actually want to use — they include wiring and code.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Tell me what you want to sense in your home and
+    I'll recommend a specific sensor, its interface, and how to read it. This is a great place to start
+    designing your first real gadget together.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0017-servos-and-steppers.html">Lesson 17</a></span>
+    <span>End of the Motion &amp; Physical World track 🎉</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/component-field-guide.html">Component field guide</a> · <a href="../reference/signals-and-buses.html">Signals &amp; buses</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "A PIR motion sensor that reports 'movement: yes/no' is read with…",
+      options: [
+        "digitalRead (a digital pin)",
+        "analogRead (an analog pin)",
+        "an I²C library call"
+      ],
+      answer: 0,
+      why: "It's an on/off signal, so a digital input read works — often with a pull resistor, like a button."
+    },
+    {
+      q: "A photoresistor or thermistor is usually wired as a…",
+      options: [
+        "Voltage divider, read by analogRead",
+        "Digital on/off switch",
+        "Four-wire SPI device"
+      ],
+      answer: 0,
+      why: "Their resistance varies with light/heat; paired with a fixed resistor as a divider, the midpoint voltage is read with analogRead (Lessons 8 & 10)."
+    },
+    {
+      q: "A BME280 temperature/humidity module gives you real numbers via…",
+      options: [
+        "An I²C library call",
+        "A single analog pin",
+        "PWM duty cycle"
+      ],
+      answer: 0,
+      why: "It's a 'smart' digital-bus sensor: wire I²C, install the library, and call functions that return actual units — the least-fuss option."
+    },
+    {
+      q: "Before wiring any new sensor, the two things to check are its…",
+      options: [
+        "Interface and voltage",
+        "Color and weight",
+        "Brand and price"
+      ],
+      answer: 0,
+      why: "Know its interface (digital / analog / I²C-SPI) and operating voltage (3.3V vs 5V). Those determine the wiring and whether it's safe on your board."
+    }
+  ]);
+</script>
+</body>
+</html>

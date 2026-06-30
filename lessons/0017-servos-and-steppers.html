@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 17 — Servos &amp; Steppers</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 17 · Motion &amp; the Physical World</p>
+  <h1>Servos &amp; Steppers</h1>
+  <p class="subtitle">When you don't just want spin — you want a precise position.</p>
+
+  <p>A plain DC motor (<a href="0016-dc-motors-and-drivers.html">Lesson 16</a>) just spins. But to open a
+  vent to 30°, point a sensor, or turn a valve a precise amount, you need <em>position</em> control. That's
+  what servos and steppers give you — two different ways to move exactly where you mean to.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can command a servo to a specific angle, and you know when a stepper is the better choice.
+  </div>
+
+  <h2>Servos: tell it an angle</h2>
+  <p>A <span class="term">hobby servo</span> is a clever bundle: a small geared DC motor, plus control
+  electronics and position feedback, all in one box. You don't manage the motor — you just send it a
+  target <strong>angle</strong> and it drives itself there and holds <a href="https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all">(SparkFun: Hobby Servo Tutorial)</a>.</p>
+
+  <p>It has just <strong>three wires</strong>: power, ground, and <strong>signal</strong>. The signal is a
+  PWM-style pulse (<a href="0014-digital-analog-pwm.html">Lesson 14</a>): a pulse repeats ~50 times a second,
+  and its <em>width</em> — between about 1 and 2 milliseconds — encodes the angle. 1.5 ms is center.</p>
+
+  <div class="callout rule">
+    <span class="label">You don't time pulses by hand</span>
+    The <strong>Servo library</strong> does it: <code>myservo.write(90)</code> sends the right pulse for
+    90°. Wire three pins, call <code>write()</code> with an angle, done.
+  </div>
+
+  <p>Two flavors: a <strong>standard servo</strong> moves to an angle (often 0–180°); a
+  <strong>continuous-rotation servo</strong> ignores angle and instead spins at a speed/direction you set —
+  handy as a simple geared wheel motor.</p>
+
+  <div class="callout danger">
+    <span class="label">Power gotcha</span>
+    Servos yank sudden current when they move and can <strong>brown out your board</strong> if powered from
+    it. Power anything but the tiniest servo from a <strong>separate supply</strong>, and share ground with
+    the board (common ground, <a href="0004-power-and-powering-safely.html">Lesson 4</a>). The signal wire
+    is the only one that goes to a GPIO pin.
+  </div>
+
+  <h2>Steppers: move in exact steps</h2>
+  <p>A <span class="term">stepper motor</span> rotates in many tiny, precise <em>steps</em> (e.g. 200 per
+  full turn). Tell it to take N steps and it lands exactly there, and holds firmly — all without any
+  position sensor. That makes steppers great for repeatable, precise motion: blinds, camera sliders,
+  3D-printer axes, a dialed-in valve.</p>
+
+  <p>Like DC motors, steppers need a <strong>driver</strong> (e.g. A4988, or a ULN2003 board for the common
+  little 28BYJ-48) and their own power. You send step and direction signals (a library handles the
+  sequencing).</p>
+
+  <h2>Which one?</h2>
+  <table>
+    <thead><tr><th>Want…</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td>A specific angle, simply, in a small range</td><td><strong>Servo</strong></td></tr>
+      <tr><td>Continuous spin you can start/stop/reverse</td><td>DC motor + driver, or continuous servo</td></tr>
+      <tr><td>Precise, repeatable positioning over many turns</td><td><strong>Stepper</strong> + driver</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all">SparkFun — Hobby Servo Tutorial</a>,
+    and <a href="https://learn.sparkfun.com/tutorials/basic-servo-control-for-beginners/all">Basic Servo Control for Beginners</a> for the code.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Describe the motion you want (how far, how precise,
+    how strong) and I'll help you choose servo vs stepper vs DC motor.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0016-dc-motors-and-drivers.html">Lesson 16</a></span>
+    <span><a href="0018-sensors.html">Lesson 18</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/component-field-guide.html">Component field guide</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "You control a hobby servo's position by sending it a…",
+      options: [
+        "Pulse whose width sets the angle",
+        "Steady analog voltage level",
+        "High-current power signal"
+      ],
+      answer: 0,
+      why: "A ~50 Hz pulse whose width (about 1–2 ms) encodes the angle; 1.5 ms is center. The Servo library generates it from write(angle)."
+    },
+    {
+      q: "How many wires does a hobby servo use?",
+      options: [
+        "Three: power, ground, signal",
+        "Two: just power and ground",
+        "Four: like an SPI device"
+      ],
+      answer: 0,
+      why: "Power, ground, and one signal wire. Only the signal wire goes to a GPIO pin; the motor and its driver live inside the servo."
+    },
+    {
+      q: "For precise, repeatable positioning over many turns, the best choice is a…",
+      options: [
+        "Stepper motor with a driver",
+        "Plain DC motor on a pin",
+        "Standard 180° servo"
+      ],
+      answer: 0,
+      why: "Steppers move in exact counted steps and hold position without feedback — ideal for repeatable, multi-turn precision. They need a driver."
+    },
+    {
+      q: "A larger servo should be powered from…",
+      options: [
+        "A separate supply, sharing ground",
+        "The board's 3.3V pin only",
+        "Its own isolated ground"
+      ],
+      answer: 0,
+      why: "Servos draw current spikes that can brown out the board. Use a separate supply and share a common ground; only the signal wire goes to the pin."
+    }
+  ]);
+</script>
+</body>
+</html>
