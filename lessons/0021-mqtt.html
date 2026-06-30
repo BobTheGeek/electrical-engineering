@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 21 — MQTT, the IoT Messaging Backbone</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 21 · Connectivity</p>
+  <h1>MQTT — the IoT Messaging Backbone</h1>
+  <p class="subtitle">The lightweight publish/subscribe pattern that smart-home devices speak.</p>
+
+  <p>HTTP (<a href="0020-talking-over-the-network.html">Lesson 20</a>) is great for poking one gadget. But a
+  home full of devices that need to <em>announce</em> things and <em>react</em> to each other wants a
+  different model. That model is <span class="term">MQTT</span> — the de facto language of the connected home.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand publish/subscribe — broker, topics, publishers, subscribers — and why it fits home
+    automation far better than everyone running web servers.
+  </div>
+
+  <h2>Publish / subscribe, via a broker</h2>
+  <p>Instead of devices calling each other directly, they all connect to one central
+  <span class="term">broker</span> (a small server). Devices <strong>publish</strong> messages to named
+  <span class="term">topics</span>, and devices <strong>subscribe</strong> to the topics they care about.
+  The broker delivers each message to whoever subscribed
+  <a href="https://www.hivemq.com/mqtt/">(HiveMQ: MQTT Essentials)</a>.</p>
+
+  <figure>
+    <svg viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Publishers and subscribers via a broker.">
+      <g font-family="sans-serif" font-size="10">
+        <rect x="130" y="55" width="80" height="40" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="150" y="79" fill="#1a1a1a">broker</text>
+        <!-- publisher -->
+        <rect x="10" y="20" width="80" height="30" rx="4" fill="#fff" stroke="#b3461f" stroke-width="2"/>
+        <text x="18" y="39" fill="#b3461f">sensor (pub)</text>
+        <line x1="90" y1="40" x2="135" y2="62" stroke="#b3461f" stroke-width="1.5"/>
+        <text x="92" y="52" fill="#6b6b6b" font-size="8">publishes temp</text>
+        <!-- subscribers -->
+        <rect x="250" y="20" width="80" height="30" rx="4" fill="#fff" stroke="#1f6f8b" stroke-width="2"/>
+        <text x="262" y="39" fill="#1f6f8b">phone (sub)</text>
+        <line x1="210" y1="62" x2="250" y2="40" stroke="#1f6f8b" stroke-width="1.5"/>
+        <rect x="250" y="105" width="80" height="30" rx="4" fill="#fff" stroke="#1f6f8b" stroke-width="2"/>
+        <text x="258" y="124" fill="#1f6f8b">logger (sub)</text>
+        <line x1="210" y1="88" x2="250" y2="115" stroke="#1f6f8b" stroke-width="1.5"/>
+      </g>
+    </svg>
+    <figcaption>The sensor publishes once to a topic; the broker fans it out to every subscriber. Nobody
+    needs to know about anyone else.</figcaption>
+  </figure>
+
+  <p>Topics are organized like paths: <code>home/livingroom/temperature</code>,
+  <code>home/garage/door</code>. A publisher and subscriber only need to agree on the topic name — they're
+  otherwise completely <strong>decoupled</strong>. Add a new device that subscribes to a topic and it just
+  starts receiving; nothing else changes.</p>
+
+  <h2>Why it fits home automation</h2>
+  <ul>
+    <li><strong>Push, not poll.</strong> A motion sensor publishes "motion!" the instant it happens — no one
+    has to ask (HTTP's weakness, solved).</li>
+    <li><strong>Many-to-many.</strong> One reading can reach your phone, a logger, and an automation at once.</li>
+    <li><strong>Lightweight.</strong> Tiny messages, easy on a little ESP32 and a flaky Wi-Fi link.</li>
+  </ul>
+
+  <h2>On the ESP32</h2>
+  <p>The <strong>PubSubClient</strong> library handles it: connect to the broker, <code>publish()</code> a
+  sensor reading to a topic, and <code>subscribe()</code> to a command topic so your gadget reacts when
+  someone publishes to it. Two small extras worth knowing by name: <strong>retain</strong> (the broker
+  keeps the last value so new subscribers get it immediately) and <strong>QoS</strong> (how hard to try to
+  deliver a message).</p>
+
+  <div class="callout danger">
+    <span class="label">Broker choice &amp; safety</span>
+    Run your <strong>own broker</strong> (Mosquitto, often right on your Home Assistant box) so your home's
+    data stays local and private. Public test brokers like <code>broker.hivemq.com</code> are fine for
+    <em>learning</em>, but they're open and insecure — never send real home data through them.
+  </div>
+
+  <h2>HTTP vs MQTT, at a glance</h2>
+  <table>
+    <thead><tr><th></th><th>HTTP</th><th>MQTT</th></tr></thead>
+    <tbody>
+      <tr><td>Pattern</td><td>Request / response</td><td>Publish / subscribe</td></tr>
+      <tr><td>Who starts</td><td>You ask (poll)</td><td>Device pushes (event)</td></tr>
+      <tr><td>Devices</td><td>One-to-one</td><td>Many-to-many via broker</td></tr>
+      <tr><td>Best for</td><td>Checking one gadget</td><td>A whole smart home</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://www.hivemq.com/mqtt/">HiveMQ — MQTT Essentials</a> for the concepts, and
+    <a href="https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/">Random Nerd Tutorials — ESP32 MQTT</a> for the ESP32 code.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Want to design a topic structure for your home
+    (what publishes where)? Bring me your devices and we'll lay it out together.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0020-talking-over-the-network.html">Lesson 20</a></span>
+    <span><a href="0022-home-assistant.html">Lesson 22</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/connectivity.html">Connectivity cheat-sheet</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "In MQTT, the central server that routes all messages is the…",
+      options: [
+        "Broker",
+        "Client",
+        "Topic"
+      ],
+      answer: 0,
+      why: "Devices connect to a broker; it receives published messages and delivers them to whoever subscribed to that topic."
+    },
+    {
+      q: "A device sends a reading by publishing it to a…",
+      options: [
+        "Topic",
+        "Port",
+        "Pixel"
+      ],
+      answer: 0,
+      why: "Publishers send to named topics (like home/livingroom/temperature); subscribers to that topic receive it. Publisher and subscriber are decoupled."
+    },
+    {
+      q: "MQTT suits home automation partly because devices can…",
+      options: [
+        "Push events the instant they happen",
+        "Avoid using any network",
+        "Work only one-to-one"
+      ],
+      answer: 0,
+      why: "Pub/sub is push-based and many-to-many: a sensor announces an event immediately to all interested subscribers — no polling needed."
+    },
+    {
+      q: "For a real home, you should send your MQTT data through…",
+      options: [
+        "Your own local broker",
+        "A public test broker",
+        "No broker at all"
+      ],
+      answer: 0,
+      why: "Run your own broker (e.g. Mosquitto) to keep data local and private. Public brokers are for learning only — open and insecure."
+    }
+  ]);
+</script>
+</body>
+</html>

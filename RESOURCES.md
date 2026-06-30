@@ -50,6 +50,14 @@
   Use for: Lesson 17. Servo signal, wiring, and code.
 - [SparkFun Learn: Sensors tutorials (tag)](https://learn.sparkfun.com/tutorials/tags/sensors?page=all)
   Use for: Lesson 18. Per-sensor wiring and code guides.
+- [Random Nerd Tutorials: Getting Started with the ESP32](https://randomnerdtutorials.com/getting-started-with-esp32/) · [ESP32 Wi-Fi Functions](https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/)
+  Use for: Lesson 19. Connecting the ESP32 to Wi-Fi. The go-to ESP32 tutorial site.
+- [Random Nerd Tutorials: Building an ESP32 Web Server](https://randomnerdtutorials.com/esp32-web-server-beginners-guide/)
+  Use for: Lesson 20. ESP32 as a web server controlling outputs from a browser.
+- [HiveMQ: MQTT Essentials](https://www.hivemq.com/mqtt/) · [Random Nerd Tutorials: ESP32 MQTT](https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/)
+  Use for: Lesson 21. MQTT concepts (HiveMQ) and ESP32 implementation (RNT).
+- [ESPHome](https://esphome.io/) · [Home Assistant: MQTT integration](https://www.home-assistant.io/integrations/mqtt/)
+  Use for: Lesson 22. The two paths to connect an ESP32 to Home Assistant.
 
 ## Wisdom (Communities)
 
@@ -61,6 +69,7 @@
   Use for: ESP32/board-specific and home-automation questions.
 
 ## Gaps
-- _(resolved)_ Relays / mains safety — now covered by Random Nerd Tutorials + DroneBotWorkshop above.
-- Need a trusted resource on **WiFi / connecting an ESP32 to a network or Home Assistant / MQTT** — the connectivity half of the home-automation mission, not yet taught. To find before a networking lesson.
-- Could use a good **multimeter basics** resource (measuring voltage/continuity to debug builds).
+- _(resolved)_ Relays / mains safety — covered by Random Nerd Tutorials + DroneBotWorkshop.
+- _(resolved)_ Connectivity (Wi-Fi / HTTP / MQTT / Home Assistant) — covered by RNT, HiveMQ, ESPHome, HA docs (Lessons 19–22).
+- Could use a good **multimeter basics** resource (measuring voltage/continuity to debug builds) — likely useful for a future "debugging your circuit" lesson.
+- Could use a trusted **soldering / perfboard** resource for when projects graduate off the breadboard (currently out of scope per MISSION).

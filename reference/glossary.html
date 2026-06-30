@@ -270,6 +270,50 @@
         <a href="../lessons/0018-sensors.html">Lesson 18</a>.</dd>
   </dl>
 
+  <h2>Connectivity</h2>
+  <dl class="glossary">
+    <dt id="station-ap">Station mode / Access Point mode</dt>
+    <dd><strong>Station (STA)</strong>: the ESP32 joins an existing Wi-Fi network (use this for home
+        automation). <strong>Access Point (AP)</strong>: the ESP32 becomes its own hotspot, handy for
+        first-time setup. See <a href="../lessons/0019-getting-on-wifi.html">Lesson 19</a>.</dd>
+
+    <dt id="ip-address">IP address</dt>
+    <dd>A device's address on a network (e.g. <code>192.168.1.42</code>), assigned by the router. How other
+        devices reach your gadget on the local network.</dd>
+
+    <dt id="http">HTTP / web server</dt>
+    <dd>The web's request/response protocol. A <span class="term">client</span> (browser) requests; a
+        <span class="term">server</span> (your ESP32) responds with a page or value. URLs can act as commands
+        (<code>/on</code>, <code>/off</code>). See <a href="../lessons/0020-talking-over-the-network.html">Lesson 20</a>.</dd>
+
+    <dt id="mqtt">MQTT</dt>
+    <dd>A lightweight publish/subscribe messaging protocol for IoT. Devices publish/subscribe to
+        <span class="term">topics</span> via a central <span class="term">broker</span>; senders and
+        receivers are decoupled. The smart-home default. See <a href="../lessons/0021-mqtt.html">Lesson 21</a>.</dd>
+
+    <dt id="broker-topic">Broker / Topic (MQTT)</dt>
+    <dd>The <strong>broker</strong> is the central server that routes messages. A <strong>topic</strong> is a
+        named channel (e.g. <code>home/livingroom/temperature</code>) that publishers send to and subscribers
+        listen on.</dd>
+
+    <dt id="publish-subscribe">Publish / subscribe</dt>
+    <dd>The MQTT pattern: <strong>publish</strong> a message to a topic; <strong>subscribe</strong> to receive
+        messages on a topic. Event-driven and many-to-many, unlike HTTP's request/response.</dd>
+
+    <dt id="home-assistant">Home Assistant (HA)</dt>
+    <dd>Free, local, open-source home-automation hub: dashboards, device <span class="term">entities</span>,
+        and <span class="term">automations</span>. Connect an ESP32 via ESPHome or MQTT. See
+        <a href="../lessons/0022-home-assistant.html">Lesson 22</a>.</dd>
+
+    <dt id="esphome">ESPHome</dt>
+    <dd>A system for describing an ESP32/ESP8266 gadget in a short YAML config; it builds the firmware and
+        integrates natively with Home Assistant (auto-discovery, over-the-air updates). The easy on-ramp.</dd>
+
+    <dt id="mqtt-discovery">MQTT Discovery</dt>
+    <dd>A convention where a device announces itself on the broker so Home Assistant auto-creates the
+        matching entities — no manual per-device setup.</dd>
+  </dl>
+
   <p style="margin-top:3rem"><a href="../index.html">← Course home</a></p>
 </div>
 </body>

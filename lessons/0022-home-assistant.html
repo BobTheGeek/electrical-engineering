@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 22 — Home Assistant: Bringing It Home</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 22 · Connectivity</p>
+  <h1>Home Assistant — Bringing It Home</h1>
+  <p class="subtitle">Turn your gadget into a real smart-home device you can see, control, and automate.</p>
+
+  <p>This is the finish line of your mission. Your gadget can sense, decide, act, and now talk over the
+  network. <span class="term">Home Assistant</span> is the hub that ties it all together — a dashboard and
+  automation engine where your DIY gadget sits alongside any other smart device.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand the two ways to connect an ESP32 to Home Assistant, and what it gives you: your gadget as
+    an <em>entity</em> you can control and automate.
+  </div>
+
+  <h2>What Home Assistant is</h2>
+  <p>Home Assistant (HA) is free, open-source software you run on a small computer at home (a Raspberry Pi,
+  a mini-PC). It discovers your devices, shows them on dashboards, and runs
+  <span class="term">automations</span> — "if the garage door opens after sunset, turn on the light." A
+  device that HA knows about appears as an <span class="term">entity</span> (a switch, a sensor, a light).</p>
+
+  <div class="callout rule">
+    <span class="label">Why makers love it</span>
+    It runs <strong>locally</strong> — your home's data stays in your home, no cloud required. And it speaks
+    the open protocols you just learned, so your hand-built ESP32 gadget is a first-class citizen next to
+    commercial gear.
+  </div>
+
+  <h2>Two ways to connect your ESP32</h2>
+
+  <h3>Path A — ESPHome (the easy on-ramp)</h3>
+  <p><span class="term">ESPHome</span> lets you describe your gadget in a short <strong>YAML</strong> config
+  file — "GPIO 26 is a relay called Desk Lamp" — and it generates and uploads the firmware for you. It
+  integrates with Home Assistant <em>natively</em>: the device shows up automatically, with over-the-air
+  updates built in <a href="https://esphome.io/components/mqtt/">(ESPHome docs)</a>.</p>
+  <p>For most home-automation gadgets, <strong>this is the recommended starting point</strong> — little to
+  no hand-written networking code.</p>
+
+  <h3>Path B — MQTT (universal and portable)</h3>
+  <p>Run an MQTT broker (the <strong>Mosquitto</strong> add-on installs right inside HA), have your ESP32
+  publish/subscribe as in <a href="0021-mqtt.html">Lesson 21</a>, and enable HA's MQTT integration. With
+  <span class="term">MQTT Discovery</span>, your device can announce itself and HA creates the entities
+  automatically <a href="https://www.home-assistant.io/integrations/mqtt/">(Home Assistant MQTT docs)</a>.</p>
+  <p>Choose this when you want full control of the firmware, or to reuse your gadget with non-HA systems.</p>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    <strong>Start with ESPHome</strong> to get a win fast. Reach for <strong>raw MQTT</strong> when you need
+    custom behavior or portability. Both end the same way: your gadget as an entity in Home Assistant.
+  </div>
+
+  <h2>Then: automations</h2>
+  <p>Once your gadget is an entity, HA's real power opens up. Combine it with anything: <em>"When the
+  bedroom temperature (your sensor) rises above 24°C, switch on the fan (your relay)."</em> That sentence is
+  your whole course in one line — SENSE, DECIDE, ACT, REPORT — running your home.</p>
+
+  <h2>🎉 You've completed the course</h2>
+  <p>From "why does an LED need a resistor?" to a Wi-Fi gadget reporting into a smart-home hub, you can now
+  reason about every layer:</p>
+  <p style="text-align:center; font-family:-apple-system,sans-serif; font-size:1rem; color:var(--accent)">
+    <strong>SENSE</strong> → <strong>DECIDE</strong> → <strong>ACT</strong> → <strong>REPORT</strong>
+  </p>
+  <p>The best next step isn't another lesson — it's a <strong>build</strong>. Pick one small real gadget
+  (a temperature reporter, a relay you control from your phone, a door sensor) and make it. Bring me the
+  plan and we'll design it together, end to end.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://esphome.io/">ESPHome</a> (start here) and the
+    <a href="https://www.home-assistant.io/integrations/mqtt/">Home Assistant MQTT integration docs</a>.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Ready to build your first real gadget? Tell me what
+    you want it to do and I'll help you choose the parts, wire it, and connect it to Home Assistant.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0021-mqtt.html">Lesson 21</a></span>
+    <span>End of the course 🎉 — time to build!</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/connectivity.html">Connectivity cheat-sheet</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "Home Assistant is appealing to makers largely because it…",
+      options: [
+        "Runs locally, keeping data home",
+        "Requires a paid cloud account",
+        "Only works with one brand"
+      ],
+      answer: 0,
+      why: "HA runs on your own hardware at home — local, private, no cloud required — and speaks open protocols, so DIY gadgets fit right in."
+    },
+    {
+      q: "The easiest on-ramp to put an ESP32 into Home Assistant is usually…",
+      options: [
+        "ESPHome (YAML config)",
+        "Writing a raw TCP stack",
+        "A 5 GHz-only network"
+      ],
+      answer: 0,
+      why: "ESPHome lets you describe the gadget in YAML; it builds the firmware and integrates natively with HA, including OTA updates — minimal code."
+    },
+    {
+      q: "With MQTT, Home Assistant can create your device's entities automatically using…",
+      options: [
+        "MQTT Discovery",
+        "A voltage divider",
+        "A flyback diode"
+      ],
+      answer: 0,
+      why: "MQTT Discovery lets a device announce itself on the broker so HA auto-creates the matching entities — no manual setup per device."
+    },
+    {
+      q: "Once your gadget is an entity, an HA automation can…",
+      options: [
+        "Act on it with other devices",
+        "Only display its raw IP",
+        "Replace its power supply"
+      ],
+      answer: 0,
+      why: "Entities can be combined in automations — e.g. a temperature reading triggers your relay — which is the SENSE→DECIDE→ACT→REPORT loop running your home."
+    }
+  ]);
+</script>
+</body>
+</html>

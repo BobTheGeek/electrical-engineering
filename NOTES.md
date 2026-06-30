@@ -23,12 +23,13 @@ must be front-and-center. Keep early lessons on safe low-voltage (3.3V/5V) terri
   any real mains build; a certified smart plug is a legitimate, encouraged fallback.
 
 ## Status (as of last session)
-- Lessons 1–18 published: foundations (1–7), Components in Depth (8–12), The Microcontroller (13–15),
-  Motion & the Physical World (16–18).
-- References: glossary, schematic-symbols, component-field-guide, signals-and-buses, rules-of-thumb.
+- Lessons 1–22 published — the FULL mission arc is now covered (SENSE→DECIDE→ACT→REPORT):
+  foundations (1–7), Components in Depth (8–12), The Microcontroller (13–15),
+  Motion & the Physical World (16–18), Connectivity (19–22).
+- References: glossary, schematic-symbols, component-field-guide, signals-and-buses, connectivity, rules-of-thumb.
 - Lessons are self-contained and work offline (local assets) — learner can open files directly.
 - Site is live at https://ee.bobthegeek.com (GitHub Pages, repo BobTheGeek/electrical-engineering).
-- **Next session:** verify retention via retrieval before advancing (see learning-records 0002–0004).
-  Strongest next moves: (a) ESP32 Wi-Fi / connectivity — the untaught "REPORT" half of the mission
-  (fill connectivity resources gap first); or (b) a hands-on end-to-end "first real gadget" project
-  lesson now that SENSE→DECIDE→ACT components are all covered.
+- **Next session — shift from coverage to application.** The foundational curriculum is complete; the
+  highest-value next step is a guided, hands-on "build your first real gadget end-to-end" project
+  (e.g. temp reporter or phone-controlled relay into Home Assistant). Also: verify retention via
+  retrieval (records 0002–0005), and consider a mission check-in on whether to build vs go deeper.

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 19 — Getting on Wi-Fi</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 19 · Connectivity</p>
+  <h1>Getting on Wi-Fi</h1>
+  <p class="subtitle">The first step in making a gadget you can reach from anywhere in the house.</p>
+
+  <p>This track is the <strong>REPORT</strong> arrow from <a href="0018-sensors.html">Lesson 18</a>'s
+  SENSE → DECIDE → ACT → REPORT loop — and the reason you chose an ESP32 in the first place. It starts
+  here: getting your board onto your home network so it can talk to your phone, a server, or Home Assistant.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand how an ESP32 joins your Wi-Fi network and gets an address other devices can reach it at —
+    and you know the gotchas that trip up every beginner.
+  </div>
+
+  <h2>Two Wi-Fi modes</h2>
+  <ul>
+    <li><strong>Station mode (STA)</strong> — the ESP32 <em>joins</em> your existing home Wi-Fi, like your
+    phone does. This is what you want for home automation.</li>
+    <li><strong>Access Point mode (AP)</strong> — the ESP32 <em>becomes</em> its own little hotspot you
+    connect to directly. Useful for initial setup (entering Wi-Fi details) or where there's no network.</li>
+  </ul>
+  <p>(It can even do both at once, but start with station mode.)</p>
+
+  <h2>What the code does</h2>
+  <p>You don't need to memorize syntax, but recognize the shape — every Wi-Fi sketch follows it
+  <a href="https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/">(Random Nerd Tutorials: ESP32 Wi-Fi functions)</a>:</p>
+  <ol>
+    <li>Set station mode and call <code>WiFi.begin(ssid, password)</code> with your network name and password.</li>
+    <li>Wait in a short loop until <code>WiFi.status()</code> reports <code>WL_CONNECTED</code> — joining
+    takes a moment.</li>
+    <li>Read <code>WiFi.localIP()</code> — the <strong>IP address</strong> your gadget was given.</li>
+  </ol>
+
+  <h2>The IP address: your gadget's house number</h2>
+  <p>When the ESP32 joins, your router hands it an <span class="term">IP address</span> (e.g.
+  <code>192.168.1.42</code>) — its address on your local network. Other devices in your house reach it at
+  that number. (Next lesson, you'll type it into a browser to control the gadget.)</p>
+
+  <div class="callout rule">
+    <span class="label">Tip</span>
+    Router-assigned IPs can change. For something you'll connect to often, set a <strong>static IP</strong>
+    (or a DHCP reservation in your router), or give the board a hostname and reach it by name (more in
+    <a href="0020-talking-over-the-network.html">Lesson 20</a>).
+  </div>
+
+  <h2>The gotchas that waste hours</h2>
+  <div class="callout danger">
+    <span class="label">Read these now, thank yourself later</span>
+    <ul style="margin:0.4rem 0 0; padding-left:1.1rem">
+      <li><strong>2.4 GHz only.</strong> The ESP32's Wi-Fi does <em>not</em> work on 5 GHz networks. If it
+      won't connect, this is the #1 cause — use your 2.4 GHz SSID.</li>
+      <li><strong>Don't hard-code credentials in shared code.</strong> Keep your Wi-Fi name/password in a
+      separate <code>secrets</code> file you don't commit — especially with your repo public
+      (<a href="../index.html">like this course</a>!).</li>
+      <li><strong>Handle dropouts.</strong> Wi-Fi disconnects happen; add reconnection logic so your gadget
+      recovers on its own.</li>
+      <li><strong>Placement matters.</strong> Thick walls and distance weaken the signal; a flaky gadget is
+      often just far from the router.</li>
+    </ul>
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://randomnerdtutorials.com/getting-started-with-esp32/">Random Nerd Tutorials — Getting Started with the ESP32</a>,
+    then <a href="https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/">ESP32 Wi-Fi Functions</a> for the connection code.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> If your ESP32 won't connect, tell me what you see
+    — nine times in ten it's the 2.4 GHz issue or a typo in the credentials, and I can help you spot it.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0018-sensors.html">Lesson 18</a></span>
+    <span><a href="0020-talking-over-the-network.html">Lesson 20</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/connectivity.html">Connectivity cheat-sheet</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "To make an ESP32 join your existing home network, you use…",
+      options: [
+        "Station (STA) mode",
+        "Access Point (AP) mode",
+        "Bluetooth pairing mode"
+      ],
+      answer: 0,
+      why: "Station mode joins an existing Wi-Fi network, like your phone does. AP mode makes the ESP32 its own hotspot, handy for first-time setup."
+    },
+    {
+      q: "After connecting, WiFi.localIP() gives you the gadget's…",
+      options: [
+        "Address on your network",
+        "Wi-Fi password",
+        "Processor speed"
+      ],
+      answer: 0,
+      why: "The router assigns an IP address — the gadget's 'house number' that other devices use to reach it on your local network."
+    },
+    {
+      q: "An ESP32 that refuses to connect to your Wi-Fi is most often blocked by…",
+      options: [
+        "A 5 GHz-only network",
+        "Too short a password",
+        "Having no IP address"
+      ],
+      answer: 0,
+      why: "The ESP32 only does 2.4 GHz. If your network name is 5 GHz-only, it can't join — use the 2.4 GHz SSID. This is the #1 beginner snag."
+    },
+    {
+      q: "With your project repo public, your Wi-Fi password should live in…",
+      options: [
+        "A separate uncommitted secrets file",
+        "The main sketch, in plain text",
+        "The README for easy access"
+      ],
+      answer: 0,
+      why: "Never commit credentials. Keep them in a separate secrets file that's git-ignored — especially important when the repo is public."
+    }
+  ]);
+</script>
+</body>
+</html>

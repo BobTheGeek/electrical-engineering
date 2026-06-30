@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 20 — Talking Over the Network (HTTP)</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 20 · Connectivity</p>
+  <h1>Talking Over the Network (HTTP)</h1>
+  <p class="subtitle">Control and monitor your gadget from any browser in the house.</p>
+
+  <p>Now that your ESP32 is on Wi-Fi (<a href="0019-getting-on-wifi.html">Lesson 19</a>), the simplest way
+  to interact with it is the same way you visit a website: <span class="term">HTTP</span>. You'll turn your
+  gadget into a tiny web server you open from your phone.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand the request/response model — and how typing your ESP32's address into a browser can flip
+    a relay or show a sensor reading.
+  </div>
+
+  <h2>Request and response</h2>
+  <p>The web runs on a simple back-and-forth. A <span class="term">client</span> (your browser) sends a
+  <strong>request</strong> to a <span class="term">server</span>; the server sends back a
+  <strong>response</strong>. When your ESP32 is the server, you type its IP address (from last lesson) into
+  a browser, and it replies with a web page or a value
+  <a href="https://randomnerdtutorials.com/esp32-web-server-beginners-guide/">(Random Nerd Tutorials: ESP32 Web Server)</a>.</p>
+
+  <figure>
+    <svg viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Browser requests, ESP32 responds.">
+      <g font-family="sans-serif" font-size="11">
+        <rect x="10" y="35" width="90" height="40" rx="4" fill="#fff" stroke="#1f6f8b" stroke-width="2"/>
+        <text x="22" y="52" fill="#1f6f8b">phone /</text>
+        <text x="22" y="66" fill="#1f6f8b">browser</text>
+        <rect x="240" y="35" width="90" height="40" rx="4" fill="#fff" stroke="#b3461f" stroke-width="2"/>
+        <text x="258" y="59" fill="#b3461f">ESP32</text>
+        <line x1="100" y1="48" x2="240" y2="48" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#a)"/>
+        <text x="120" y="42" fill="#6b6b6b" font-size="9">GET /on  →</text>
+        <line x1="240" y1="64" x2="100" y2="64" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#a)"/>
+        <text x="120" y="78" fill="#6b6b6b" font-size="9">← page / value</text>
+        <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#1a1a1a"/></marker></defs>
+      </g>
+    </svg>
+    <figcaption>The browser asks; the ESP32 answers. A URL like <code>/on</code> becomes a command the gadget acts on.</figcaption>
+  </figure>
+
+  <h2>URLs as commands</h2>
+  <p>Here's the neat trick: different <strong>URLs</strong> trigger different actions. Visit
+  <code>http://192.168.1.42/on</code> and the ESP32 sees a request for <code>/on</code>, turns a relay on,
+  and replies. <code>/off</code> turns it off. <code>/status</code> returns a sensor reading. A little web
+  page with buttons just sends those URLs for you — instant phone control of your
+  <a href="0007-relays-and-mains-safety.html">relay</a> or any output.</p>
+
+  <div class="callout rule">
+    <span class="label">Two roles your ESP32 can play</span>
+    <strong>Server</strong> (most common): it hosts a page you open to control/monitor it.
+    <strong>Client</strong>: it makes requests <em>out</em> — e.g. fetching weather data or posting a
+    reading to an online service.
+  </div>
+
+  <div class="callout rule">
+    <span class="label">Reach it by name</span>
+    Remembering IP numbers is annoying, and they can change. With <strong>mDNS</strong> you can give the
+    board a name and open it at something like <code>http://mygadget.local</code> instead.
+  </div>
+
+  <h2>Where HTTP runs out of road</h2>
+  <p>A web server is perfect for one gadget you check on demand. But it has limits that matter for a whole
+  smart home:</p>
+  <ul>
+    <li><strong>You have to ask</strong> (poll). The gadget can't easily <em>push</em> "motion detected!"
+    to you the instant it happens.</li>
+    <li><strong>It's one-to-one.</strong> Coordinating many devices, each running its own server, gets messy.</li>
+    <li><strong>Outside-the-house access</strong> is fiddly and risky to expose directly.</li>
+  </ul>
+  <p>Those limits are exactly what the next protocol — <a href="0021-mqtt.html">MQTT</a> — is built to solve.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://randomnerdtutorials.com/esp32-web-server-beginners-guide/">Random Nerd Tutorials — Building an ESP32 Web Server (Beginner's Guide)</a>.
+    A full walk-through controlling outputs from a browser.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Want a simple phone page to toggle a relay? Tell me
+    what to control and I'll help you map the URLs to actions.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0019-getting-on-wifi.html">Lesson 19</a></span>
+    <span><a href="0021-mqtt.html">Lesson 21</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/connectivity.html">Connectivity cheat-sheet</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "In the web's request/response model, your browser is the…",
+      options: [
+        "Client making a request",
+        "Server sending a page",
+        "Broker routing messages"
+      ],
+      answer: 0,
+      why: "The client (browser) sends a request; the server (here, the ESP32) sends back a response — a page or a value."
+    },
+    {
+      q: "Visiting http://<esp32-ip>/on can turn on a relay because the ESP32…",
+      options: [
+        "Acts on the requested URL",
+        "Measures the link voltage",
+        "Reads an analog input"
+      ],
+      answer: 0,
+      why: "The server inspects which URL was requested (/on, /off, /status) and performs the matching action, then responds."
+    },
+    {
+      q: "An ESP32 fetching weather data from an online service is acting as a…",
+      options: [
+        "Client",
+        "Server",
+        "Broker"
+      ],
+      answer: 0,
+      why: "When it makes requests OUT to another service, it's the client. When it hosts a page you open, it's the server."
+    },
+    {
+      q: "A weakness of the HTTP web-server approach for a whole smart home is that…",
+      options: [
+        "The gadget can't easily push events",
+        "It needs no Wi-Fi connection",
+        "It only works at 5 GHz"
+      ],
+      answer: 0,
+      why: "HTTP is request/response — you must ask. It doesn't push events well or coordinate many devices cleanly, which is why MQTT exists."
+    }
+  ]);
+</script>
+</body>
+</html>

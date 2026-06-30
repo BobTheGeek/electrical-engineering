@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connectivity Cheat-Sheet</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Reference · Quick lookup</p>
+  <h1>Connectivity Cheat-Sheet</h1>
+  <p class="subtitle">Wi-Fi → HTTP → MQTT → Home Assistant, on one page. Print me.</p>
+
+  <div class="callout">
+    The compressed essence of the <a href="../index.html">Connectivity track</a> (Lessons 19–22): the
+    <strong>REPORT</strong> arrow of SENSE → DECIDE → ACT → REPORT.
+  </div>
+
+  <h2>Wi-Fi (Lesson 19)</h2>
+  <ul>
+    <li><strong>Station mode</strong> = join your network (use this). <strong>AP mode</strong> = be your own hotspot (for setup).</li>
+    <li>Shape: set STA → <code>WiFi.begin(ssid, pass)</code> → wait for <code>WL_CONNECTED</code> → read <code>WiFi.localIP()</code>.</li>
+    <li>The router gives the gadget an <strong>IP address</strong> — how other devices reach it.</li>
+  </ul>
+  <div class="callout danger">
+    <span class="label">Gotchas</span>
+    2.4 GHz only (not 5 GHz) · keep credentials in an uncommitted secrets file · handle reconnects · mind signal/placement.
+  </div>
+
+  <h2>HTTP — web server (Lesson 20)</h2>
+  <ul>
+    <li><strong>Request/response</strong>: client (browser) asks, server (ESP32) answers.</li>
+    <li>URLs as commands: <code>/on</code>, <code>/off</code>, <code>/status</code>.</li>
+    <li>ESP32 as <strong>server</strong> (host a page) or <strong>client</strong> (call out to a service). Reach by name with mDNS (<code>name.local</code>).</li>
+    <li>Limit: you must poll; one-to-one; awkward for a whole home → use MQTT.</li>
+  </ul>
+
+  <h2>MQTT (Lesson 21)</h2>
+  <ul>
+    <li><strong>Publish/subscribe via a broker.</strong> Publish to a <strong>topic</strong> (<code>home/livingroom/temp</code>); subscribers to that topic receive it.</li>
+    <li>Publisher &amp; subscriber are <strong>decoupled</strong>; push-based; many-to-many; lightweight.</li>
+    <li>ESP32: <strong>PubSubClient</strong> library — <code>publish()</code> / <code>subscribe()</code>. Know <em>retain</em> &amp; <em>QoS</em>.</li>
+    <li>Run your <strong>own broker</strong> (Mosquitto) for privacy. Public brokers = learning only.</li>
+  </ul>
+
+  <h2>Home Assistant (Lesson 22)</h2>
+  <table>
+    <thead><tr><th>Path</th><th>How</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ESPHome</strong></td><td>Describe gadget in YAML; it builds firmware; native HA integration + OTA</td><td>Easiest — start here</td></tr>
+      <tr><td><strong>MQTT</strong></td><td>ESP32 publishes/subscribes; HA MQTT integration + MQTT Discovery auto-creates entities</td><td>Full control / portability</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Device becomes an <strong>entity</strong> → use in <strong>automations</strong> (e.g. temp &gt; 24°C → fan on).</li>
+    <li>HA runs <strong>locally</strong> — private, no cloud needed.</li>
+  </ul>
+
+  <h2>HTTP vs MQTT</h2>
+  <table>
+    <thead><tr><th></th><th>HTTP</th><th>MQTT</th></tr></thead>
+    <tbody>
+      <tr><td>Pattern</td><td>Request/response</td><td>Publish/subscribe</td></tr>
+      <tr><td>Initiative</td><td>You poll</td><td>Device pushes</td></tr>
+      <tr><td>Scale</td><td>One-to-one</td><td>Many-to-many</td></tr>
+      <tr><td>Use for</td><td>One gadget on demand</td><td>A whole smart home</td></tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a> · <a href="rules-of-thumb.html">Rules of thumb</a></p>
+</div>
+</body>
+</html>
