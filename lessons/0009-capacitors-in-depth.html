@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 9 — Capacitors in Depth</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 9 · Components in Depth</p>
+  <h1>Capacitors in Depth</h1>
+  <p class="subtitle">The tiny energy buffer — and the one-capacitor habit that fixes flaky projects.</p>
+
+  <p>Capacitors are the component beginners under-use and pros sprinkle everywhere. They don't "do"
+  something dramatic on their own — they <em>steady</em> things. Understanding them turns "my project
+  randomly resets" from a mystery into a known fix.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can identify a capacitor's type and value, respect its polarity, and place a decoupling cap to
+    keep your circuits stable.
+  </div>
+
+  <h2>What a capacitor does</h2>
+  <p>A <span class="term">capacitor</span> stores a small amount of electric charge and releases it
+  quickly. Back to the water analogy: it's a little <strong>surge tank</strong> on the pipe. When pressure
+  dips for an instant, the tank pushes water back to smooth it; when pressure spikes, it absorbs some.
+  Capacitance is measured in <span class="term">farads</span>, but you'll only ever see tiny fractions:
+  microfarads (µF), nanofarads (nF), picofarads (pF).</p>
+
+  <h2>The two types you'll actually use</h2>
+  <table>
+    <thead><tr><th>Type</th><th>Looks like</th><th>Polarity</th><th>Reading the value</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Ceramic</strong></td>
+        <td>Small disc / blob</td>
+        <td>None — fits either way</td>
+        <td>3-digit code: <code>104</code> = 10 + 4 zeros = 100,000 pF = <strong>0.1 µF</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Electrolytic</strong></td>
+        <td>Little cylinder ("soda can")</td>
+        <td><strong>Polarized!</strong> stripe = −, longer leg = +</td>
+        <td>Printed directly, e.g. <code>10µF 25V</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout danger">
+    <span class="label">Polarity matters</span>
+    An <strong>electrolytic capacitor wired backwards can fail — even pop.</strong> The stripe marks the
+    negative leg; the longer lead is positive. Ceramics have no polarity, so they're worry-free
+    <a href="https://learn.sparkfun.com/tutorials/capacitors/all">(SparkFun: Capacitors)</a>.
+  </div>
+
+  <h2>The job you'll use most: decoupling</h2>
+  <p>Chips draw current in sudden bursts as they switch. Those bursts cause tiny dips in the supply
+  voltage that can make a microcontroller misbehave or reset. A <span class="term">decoupling
+  capacitor</span> (also called a bypass cap) sits right next to a chip's power pin — between
+  <code>+</code> and <code>GND</code> — acting as a local surge tank that supplies those bursts instantly.</p>
+
+  <div class="callout rule">
+    <span class="label">The single most useful capacitor rule</span>
+    Put a <strong>0.1 µF ceramic capacitor across power and ground, as close as possible to every chip.</strong>
+    Add a larger electrolytic (1–10 µF) near where power enters the board. This one habit prevents a huge
+    share of "randomly flaky" behavior.
+  </div>
+
+  <h2>Other roles (just so you recognize them)</h2>
+  <ul>
+    <li><strong>Smoothing:</strong> a big electrolytic across a power supply flattens ripple into steadier DC.</li>
+    <li><strong>Timing &amp; filtering:</strong> paired with a resistor, a capacitor charges at a known
+    rate — the basis of timers and simple filters. You'll meet this; no math needed today.</li>
+    <li><strong>Debouncing:</strong> a small cap can smooth a button's bounce (from
+    <a href="0005-buttons-and-inputs.html">Lesson 5</a>).</li>
+  </ul>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/capacitors/all">SparkFun — Capacitors</a>, plus the short
+    <a href="https://learn.sparkfun.com/tutorials/polarity/electrolytic-capacitors">Polarity: Electrolytic Capacitors</a> page.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> If a project resets randomly or acts glitchy,
+    tell me — it's very often a missing decoupling cap, and I can help you spot it.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0008-resistors-in-depth.html">Lesson 8</a></span>
+    <span><a href="0010-potentiometers.html">Lesson 10</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/component-field-guide.html">Component field guide</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "Which capacitor type is polarized and can fail if wired backwards?",
+      options: [
+        "Electrolytic capacitor",
+        "Ceramic capacitor",
+        "Neither one ever"
+      ],
+      answer: 0,
+      why: "Electrolytics are polarized — stripe = negative, longer leg = positive — and can pop if reversed. Ceramics have no polarity."
+    },
+    {
+      q: "A ceramic capacitor marked 104 has a value of…",
+      options: [
+        "0.1 µF",
+        "104 µF",
+        "10.4 pF"
+      ],
+      answer: 0,
+      why: "The code is 10 followed by 4 zeros, in picofarads: 100,000 pF = 100 nF = 0.1 µF — the classic decoupling value."
+    },
+    {
+      q: "A decoupling capacitor's job next to a chip is to…",
+      options: [
+        "Supply sudden current bursts",
+        "Increase the supply voltage",
+        "Block the chip from ground"
+      ],
+      answer: 0,
+      why: "It's a local surge tank: it instantly feeds the chip's switching current bursts so the supply voltage doesn't dip and cause glitches."
+    },
+    {
+      q: "Good practice is to place a 0.1 µF cap…",
+      options: [
+        "Close to every chip's power pin",
+        "Only at the battery terminals",
+        "Far from any integrated circuit"
+      ],
+      answer: 0,
+      why: "A 0.1 µF ceramic across power and ground, as near each chip as possible, prevents a large share of flaky, reset-y behavior."
+    }
+  ]);
+</script>
+</body>
+</html>

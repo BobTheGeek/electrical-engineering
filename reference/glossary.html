@@ -163,6 +163,58 @@
         connected until it activates. Wire loads through COM→NO so they default to <em>off</em>.</dd>
   </dl>
 
+  <h2>Components in depth</h2>
+  <dl class="glossary">
+    <dt id="voltage-divider">Voltage divider</dt>
+    <dd>Two resistors in series; the point between them sits at a smaller voltage, set by the resistor
+        ratio. Used to scale a voltage down and to read resistive sensors. See
+        <a href="../lessons/0008-resistors-in-depth.html">Lesson 8</a>.</dd>
+
+    <dt id="power-rating">Power rating</dt>
+    <dd>How much heat a part (e.g. a resistor) can dissipate before failing — typically ⅛–1 W for hobby
+        resistors. ¼ W is fine for signal-level work.</dd>
+
+    <dt id="farad">Farad (F)</dt>
+    <dd>The unit of <a href="#capacitor">capacitance</a>. Real parts are tiny fractions: microfarads (µF),
+        nanofarads (nF), picofarads (pF). A ceramic marked <code>104</code> = 0.1 µF.</dd>
+
+    <dt id="decoupling">Decoupling (bypass) capacitor</dt>
+    <dd>A small cap (usually 0.1 µF) across a chip's power and ground, placed close to it, that supplies
+        sudden current bursts and steadies the supply. Add one to every IC.</dd>
+
+    <dt id="wiper">Wiper</dt>
+    <dd>The movable middle contact of a <a href="#potentiometer">potentiometer</a> — the pin that outputs
+        the variable voltage.</dd>
+
+    <dt id="potentiometer">Potentiometer ("pot")</dt>
+    <dd>A three-terminal variable resistor / adjustable voltage divider. Outer pins to power and ground,
+        wiper (middle) to an analog input. Read with <code>analogRead()</code>.</dd>
+
+    <dt id="anode-cathode">Anode / cathode</dt>
+    <dd>A diode's two ends. Current flows from the <strong>anode</strong> (flat side of the triangle)
+        toward the <strong>cathode</strong> (the bar; marked with a band on real parts).</dd>
+
+    <dt id="schottky-zener">Schottky / Zener diode</dt>
+    <dd><strong>Schottky</strong>: low forward drop (~0.3 V), fast — good for protection/efficiency.
+        <strong>Zener</strong>: conducts backwards at a set voltage — used as a simple voltage reference/limiter.</dd>
+
+    <dt id="ic">Integrated circuit (IC)</dt>
+    <dd>An entire circuit built into one chip (a regulator, sensor, motor driver, or microcontroller).
+        Needs power, ground, and a decoupling cap. See <a href="../lessons/0012-integrated-circuits.html">Lesson 12</a>.</dd>
+
+    <dt id="dip">DIP (dual in-line package)</dt>
+    <dd>The common breadboard-friendly IC body: two rows of pins 0.1" apart that straddle the center gap.
+        A notch or dot marks pin 1.</dd>
+
+    <dt id="datasheet">Datasheet</dt>
+    <dd>The manufacturer's spec document for a part. Hunt it for four things: pinout, operating
+        voltage/current, absolute maximum ratings, and the typical application circuit.</dd>
+
+    <dt id="vcc-gnd">VCC / VDD / GND / VSS</dt>
+    <dd>Power-pin labels on chips. <code>VCC</code>/<code>VDD</code> = positive supply;
+        <code>GND</code>/<code>VSS</code> = ground (0 V).</dd>
+  </dl>
+
   <p style="margin-top:3rem"><a href="../index.html">← Course home</a></p>
 </div>
 </body>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 11 — Diodes in Depth</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 11 · Components in Depth</p>
+  <h1>Diodes in Depth</h1>
+  <p class="subtitle">The one-way valve — and the three jobs it quietly does in your projects.</p>
+
+  <p>A diode does one simple thing: it lets current flow one way and blocks the other. That simplicity
+  hides three genuinely useful tricks — including one that can save your board from a backwards battery.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can read a diode's direction, and you know when to add one: protecting against coil spikes and
+    against reversed power.
+  </div>
+
+  <h2>The one-way valve</h2>
+  <p>A <span class="term">diode</span> conducts when current flows from its <span class="term">anode</span>
+  (the flat side of the triangle symbol) to its <span class="term">cathode</span> (the bar). Push the other
+  way and it blocks <a href="https://learn.sparkfun.com/tutorials/diodes/all">(SparkFun: Diodes)</a>.</p>
+
+  <figure>
+    <svg viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diode symbol with anode and cathode.">
+      <g font-family="sans-serif" font-size="11" fill="#1a1a1a" stroke="#1a1a1a">
+        <line x1="30" y1="35" x2="110" y2="35" stroke-width="2"/>
+        <polygon points="110,22 110,48 140,35" fill="#1a1a1a" stroke="none"/>
+        <line x1="140" y1="20" x2="140" y2="50" stroke-width="3"/>
+        <line x1="140" y1="35" x2="220" y2="35" stroke-width="2"/>
+        <text x="70" y="20" stroke="none" fill="#6b6b6b">anode (+)</text>
+        <text x="150" y="20" stroke="none" fill="#6b6b6b">cathode (−) = banded end</text>
+        <polygon points="170,42 184,48 170,54" fill="#b3461f" stroke="none"/>
+        <text x="60" y="66" stroke="none" fill="#b3461f">current flows this way only →</text>
+      </g>
+    </svg>
+    <figcaption>On a real diode, a painted band marks the cathode — the end the bar points to. Current flows toward the band, not away.</figcaption>
+  </figure>
+
+  <p>Two facts to carry: a conducting diode "uses up" a small fixed voltage — about <strong>0.7 V</strong>
+  for an ordinary silicon diode, or ~<strong>0.3 V</strong> for a <span class="term">Schottky</span> (a
+  fast, low-loss type). And the <em>band marks the cathode</em> — that's how you orient one.</p>
+
+  <h2>Job 1 — Flyback protection (you've met this)</h2>
+  <p>From <a href="0006-driving-bigger-loads.html">Lesson 6</a>: when you switch off a coil or motor, it
+  kicks back a high-voltage spike. A <span class="term">flyback diode</span> placed across the coil
+  (band toward <code>+</code>) gives that spike a harmless loop to die in, protecting your transistor.
+  This is the diode you'll add most often.</p>
+
+  <h2>Job 2 — Reverse-polarity protection</h2>
+  <p>Plug a power supply in backwards and you can instantly destroy a project. A single diode in series
+  with the incoming <code>+</code> blocks current entirely if the supply is reversed — cheap insurance,
+  at the cost of that ~0.7 V drop (use a Schottky to lose less).</p>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    Switching a coil/motor? <strong>Add a flyback diode</strong> (or use a relay/motor module that has one).
+    Building something powered by a battery or barrel jack you might insert wrong? <strong>Consider a series
+    protection diode.</strong>
+  </div>
+
+  <h2>Job 3 — Rectification (good to recognize)</h2>
+  <p>Because diodes pass only one direction, they convert alternating current (AC) into one-directional
+  (DC) — the first step inside every wall adapter. You rarely build this yourself, but now the symbol on a
+  power-supply schematic makes sense.</p>
+
+  <h2>The family, briefly</h2>
+  <ul>
+    <li><strong>Standard / rectifier</strong> (e.g. 1N4001, 1N4148): general one-way duty, flyback.</li>
+    <li><strong>Schottky:</strong> low voltage drop, fast — great for protection and efficiency.</li>
+    <li><strong>Zener:</strong> deliberately conducts backwards at a set voltage — used as a simple voltage
+    reference/limiter.</li>
+    <li><strong>LED:</strong> a diode that emits light (and still needs its series resistor, from
+    <a href="0001-what-is-a-circuit.html">Lesson 1</a>).</li>
+  </ul>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/diodes/all">SparkFun — Diodes</a>. Covers the symbol,
+    the types, and the protection circuits in beginner terms.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Not sure which way a diode goes, or which type to
+    buy for a job? Send me the part number or the task and I'll point you the right way.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0010-potentiometers.html">Lesson 10</a></span>
+    <span><a href="0012-integrated-circuits.html">Lesson 12</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/component-field-guide.html">Component field guide</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "On a real diode, the painted band marks the…",
+      options: [
+        "Cathode (current flows toward it)",
+        "Anode (current flows from it)",
+        "Mid-point of the part"
+      ],
+      answer: 0,
+      why: "The band is the cathode — the bar in the symbol. Current flows from anode toward the banded cathode, and not the other way."
+    },
+    {
+      q: "A diode placed across a relay coil or motor is there to…",
+      options: [
+        "Absorb the turn-off spike",
+        "Increase the coil's torque",
+        "Lower the supply voltage"
+      ],
+      answer: 0,
+      why: "That's the flyback diode: it gives the coil's collapse-spike a safe loop, protecting the switching transistor. The most common diode you'll add."
+    },
+    {
+      q: "Putting a diode in series with incoming + power protects against…",
+      options: [
+        "Reversed power supply",
+        "Too little voltage",
+        "Slow switching speed"
+      ],
+      answer: 0,
+      why: "A series diode blocks current if the supply is connected backwards — cheap reverse-polarity insurance, costing ~0.7 V (less with a Schottky)."
+    },
+    {
+      q: "Compared to a standard silicon diode, a Schottky diode has a…",
+      options: [
+        "Lower forward voltage drop",
+        "Much higher voltage drop",
+        "No direction at all"
+      ],
+      answer: 0,
+      why: "Schottky diodes drop ~0.3 V instead of ~0.7 V and switch fast — handy for protection and efficiency. They're still one-way devices."
+    }
+  ]);
+</script>
+</body>
+</html>

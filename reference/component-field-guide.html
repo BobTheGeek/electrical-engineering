@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component Field Guide</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+  .card { border: 1px solid var(--rule); border-radius: 8px; padding: 0.9rem 1.1rem; background: #fff; }
+  .card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+  .card .row { font-size: 0.85rem; margin: 0.25rem 0; font-family: -apple-system, sans-serif; }
+  .card .k { color: var(--muted); display: inline-block; min-width: 4.2rem; }
+  .card .rule { color: var(--accent); }
+  .card a { font-size: 0.78rem; }
+  @media (max-width: 620px) { .cards { grid-template-columns: 1fr; } }
+  @media print { .cards { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Reference · Quick lookup</p>
+  <h1>Component Field Guide</h1>
+  <p class="subtitle">What each part does, the spec to check, and the one rule. Print me.</p>
+
+  <div class="callout">
+    The compressed essence of the <a href="../index.html">Components in Depth</a> track (Lessons 8–12).
+    For symbols, see the <a href="schematic-symbols.html">symbol cheat-sheet</a>; for definitions, the
+    <a href="glossary.html">glossary</a>.
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Resistor</h3>
+      <div class="row"><span class="k">Does</span> Limits current; sets/divides voltage.</div>
+      <div class="row"><span class="k">Check</span> Value (Ω, color bands) + power rating (¼ W typical).</div>
+      <div class="row"><span class="k">Polarity</span> None — fits either way.</div>
+      <div class="row rule">Rule: read bands with an app/meter; ¼ W is fine for signals.</div>
+      <a href="../lessons/0008-resistors-in-depth.html">Lesson 8 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Ceramic capacitor</h3>
+      <div class="row"><span class="k">Does</span> Decoupling / filtering — steadies the supply.</div>
+      <div class="row"><span class="k">Check</span> Value via 3-digit code (104 = 0.1 µF).</div>
+      <div class="row"><span class="k">Polarity</span> None.</div>
+      <div class="row rule">Rule: 0.1 µF across power+GND beside every chip.</div>
+      <a href="../lessons/0009-capacitors-in-depth.html">Lesson 9 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Electrolytic capacitor</h3>
+      <div class="row"><span class="k">Does</span> Bulk smoothing / energy storage.</div>
+      <div class="row"><span class="k">Check</span> Value + voltage rating (printed, e.g. 10µF 25V).</div>
+      <div class="row"><span class="k">Polarity</span> <strong>Yes!</strong> stripe = −, long leg = +.</div>
+      <div class="row rule">Rule: never wire backwards — it can pop.</div>
+      <a href="../lessons/0009-capacitors-in-depth.html">Lesson 9 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Potentiometer</h3>
+      <div class="row"><span class="k">Does</span> Adjustable voltage divider — a readable knob.</div>
+      <div class="row"><span class="k">Check</span> Resistance + taper (linear for sensing).</div>
+      <div class="row"><span class="k">Wiring</span> Outer pins = power/GND; middle = analog in.</div>
+      <div class="row rule">Rule: read with analogRead (ESP32: 0–4095).</div>
+      <a href="../lessons/0010-potentiometers.html">Lesson 10 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Diode</h3>
+      <div class="row"><span class="k">Does</span> One-way valve for current.</div>
+      <div class="row"><span class="k">Check</span> Type (rectifier / Schottky / Zener), current rating.</div>
+      <div class="row"><span class="k">Polarity</span> Band = cathode; current flows toward the band.</div>
+      <div class="row rule">Rule: flyback across coils; series diode for reverse-polarity protection.</div>
+      <a href="../lessons/0011-diodes-in-depth.html">Lesson 11 →</a>
+    </div>
+
+    <div class="card">
+      <h3>LED</h3>
+      <div class="row"><span class="k">Does</span> Emits light (a diode that glows).</div>
+      <div class="row"><span class="k">Check</span> Color/voltage; needs a series resistor.</div>
+      <div class="row"><span class="k">Polarity</span> Long leg = + (anode); flat side = − (cathode).</div>
+      <div class="row rule">Rule: ~220–330 Ω in series on a 5V pin.</div>
+      <a href="../lessons/0001-what-is-a-circuit.html">Lesson 1 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Transistor (BJT / MOSFET)</h3>
+      <div class="row"><span class="k">Does</span> Electrically-controlled switch for big loads.</div>
+      <div class="row"><span class="k">Check</span> Type, voltage/current rating, logic-level gate.</div>
+      <div class="row"><span class="k">Wiring</span> Pin → base/gate via ~1 kΩ; load on own supply.</div>
+      <div class="row rule">Rule: MOSFET for hungry loads; add a flyback diode for coils.</div>
+      <a href="../lessons/0006-driving-bigger-loads.html">Lesson 6 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Integrated circuit (IC)</h3>
+      <div class="row"><span class="k">Does</span> A whole circuit in a chip (regulator, sensor, MCU…).</div>
+      <div class="row"><span class="k">Check</span> Operating voltage; pinout; max ratings.</div>
+      <div class="row"><span class="k">Orient</span> Notch/dot = pin 1; count counter-clockwise.</div>
+      <div class="row rule">Rule: power + GND + 0.1 µF cap; copy the datasheet's app circuit.</div>
+      <a href="../lessons/0012-integrated-circuits.html">Lesson 12 →</a>
+    </div>
+
+    <div class="card">
+      <h3>Relay (module)</h3>
+      <div class="row"><span class="k">Does</span> Isolated switch for big / mains loads.</div>
+      <div class="row"><span class="k">Check</span> Contact rating (e.g. 10A 250VAC) &gt; your load.</div>
+      <div class="row"><span class="k">Terminals</span> COM / NO / NC; use COM→NO for off-by-default.</div>
+      <div class="row rule">Rule: use a module; mains = power off, enclosure, ask first.</div>
+      <a href="../lessons/0007-relays-and-mains-safety.html">Lesson 7 →</a>
+    </div>
+
+  </div>
+
+  <p style="margin-top:2rem"><a href="../index.html">← Course home</a> · <a href="rules-of-thumb.html">Rules of thumb</a></p>
+</div>
+</body>
+</html>

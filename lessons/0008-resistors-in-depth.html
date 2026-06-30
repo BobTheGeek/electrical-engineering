@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 8 — Resistors in Depth</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 8 · Components in Depth</p>
+  <h1>Resistors in Depth</h1>
+  <p class="subtitle">Read any resistor's value, pick the right one, and meet the voltage divider.</p>
+
+  <p>You met the resistor in <a href="0001-what-is-a-circuit.html">Lesson 1</a> as a "narrow pipe" that
+  limits current. Now we go deeper: how to <em>read</em> a resistor, how to <em>choose</em> one, and one
+  new trick — the voltage divider — that you'll use constantly to read sensors.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    Pick up any resistor and know its value and power rating — and understand how two resistors can turn
+    a big voltage into a smaller one.
+  </div>
+
+  <h2>Reading the color bands</h2>
+  <p>Through-hole resistors are marked with colored bands. The common <strong>4-band</strong> scheme reads
+  like this <a href="https://learn.sparkfun.com/tutorials/resistors/all">(SparkFun: Resistors)</a>:</p>
+  <ul>
+    <li><strong>Band 1 &amp; 2 — digits.</strong> Each color is a digit 0–9.</li>
+    <li><strong>Band 3 — multiplier.</strong> How many zeros to add (×10, ×100, ×1000…).</li>
+    <li><strong>Band 4 — tolerance.</strong> Usually gold (±5%) — how close to the marked value it really is.</li>
+  </ul>
+  <p>Example: <em>yellow, violet, red</em> → 4, 7, then ×100 → <strong>4,700 Ω = 4.7 kΩ</strong>.</p>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb (don't memorize)</span>
+    Nobody memorizes the color code. Use a phone app, a printed chart, or just measure with a
+    multimeter's resistance setting. Knowing <em>how</em> the bands work is enough; let a tool do the lookup.
+  </div>
+
+  <p>You'll keep meeting the same handful of "standard" values — 220, 330, 1k, 4.7k, 10k, 100k. A small
+  assortment kit covers almost every hobby project.</p>
+
+  <h2>Power rating: can it take the heat?</h2>
+  <p>Resistors turn the energy they block into heat. Each has a <span class="term">power rating</span> —
+  typically <strong>⅛ W to 1 W</strong> for the ones you'll use. Exceed it and the resistor overheats,
+  discolors, and can fail.</p>
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    For signal-level work (LEDs, pull-ups, dividers on a 3.3–5V board), the standard <strong>¼ W</strong>
+    resistor is plenty. Only worry about wattage when a resistor carries real current — e.g. dropping
+    voltage for a power load.
+  </div>
+
+  <h2>The voltage divider</h2>
+  <p>Put two resistors in series across a voltage, and the point <em>between</em> them sits at a smaller
+  voltage — a <span class="term">voltage divider</span>. It's how you scale a voltage down, and how a
+  board reads many sensors <a href="https://learn.sparkfun.com/tutorials/voltage-dividers/all">(SparkFun: Voltage Dividers)</a>.</p>
+
+  <figure>
+    <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Voltage divider: two resistors in series, output tapped in the middle.">
+      <g font-family="sans-serif" font-size="11" fill="#1a1a1a">
+        <text x="120" y="16">Vin (e.g. 5V)</text>
+        <line x1="150" y1="20" x2="150" y2="36" stroke="#c62828" stroke-width="2"/>
+        <polyline points="150,36 144,42 156,48 144,54 156,60 144,66 150,72" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="162" y="56" fill="#6b6b6b">R1</text>
+        <line x1="150" y1="72" x2="150" y2="86" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="150" y1="86" x2="235" y2="86" stroke="#1f6f8b" stroke-width="2"/>
+        <text x="240" y="90" fill="#1f6f8b">Vout</text>
+        <polyline points="150,86 144,92 156,98 144,104 156,110 144,116 150,122" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="162" y="106" fill="#6b6b6b">R2</text>
+        <line x1="150" y1="122" x2="150" y2="138" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="138" y1="138" x2="162" y2="138" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="142" y1="143" x2="158" y2="143" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="146" y1="148" x2="154" y2="148" stroke="#1a1a1a" stroke-width="2"/>
+      </g>
+    </svg>
+    <figcaption>The output between R1 and R2 is a fraction of Vin, set by the ratio of the two resistors.</figcaption>
+  </figure>
+
+  <p>The intuition, no algebra needed: <strong>the output is Vin scaled by R2's share of the total
+  resistance.</strong> Equal resistors → half the voltage. Make R2 small → small output; make R2 large →
+  output close to Vin.</p>
+
+  <div class="callout rule">
+    <span class="label">Why you'll use it</span>
+    <ul style="margin:0.4rem 0 0; padding-left:1.1rem">
+      <li><strong>Read resistive sensors</strong> (photoresistor, thermistor): pair the sensor with a
+      fixed resistor as a divider, and the middle voltage changes with light/heat — read it with an
+      analog pin (next lesson on <a href="0010-potentiometers.html">potentiometers</a> uses this exact idea).</li>
+      <li><strong>Scale a voltage down</strong> to fit a 3.3V ESP32 input (recall the 3.3V vs 5V trap from
+      <a href="0004-power-and-powering-safely.html">Lesson 4</a>).</li>
+    </ul>
+  </div>
+  <p><em>Heads-up:</em> a divider is for <em>signals</em>, not for powering things — drawing real current
+  from the midpoint breaks the ratio. For that you use a regulator.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/resistors/all">SparkFun — Resistors</a>, then
+    <a href="https://learn.sparkfun.com/tutorials/voltage-dividers/all">Voltage Dividers</a> for the
+    sensor-reading applications.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Send me a sensor you want to read and I'll help
+    you size the divider resistor for a 3.3V ESP32 input.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0007-relays-and-mains-safety.html">Lesson 7</a></span>
+    <span><a href="0009-capacitors-in-depth.html">Lesson 9</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/component-field-guide.html">Component field guide</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "On a 4-band resistor, the third band tells you the…",
+      options: [
+        "Multiplier (how many zeros)",
+        "Tolerance of the part",
+        "Maximum safe wattage"
+      ],
+      answer: 0,
+      why: "Bands 1–2 are digits, band 3 is the multiplier (zeros to add), band 4 is tolerance. Yellow-violet-red = 47 ×100 = 4.7 kΩ."
+    },
+    {
+      q: "For typical LED, pull-up, and divider work on a 5V board, a resistor rated at…",
+      options: [
+        "¼ W is plenty",
+        "10 W is required",
+        "Any rating fails fast"
+      ],
+      answer: 0,
+      why: "Signal-level currents are tiny, so a standard ¼ W resistor handles the heat easily. Wattage only matters when real current flows."
+    },
+    {
+      q: "A voltage divider made of two equal resistors gives an output of…",
+      options: [
+        "Half the input voltage",
+        "Twice the input voltage",
+        "The full input voltage"
+      ],
+      answer: 0,
+      why: "The output is Vin scaled by R2's share of the total resistance. Equal resistors split it evenly — half of Vin."
+    },
+    {
+      q: "A voltage divider is suitable for…",
+      options: [
+        "Reading a sensor signal",
+        "Powering a motor",
+        "Charging a battery"
+      ],
+      answer: 0,
+      why: "Dividers are for low-current signals. Drawing real current from the midpoint changes the ratio — use a regulator to actually power things."
+    }
+  ]);
+</script>
+</body>
+</html>

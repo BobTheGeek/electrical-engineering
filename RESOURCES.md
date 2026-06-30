@@ -26,6 +26,18 @@
   Use for: Lesson 7. Practical relay-module wiring (COM/NO/NC, control side).
 - [DroneBotWorkshop: Control AC Devices with Arduino — SAFELY](https://dronebotworkshop.com/ac-arduino/)
   Use for: Lesson 7. The mains-safety practices. High-trust hobbyist source with a strong safety stance.
+- [SparkFun Learn: Resistors](https://learn.sparkfun.com/tutorials/resistors/all)
+  Use for: Lesson 8. Color codes, power rating, applications.
+- [SparkFun Learn: Voltage Dividers](https://learn.sparkfun.com/tutorials/voltage-dividers/all)
+  Use for: Lesson 8/10. Scaling voltages and reading resistive sensors.
+- [SparkFun Learn: Capacitors](https://learn.sparkfun.com/tutorials/capacitors/all)
+  Use for: Lesson 9. Types, polarity, decoupling. Pair with the [Polarity](https://learn.sparkfun.com/tutorials/polarity/all) tutorial.
+- [SparkFun Learn: Reading a Potentiometer](https://learn.sparkfun.com/tutorials/sik-experiment-guide-for-arduino---v32/experiment-2-reading-a-potentiometer)
+  Use for: Lesson 10. Wiring a pot and reading it with analogRead.
+- [SparkFun Learn: Diodes](https://learn.sparkfun.com/tutorials/diodes/all)
+  Use for: Lesson 11. One-way behavior, types, protection circuits.
+- [SparkFun Learn: Integrated Circuits](https://learn.sparkfun.com/tutorials/integrated-circuits/all)
+  Use for: Lesson 12. Packages, finding pin 1, and an entry point to datasheets.
 
 ## Wisdom (Communities)
 

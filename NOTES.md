@@ -23,8 +23,10 @@ must be front-and-center. Keep early lessons on safe low-voltage (3.3V/5V) terri
   any real mains build; a certified smart plug is a legitimate, encouraged fallback.
 
 ## Status (as of last session)
-- Lessons 1–7 published; a six-lesson "study pack" (2–7) was generated in advance for an offline trip.
+- Lessons 1–12 published: foundations (1–7) + Components in Depth track (8–12).
+- References: glossary, schematic-symbols, component-field-guide, rules-of-thumb.
 - Lessons are self-contained and work offline (local assets) — learner can open files directly.
 - Site is live at https://ee.bobthegeek.com (GitHub Pages, repo BobTheGeek/electrical-engineering).
-- **Next session:** verify retention via retrieval before advancing (see learning-record 0002).
-  Probable next topic: ESP32 WiFi / connectivity (the mission's other half) — resources gap to fill first.
+- **Next session:** verify retention via retrieval before advancing (see learning-records 0002, 0003).
+  Likely next topics: (a) a hands-on analog-sensor + code lesson building on Lesson 10; or
+  (b) ESP32 WiFi / connectivity (the mission's other half) — connectivity resources gap to fill first.

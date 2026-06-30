@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 12 — ICs &amp; Reading a Datasheet</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 12 · Components in Depth</p>
+  <h1>ICs &amp; Reading a Datasheet</h1>
+  <p class="subtitle">A whole circuit in a black box — how to orient one and look up how to use it.</p>
+
+  <p>This lesson ties the whole component track together. An integrated circuit packs many components
+  into one part — and your ESP32 is itself a big one. The skill here isn't memorizing chips; it's knowing
+  how to <em>orient any chip</em> and <em>find what it needs</em> from its datasheet.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    Given an unfamiliar chip, you can find pin 1, give it power and a decoupling cap, and read its
+    datasheet for the few facts that matter.
+  </div>
+
+  <h2>What an IC is</h2>
+  <p>An <span class="term">integrated circuit (IC)</span> is an entire circuit — sometimes millions of
+  parts — shrunk onto a sliver of silicon and given pins. Think of it as a <strong>black box that does a
+  job</strong>: a voltage regulator (makes a steady 3.3V), a motor driver (switches motors for you), a
+  sensor (reports temperature over a couple of wires), or a microcontroller (runs your code)
+  <a href="https://learn.sparkfun.com/tutorials/integrated-circuits/all">(SparkFun: Integrated Circuits)</a>.</p>
+
+  <h2>Orienting a chip: find pin 1</h2>
+  <p>Pins are numbered, and you must know which is which. The common <span class="term">DIP</span> package
+  (dual in-line — two rows of legs, 0.1" apart, made to straddle a breadboard's center gap from
+  <a href="0002-schematics-and-breadboards.html">Lesson 2</a>) marks <strong>pin 1 with a notch or a
+  dot</strong>. From pin 1, numbering goes <em>counter-clockwise</em>.</p>
+
+  <figure>
+    <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DIP chip with notch marking pin 1.">
+      <rect x="60" y="20" width="100" height="90" rx="4" fill="#2a2a2a"/>
+      <path d="M95 20 a15 15 0 0 0 30 0" fill="#f4f2ec"/>
+      <circle cx="78" cy="36" r="4" fill="#f4f2ec"/>
+      <g fill="#888">
+        <rect x="48" y="30" width="12" height="6"/><rect x="48" y="50" width="12" height="6"/>
+        <rect x="48" y="70" width="12" height="6"/><rect x="48" y="90" width="12" height="6"/>
+        <rect x="160" y="30" width="12" height="6"/><rect x="160" y="50" width="12" height="6"/>
+        <rect x="160" y="70" width="12" height="6"/><rect x="160" y="90" width="12" height="6"/>
+      </g>
+      <text x="30" y="36" font-size="11" fill="#c62828" font-family="sans-serif">1</text>
+      <text x="74" y="128" font-size="10" fill="#6b6b6b" font-family="sans-serif">notch / dot = pin 1 end</text>
+    </svg>
+    <figcaption>The notch (and often a dot) marks the pin-1 end. With the notch up, pin 1 is top-left; numbering runs down the left side and back up the right.</figcaption>
+  </figure>
+
+  <h2>Every chip needs the same two things</h2>
+  <p>Whatever the chip does, it almost always needs <strong>power</strong> (labeled <code>VCC</code> or
+  <code>VDD</code>) and <strong>ground</strong> (<code>GND</code> / <code>VSS</code>) — and a
+  <strong>decoupling capacitor</strong> right beside its power pin, exactly the 0.1 µF habit from
+  <a href="0009-capacitors-in-depth.html">Lesson 9</a>.</p>
+
+  <div class="callout danger">
+    <span class="label">Mind the voltage</span>
+    Check the chip's operating voltage before wiring it to your board. A 5V-only chip and a 3.3V ESP32
+    need care on their signal lines (the logic-levels trap from
+    <a href="0004-power-and-powering-safely.html">Lesson 4</a>).
+  </div>
+
+  <h2>Reading a datasheet — the 80/20</h2>
+  <p>A datasheet can be 60 pages. You don't read it; you <em>hunt</em> it for four things:</p>
+  <ol>
+    <li><strong>Pinout / pin description</strong> — what each pin does. Usually page 1–3.</li>
+    <li><strong>Operating voltage &amp; current</strong> — will it run at 3.3V? How much power?</li>
+    <li><strong>Absolute maximum ratings</strong> — the "don't exceed or it dies" limits.</li>
+    <li><strong>Typical application circuit</strong> — a ready-made diagram of how to wire it, decoupling
+    cap and all. This is gold: copy it.</li>
+  </ol>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    For any new chip: <strong>find pin 1, give it power + GND + a 0.1 µF cap, and build the datasheet's
+    "typical application circuit."</strong> That gets 90% of chips working without deep theory.
+  </div>
+
+  <h2>You've finished the component track 🎉</h2>
+  <p>You can now read and choose the parts that make up almost every project: resistors, capacitors,
+  potentiometers, diodes, and the chips that tie them together — and you know how to look up anything you
+  don't recognize. That's the toolkit for designing, not just copying.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/integrated-circuits/all">SparkFun — Integrated Circuits</a>,
+    and its companion <a href="https://learn.sparkfun.com/tutorials/polarity/integrated-circuit-polarity">Polarity: IC Polarity</a> for finding pin 1.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Paste me a datasheet link or a chip's name and
+    I'll help you find pin 1, its voltage, and the typical wiring — datasheet-reading is much easier with a guide.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0011-diodes-in-depth.html">Lesson 11</a></span>
+    <span>End of the Components track 🎉</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/component-field-guide.html">Component field guide</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "On a DIP chip, the notch or dot marks…",
+      options: [
+        "The pin 1 end",
+        "The ground pin",
+        "The power pin"
+      ],
+      answer: 0,
+      why: "The notch/dot identifies pin 1. From there, pin numbers increase counter-clockwise around the chip."
+    },
+    {
+      q: "Nearly every IC needs, beside its power pin, a…",
+      options: [
+        "0.1 µF decoupling capacitor",
+        "Large series resistor",
+        "Second power supply"
+      ],
+      answer: 0,
+      why: "Power, ground, and a 0.1 µF decoupling cap right at the power pin — the stability habit from the capacitor lesson applies to every chip."
+    },
+    {
+      q: "The fastest way to wire an unfamiliar chip correctly is to copy its…",
+      options: [
+        "Typical application circuit",
+        "Marketing description",
+        "Revision history page"
+      ],
+      answer: 0,
+      why: "Datasheets include a 'typical application circuit' — a ready-made wiring diagram with decoupling caps. Copying it gets most chips working fast."
+    },
+    {
+      q: "Before wiring a chip to your ESP32, the rating you must check first is its…",
+      options: [
+        "Operating voltage",
+        "Physical color",
+        "Manufacturer name"
+      ],
+      answer: 0,
+      why: "Operating voltage decides whether it's safe on a 3.3V board and whether its signals need level shifting — the same 3.3V/5V trap as before."
+    }
+  ]);
+</script>
+</body>
+</html>

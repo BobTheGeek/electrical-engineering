@@ -79,6 +79,29 @@
     <span class="why">It bundles the driver, flyback diode, and isolation. Unsure? Use a certified smart plug.</span>
     <a href="../lessons/0007-relays-and-mains-safety.html">Lesson 7</a></div>
 
+  <h2>Components</h2>
+  <div class="rot"><span class="r">Don't memorize resistor colors — use an app or multimeter.</span>
+    <span class="why">¼ W is plenty for signal-level work. Standard values: 220, 330, 1k, 4.7k, 10k, 100k.</span>
+    <a href="../lessons/0008-resistors-in-depth.html">Lesson 8</a></div>
+  <div class="rot"><span class="r">A voltage divider is for signals, not for powering loads.</span>
+    <span class="why">Two resistors tap a smaller voltage; equal resistors = half. Drawing current breaks the ratio.</span>
+    <a href="../lessons/0008-resistors-in-depth.html">Lesson 8</a></div>
+  <div class="rot"><span class="r">Put a 0.1 µF ceramic cap beside every chip's power pin.</span>
+    <span class="why">Decoupling kills random resets/glitches. Ceramic 104 = 0.1 µF, no polarity.</span>
+    <a href="../lessons/0009-capacitors-in-depth.html">Lesson 9</a></div>
+  <div class="rot"><span class="r">Electrolytic caps are polarized — stripe = −, long leg = +.</span>
+    <span class="why">Backwards can pop. Ceramics are non-polarized and safe either way.</span>
+    <a href="../lessons/0009-capacitors-in-depth.html">Lesson 9</a></div>
+  <div class="rot"><span class="r">Potentiometer: outer pins = power/ground, middle = analog signal.</span>
+    <span class="why">It's an adjustable divider. ESP32 analogRead gives 0–4095; map to what you need.</span>
+    <a href="../lessons/0010-potentiometers.html">Lesson 10</a></div>
+  <div class="rot"><span class="r">Diode band = cathode; current flows toward the band.</span>
+    <span class="why">Flyback across coils; a series diode protects against reversed power (Schottky drops less).</span>
+    <a href="../lessons/0011-diodes-in-depth.html">Lesson 11</a></div>
+  <div class="rot"><span class="r">New chip? Find pin 1 (notch/dot), give power+GND+0.1 µF, copy the datasheet app circuit.</span>
+    <span class="why">Check operating voltage first. Pins count counter-clockwise from pin 1.</span>
+    <a href="../lessons/0012-integrated-circuits.html">Lesson 12</a></div>
+
   <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a></p>
 </div>
 </body>
