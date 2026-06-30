@@ -63,7 +63,7 @@
         <line x1="280" y1="75" x2="280" y2="110" stroke="#1a1a1a" stroke-width="2"/>
         <polygon points="274,90 286,90 280,100" fill="#1a1a1a"/>
         <line x1="270" y1="115" x2="290" y2="115" stroke="#1a1a1a" stroke-width="2"/>
-        <text x="294" y="105" font-size="8" fill="#c62828">clipping diodes → gnd</text>
+        <text x="294" y="105" font-size="8" fill="#c62828">diodes → 4.5V bias</text>
         <line x1="280" y1="75" x2="330" y2="75" stroke="#b3461f" stroke-width="2"/>
         <rect x="330" y="65" width="22" height="20" fill="#fff" stroke="#1a1a1a"/><text x="330" y="100" font-size="8" fill="#6b6b6b">out cap</text>
         <line x1="352" y1="75" x2="380" y2="75" stroke="#b3461f" stroke-width="2"/>
@@ -72,9 +72,9 @@
         <text x="474" y="78">amp</text>
       </g>
     </svg>
-    <figcaption>guitar → input cap → op-amp gain (with drive pot) → 10k → clipping diodes to ground → output
-    cap → volume → amp. Hard clipping here = "distortion"; move the diodes into the op-amp feedback for soft
-    "overdrive."</figcaption>
+    <figcaption>guitar → input cap → op-amp gain (with drive pot) → 10k → clipping diodes → output cap →
+    volume → amp. The diodes clip around the <strong>4.5 V bias</strong> (so they don't conduct on the DC).
+    Diodes to bias = "distortion"; move them into the op-amp feedback for soft "overdrive."</figcaption>
   </figure>
 
   <h2>Op-amp pinout (TL071 / 741, 8-pin)</h2>
@@ -100,17 +100,21 @@
     pot + 0.047 µF from pin 2 to ground. Add the input cap + 1 MΩ input bias to pin 3 side.
     <br><em>Measure:</em> pin 6 (output) DC ≈ <strong>4.5 V</strong> with no signal. <em>Listen:</em> guitar in →
     output cap → volume → amp should give a <strong>clean boost</strong>. (Diodes not in yet.)</li>
-    <li><strong>Add clipping.</strong> From the op-amp output through the 10 kΩ, then two diodes back-to-back
-    to ground. <em>Listen:</em> now it's <strong>distortion</strong> — crank the gain pot and hear it dirty up.</li>
+    <li><strong>Add clipping.</strong> From the op-amp output through the 10 kΩ to a "clip" node, then two
+    diodes back-to-back from that node to the <strong>4.5 V bias rail</strong> (not 0 V ground — referencing
+    them to the bias means they clip the AC swing and don't conduct on the DC). <em>Listen:</em> now it's
+    <strong>distortion</strong> — crank the gain pot and hear it dirty up.
+    <br><span style="font-size:0.85rem;color:#6b6b6b">(The original pedal instead uses a DC-blocking cap then
+    diodes to ground — electrically the same for your signal. Referencing to bias is simpler on a breadboard.)</span></li>
     <li><strong>Volume &amp; out.</strong> Output cap → 10 kΩ volume pot → output jack → amp. Done!</li>
   </ol>
 
   <div class="callout rule">
     <span class="label">Overdrive vs distortion — the one-move mod</span>
-    As built (diodes to ground) you've got <em>hard clipping = distortion</em>. To get <em>soft clipping =
-    overdrive</em>, move the two diodes so they sit <strong>across the 1 MΩ feedback resistor</strong> (pin 6
-    to pin 2) instead of to ground. Same parts, smoother voice — a direct, audible demo of
-    <a href="0026-overdrive-and-distortion.html">Lesson 26</a>.</li>
+    As built (diodes from the clip node to the 4.5 V bias) you've got <em>hard clipping = distortion</em>. To
+    get <em>soft clipping = overdrive</em>, move the two diodes so they sit <strong>across the 1 MΩ feedback
+    resistor</strong> (pin 6 to pin 2). Both pins rest at 4.5 V, so again no DC issue — and the voice gets
+    smoother. A direct, audible demo of <a href="0026-overdrive-and-distortion.html">Lesson 26</a>.</li>
   </div>
 
   <h2>Then mod and listen</h2>
