@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 33 — Noise, Grounding &amp; Clean Power</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 33 · Bench Skills &amp; Your First Build</p>
+  <h1>Noise, Grounding &amp; Clean Power</h1>
+  <p class="subtitle">Why your circuit hums or hisses — and the handful of fixes that quiet it down.</p>
+
+  <p>Your circuit works, but there's hum, buzz, or hiss. Welcome to the other half of real builds: making
+  them <em>quiet</em>. Noise issues frustrate every beginner because they're invisible — until you know the
+  usual causes. These ideas apply to both pedals and home-automation builds.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can recognize the common sources of noise and apply the standard fixes: good grounding, clean power,
+    and keeping signals away from interference.
+  </div>
+
+  <h2>Two kinds of noise</h2>
+  <ul>
+    <li><strong>Hum / buzz</strong> (a low, electrical drone): usually a <span class="term">grounding</span>
+    problem or interference picked up from mains, power supplies, or screens.</li>
+    <li><strong>Hiss</strong> (a steady high "shhh"): often just the cost of high gain — amplifying a tiny
+    signal amplifies its noise too. Cleaner parts and not using more gain than you need help.</li>
+  </ul>
+
+  <h2>Grounding: the #1 cause of hum</h2>
+  <p>Most hum traces back to grounding. Two habits prevent the worst of it:</p>
+  <ul>
+    <li><strong>One solid, common ground.</strong> Everything shares one ground reference (the rule from
+    <a href="0004-power-and-powering-safely.html">Lesson 4</a>). On a breadboard, use the ground rail
+    consistently and make sure the guitar, circuit, and amp all share it.</li>
+    <li><strong>Avoid ground loops.</strong> A <span class="term">ground loop</span> is when ground is
+    connected by two different paths, forming a loop that acts like an antenna for hum. Star-grounding —
+    running grounds back to one common point rather than daisy-chaining them in a ring — avoids it
+    <a href="https://www.premierguitar.com/pro-advice/state-of-the-stomp/guitar-pedal-ground-loop">(Premier Guitar: ground loops)</a>.</li>
+  </ul>
+
+  <h2>Clean power</h2>
+  <p>A noisy supply injects noise straight into your audio. Two defenses:</p>
+  <ul>
+    <li><strong>Decoupling caps.</strong> The 0.1 µF (and bigger) caps across power and ground from
+    <a href="0009-capacitors-in-depth.html">Lesson 9</a> aren't optional in audio — they steady the supply
+    right where each chip needs it. A bigger cap on the main 9 V rail smooths it further.</li>
+    <li><strong>Quiet source.</strong> A <strong>battery</strong> is the quietest possible supply (no mains
+    path at all) — great for isolating a noise problem: if battery power is silent but your adapter hums, the
+    adapter is the culprit. For multiple pedals, an <strong>isolated power supply</strong> beats a cheap
+    daisy-chain, which invites ground loops and noise
+    <a href="https://www.walrusaudio.com/blogs/news/why-clean-isolated-power-is-important">(Walrus Audio: clean isolated power)</a>.</li>
+  </ul>
+
+  <h2>Layout &amp; interference</h2>
+  <ul>
+    <li>Keep <strong>input/high-gain wiring short</strong> and away from power wiring — long signal wires are
+    little antennas, and a weak guitar signal is easily polluted.</li>
+    <li>Move the breadboard away from <strong>screens, wall-warts, and dimmers</strong>; touching the circuit
+    and hearing the hum change is a classic sign of interference pickup.</li>
+    <li>In finished pedals, a <strong>metal enclosure</strong> shields the circuit — but that's the boxing-up
+    stage, beyond the breadboard.</li>
+  </ul>
+
+  <div class="callout rule">
+    <span class="label">Noise triage (in order)</span>
+    1) Run on a <strong>battery</strong> — does the noise vanish? (→ blame the supply.)
+    2) Check for a solid <strong>common ground</strong> and no loops.
+    3) Add/confirm <strong>decoupling caps</strong>.
+    4) Shorten signal wiring and move away from interference.
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://www.strymon.net/noise-ground-loops-signal-chain/">Strymon — Noise &amp; Ground Loops</a> and
+    <a href="https://www.premierguitar.com/pro-advice/state-of-the-stomp/guitar-pedal-power-supply-noise">Premier Guitar — Power Supply Noise</a>.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Describe the noise (low hum vs high hiss) and when it
+    happens (touch the circuit? only on the adapter?), and I'll help you track down the source.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0032-debugging-a-circuit.html">Lesson 32</a></span>
+    <span>End of Bench Skills 🔧 — now go build &amp; debug for real</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/bench-skills.html">Bench skills cheat-sheet</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "A low electrical hum is most often caused by…",
+      options: [
+        "A grounding problem or interference",
+        "Too little gain in the circuit",
+        "A correctly seated op-amp"
+      ],
+      answer: 0,
+      why: "Hum usually comes from grounding issues (or picked-up interference). Steady high hiss, by contrast, is more often the price of high gain."
+    },
+    {
+      q: "A ground loop causes hum because it…",
+      options: [
+        "Forms a loop that picks up interference",
+        "Cuts all power to the circuit",
+        "Raises the supply voltage"
+      ],
+      answer: 0,
+      why: "Two ground paths form a loop that acts like an antenna for mains hum. Star-grounding to one common point avoids it."
+    },
+    {
+      q: "A great way to tell if your power supply is the noise source is to…",
+      options: [
+        "Run the circuit on a battery",
+        "Turn the gain to maximum",
+        "Remove the decoupling caps"
+      ],
+      answer: 0,
+      why: "A battery has no mains path, so it's the quietest source. If battery power is silent but the adapter hums, the adapter (or a ground loop through it) is to blame."
+    },
+    {
+      q: "In audio circuits, decoupling capacitors are…",
+      options: [
+        "Important for keeping the supply quiet",
+        "Only needed for digital chips",
+        "A cause of ground loops"
+      ],
+      answer: 0,
+      why: "The 0.1 µF (and larger) caps across power and ground steady the supply at each chip — essential for low-noise audio, not optional."
+    }
+  ]);
+</script>
+</body>
+</html>

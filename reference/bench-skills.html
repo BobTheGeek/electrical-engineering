@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bench Skills Cheat-Sheet — Multimeter, Debugging &amp; Noise</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Reference · Quick lookup</p>
+  <h1>Bench Skills Cheat-Sheet</h1>
+  <p class="subtitle">Measure, debug, and de-noise any build. Print me; keep it by the breadboard.</p>
+
+  <div class="callout">
+    From Lessons <a href="../lessons/0030-using-a-multimeter.html">30</a>–<a href="../lessons/0033-noise-grounding-power.html">33</a>.
+    Applies to every project — pedals and home automation alike.
+  </div>
+
+  <h2>Multimeter — the four functions</h2>
+  <table>
+    <thead><tr><th>Function</th><th>Power</th><th>How</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DC volts</strong></td><td>ON</td><td>Across two points; black on ground, red on the node. Checks rails &amp; bias.</td></tr>
+      <tr><td><strong>Continuity</strong> (beep)</td><td>OFF</td><td>Two points joined → beep. Finds breaks &amp; shorts.</td></tr>
+      <tr><td><strong>Resistance (Ω)</strong></td><td>OFF</td><td>Measure a part out of circuit. Confirm values.</td></tr>
+      <tr><td><strong>Diode test</strong></td><td>OFF</td><td>~0.5–0.7 V Si / ~0.3 V Ge forward, open reversed. Confirms part &amp; direction.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Expected DC readings (single 9 V op-amp pedal)</h2>
+  <ul>
+    <li>Supply rail ≈ <strong>9 V</strong> · ground = <strong>0 V</strong></li>
+    <li>Virtual-ground / bias node ≈ <strong>4.5 V</strong> (half supply)</li>
+    <li>Op-amp: pin 7 ≈ 9 V · pin 4 ≈ 0 V · + input ≈ 4.5 V · output (no signal) ≈ 4.5 V</li>
+  </ul>
+
+  <h2>Debugging routine</h2>
+  <ol>
+    <li><strong>Look</strong> — IC backwards? cap/diode reversed? leg in wrong column? center-gap?</li>
+    <li><strong>Power &amp; ground</strong> — rail ≈ 9 V; solid common ground everywhere.</li>
+    <li><strong>Bias points</strong> — compare each node to what it <em>should</em> be (≈4.5 V, op-amp pins).</li>
+    <li><strong>Trace the signal</strong> — half-split: present at the midpoint → fault downstream; absent → upstream.</li>
+  </ol>
+  <div class="callout rule">
+    <span class="label">Audio probe</span>
+    0.1 µF cap on a wire to your amp + alligator-clip ground. Touch along the path: clean here, gone next →
+    fault is between. Change <strong>one thing at a time</strong> and re-test.
+  </div>
+
+  <h2>Usual suspects</h2>
+  <p>Missing/uncommon ground · reversed power · op-amp rotated (pin 1) · polarized part backwards (electrolytic, diode band) · leg in wrong breadboard column.</p>
+
+  <h2>Noise triage (in order)</h2>
+  <ol>
+    <li>Run on a <strong>battery</strong> — noise gone? → blame the supply.</li>
+    <li>Solid <strong>common ground</strong>, no <strong>ground loops</strong> (star-ground to one point).</li>
+    <li>Add/confirm <strong>decoupling caps</strong> (0.1 µF + bulk).</li>
+    <li>Shorten signal wiring; move away from screens / wall-warts / dimmers.</li>
+  </ol>
+  <p style="font-size:0.85rem;color:var(--muted);font-family:-apple-system,sans-serif">
+    Hum/buzz = grounding/interference · Hiss = high-gain noise (use only the gain you need).</p>
+
+  <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a> · <a href="rules-of-thumb.html">Rules of thumb</a></p>
+</div>
+</body>
+</html>

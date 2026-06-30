@@ -367,6 +367,36 @@
         <a href="../lessons/0028-delay-and-modulation.html">Lesson 28</a>.</dd>
   </dl>
 
+  <h2>Bench skills &amp; debugging</h2>
+  <dl class="glossary">
+    <dt id="multimeter">Multimeter</dt>
+    <dd>The core measuring tool. Four functions: DC voltage (across two points, powered on), continuity
+        (beep test for connections, powered off), resistance, and diode test. See
+        <a href="../lessons/0030-using-a-multimeter.html">Lesson 30</a>.</dd>
+
+    <dt id="continuity">Continuity</dt>
+    <dd>A test (the beep setting) for whether two points are electrically connected (near 0 Ω). Done with
+        power off — great for finding broken connections and shorts.</dd>
+
+    <dt id="signal-tracing">Signal tracing / half-split</dt>
+    <dd>Following a signal through a circuit to find where it disappears. The <strong>half-split</strong>
+        method checks the midpoint to halve the search each time. See
+        <a href="../lessons/0032-debugging-a-circuit.html">Lesson 32</a>.</dd>
+
+    <dt id="audio-probe">Audio probe</dt>
+    <dd>A DIY tool — a 0.1 µF cap on a wire to your amp, plus a ground clip — that lets you <em>hear</em> the
+        signal at any point in a circuit, to localize a fault.</dd>
+
+    <dt id="ground-loop">Ground loop</dt>
+    <dd>When ground is connected by two different paths, forming a loop that picks up hum like an antenna.
+        Avoided by star-grounding to one common point. See
+        <a href="../lessons/0033-noise-grounding-power.html">Lesson 33</a>.</dd>
+
+    <dt id="isolated-supply">Isolated power supply</dt>
+    <dd>A supply whose outputs don't share a ground path, preventing ground loops between powered devices
+        (vs a cheap daisy-chain). The quiet way to power multiple pedals.</dd>
+  </dl>
+
   <p style="margin-top:3rem"><a href="../index.html">← Course home</a></p>
 </div>
 </body>

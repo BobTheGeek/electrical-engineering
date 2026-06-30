@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 30 — Using a Multimeter</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 30 · Bench Skills &amp; Your First Build</p>
+  <h1>Using a Multimeter</h1>
+  <p class="subtitle">The one tool that turns "it doesn't work" into "I can see why."</p>
+
+  <p>Before we build the overdrive, meet the instrument that makes everything debuggable. A
+  <span class="term">multimeter</span> lets you <em>see</em> the invisible — voltage, connections,
+  component values. It's the difference between guessing and knowing, and it's the most important tool on
+  your bench.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can confidently use the four functions that solve 95% of problems: DC voltage, continuity,
+    resistance, and the diode test.
+  </div>
+
+  <h2>How you connect it</h2>
+  <p>Two probes: black into <strong>COM</strong>, red into the <strong>V/Ω</strong> jack (not the high-current
+  jack unless you're measuring current). You touch the probe tips to two points and read the screen
+  <a href="https://learn.sparkfun.com/tutorials/how-to-use-a-multimeter/all">(SparkFun: How to Use a Multimeter)</a>.</p>
+
+  <h2>The four functions you'll actually use</h2>
+
+  <h3>1. DC Voltage (the workhorse)</h3>
+  <p>Set the dial to DC volts (V with a straight/dashed line). Measure <em>across</em> two points — black on
+  ground, red on the point of interest — to read the voltage there (voltage is always <em>between</em> two
+  points, from <a href="0001-what-is-a-circuit.html">Lesson 1</a>). This is how you check power rails and
+  bias points. <strong>You'll lean on this constantly in the build.</strong></p>
+
+  <h3>2. Continuity (is it connected?)</h3>
+  <p>The setting with the speaker/sound-wave icon. Touch two points: if they're electrically joined (near
+  0 Ω), the meter <strong>beeps</strong>. Perfect for "did this wire actually connect?" and for finding
+  accidental shorts. Always test with the circuit <em>powered off</em>.</p>
+
+  <h3>3. Resistance (Ω)</h3>
+  <p>Reads a resistor's value (measure it out of the circuit for an accurate reading). Handy for confirming
+  a resistor before you place it, or checking your bias divider. Decode color bands by measuring instead of
+  squinting (<a href="0008-resistors-in-depth.html">Lesson 8</a>).</p>
+
+  <h3>4. Diode test</h3>
+  <p>The diode-symbol setting. Touch red to anode, black to cathode: a good silicon diode reads about
+  <strong>0.5–0.7 V</strong> (its forward drop), germanium ~0.3 V; reverse the probes and it reads "open."
+  This both confirms a diode works <em>and</em> tells you which way it faces — exactly what you need for
+  clipping diodes (<a href="0026-overdrive-and-distortion.html">Lesson 26</a>).</p>
+
+  <div class="callout rule">
+    <span class="label">Rules of thumb</span>
+    <ul style="margin:0.4rem 0 0; padding-left:1.1rem">
+      <li><strong>Voltage:</strong> circuit powered ON, measure across (black on ground).</li>
+      <li><strong>Continuity &amp; resistance:</strong> circuit powered OFF (and ideally the part isolated).</li>
+      <li>If you have a manual-range meter, start on a higher range and step down.</li>
+    </ul>
+  </div>
+
+  <h2>Why this unlocks the build</h2>
+  <p>In the next lesson you'll build the overdrive and I'll give you <strong>expected voltages</strong> to
+  check at each stage — e.g. "the bias point should read about 4.5 V." With a multimeter, you confirm each
+  stage is right before moving on, so if something's off you catch it immediately instead of facing a silent
+  mystery at the end.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/how-to-use-a-multimeter/all">SparkFun — How to Use a Multimeter</a>.
+    Clear photos of each function and how to hold the probes.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Tell me which multimeter you have (or are buying)
+    and I'll point out exactly which dial positions you'll use for the build.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0029-your-first-pedal.html">Lesson 29</a></span>
+    <span><a href="0031-build-along-overdrive.html">Lesson 31</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/bench-skills.html">Bench skills cheat-sheet</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "To check a circuit's bias voltage, you set the meter to DC volts and measure…",
+      options: [
+        "Across two points (black on ground)",
+        "Through the wire in series",
+        "With the power switched off"
+      ],
+      answer: 0,
+      why: "Voltage is measured across two points with the circuit powered on — black probe on ground, red on the point of interest."
+    },
+    {
+      q: "The continuity (beep) function should be used with the circuit…",
+      options: [
+        "Powered off",
+        "Powered on at full",
+        "Connected to your amp"
+      ],
+      answer: 0,
+      why: "Continuity and resistance tests are done unpowered (the meter supplies its own tiny test current). A beep means the two points are connected."
+    },
+    {
+      q: "On the diode-test setting, a healthy silicon diode reads about…",
+      options: [
+        "0.5–0.7 V one way, open the other",
+        "0 V in both directions",
+        "9 V in both directions"
+      ],
+      answer: 0,
+      why: "Forward, it shows the ~0.5–0.7 V drop (germanium ~0.3 V); reversed, it reads open. This confirms the diode and reveals its orientation."
+    },
+    {
+      q: "For an accurate resistance reading of a resistor, you should…",
+      options: [
+        "Measure it out of the circuit",
+        "Leave it powered in-circuit",
+        "Use the continuity beep"
+      ],
+      answer: 0,
+      why: "Other components in parallel skew an in-circuit reading. Measure the resistor isolated (and unpowered) for an accurate value."
+    }
+  ]);
+</script>
+</body>
+</html>

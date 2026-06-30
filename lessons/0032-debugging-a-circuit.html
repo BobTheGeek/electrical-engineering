@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 32 — Debugging a Dead Circuit</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 32 · Bench Skills &amp; Your First Build</p>
+  <h1>Debugging a Dead Circuit</h1>
+  <p class="subtitle">A calm, systematic method for when it just sits there silent.</p>
+
+  <p>Every builder faces the silent breadboard. The difference between frustration and a five-minute fix is
+  <em>method</em>. This lesson gives you a repeatable process so a dead circuit is a puzzle to solve, not a
+  wall to hit. It applies to <em>any</em> project — pedals, sensors, the lot.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You have a step-by-step debugging routine and know the two power tools — voltage checks and signal
+    tracing — that find almost any fault.
+  </div>
+
+  <h2>The mindset (this is the whole secret)</h2>
+  <p>The master principle, from R.G. Keen's classic guide: <strong>you can only debug as far as you understand
+  what each part is supposed to do.</strong> If you know the bias node <em>should</em> be 4.5 V, then reading
+  0 V there is a clue, not a mystery <a href="http://www.geofex.com/fxdebug/fxdebug.htm">(GEOFEX: Effects Debugging)</a>.
+  Your lessons gave you those expectations — debugging is just comparing reality to them.</p>
+
+  <h2>The routine, in order</h2>
+  <ol>
+    <li><strong>Look first.</strong> Before any meter: is the op-amp in backwards (pin 1)? An electrolytic
+    cap reversed? A wire in the wrong column? A leg not fully seated? Most faults are visible.</li>
+    <li><strong>Check power and ground.</strong> Measure the supply rail (≈9 V) and confirm ground is truly
+    connected everywhere, including a <strong>common ground</strong> between guitar, circuit, and amp
+    (<a href="0004-power-and-powering-safely.html">Lesson 4</a>). Bad power/ground causes most "totally dead" cases.</li>
+    <li><strong>Check the DC bias points.</strong> Compare each node to what it <em>should</em> read — the
+    4.5 V virtual ground, the op-amp's pins. A bias way off points right at the broken stage
+    (<a href="0030-using-a-multimeter.html">Lesson 30</a>).</li>
+    <li><strong>Trace the signal.</strong> If power and bias are fine but there's no sound, follow the signal
+    through the circuit and find where it disappears (next section).</li>
+  </ol>
+
+  <h2>Signal tracing &amp; the half-split</h2>
+  <p>To find <em>where</em> the signal dies, you don't check every point — you <strong>split the circuit in
+  half</strong>. Is the signal present halfway through? If yes, the fault is in the second half; if no, it's in
+  the first. Split again. A few splits pin it down fast.</p>
+
+  <div class="callout rule">
+    <span class="label">The audio probe — a $2 superpower</span>
+    Make one: a 0.1 µF capacitor on the tip of a spare cable's signal wire, with an alligator-clip ground.
+    Clip ground to your circuit's ground, run the cable to your amp, and touch the probe along the signal
+    path. <strong>You literally hear the signal at each point</strong> — clean here, gone there → the fault is
+    right between. The fastest way to trace audio circuits
+    <a href="https://www.diystompboxes.com/pedals/debug.html">(DIYstompboxes: Simple Circuit Debugging)</a>.
+  </div>
+
+  <h2>The usual suspects (check these first)</h2>
+  <ul>
+    <li><strong>Ground</strong> not connected, or no common ground with the amp.</li>
+    <li><strong>Power</strong> polarity reversed, or a rail not reaching a stage.</li>
+    <li><strong>IC orientation</strong> — op-amp rotated 180° (pin 1 in the wrong corner).</li>
+    <li><strong>Polarized parts backwards</strong> — electrolytic caps, diodes (band/cathode).</li>
+    <li><strong>Breadboard reality</strong> — a leg in the wrong column, the center-gap split forgotten, or a
+    component not actually bridging two nodes (<a href="0002-schematics-and-breadboards.html">Lesson 2</a>).</li>
+  </ul>
+
+  <div class="callout">
+    <span class="label">Change one thing at a time</span>
+    When you do find a likely fix, change <em>only that</em> and re-test. Changing three things at once means
+    you won't know which mattered — and may add a new fault while removing the old one.
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="http://www.geofex.com/fxdebug/fxdebug.htm">GEOFEX — Guitar Effects Debugging</a> (R.G. Keen) and
+    <a href="https://www.diystompboxes.com/pedals/debug.html">DIYstompboxes — Simple Circuit Debugging</a> (audio probe).
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Stuck on a dead circuit? Send me your measured
+    voltages at the rail, bias node, and op-amp pins, plus where the audio probe goes quiet — and I'll help
+    you localize the fault.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0031-build-along-overdrive.html">Lesson 31</a></span>
+    <span><a href="0033-noise-grounding-power.html">Lesson 33</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/bench-skills.html">Bench skills cheat-sheet</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "The core principle of debugging is that you can only debug as far as you…",
+      options: [
+        "Understand what each part should do",
+        "Own expensive test equipment",
+        "Can replace every component"
+      ],
+      answer: 0,
+      why: "If you know what a node should read or do, a wrong reading is a clue. Debugging is comparing reality to your expectations, part by part."
+    },
+    {
+      q: "On a totally dead circuit, the first measurements to take are…",
+      options: [
+        "Power rail and ground",
+        "The output volume sweep",
+        "The diode forward voltages"
+      ],
+      answer: 0,
+      why: "Bad power or a missing/uncommon ground causes most 'completely dead' cases. Confirm the rail (~9 V) and solid, common ground before anything else."
+    },
+    {
+      q: "To find where a signal disappears efficiently, you use…",
+      options: [
+        "The half-split method",
+        "A full parts replacement",
+        "A higher supply voltage"
+      ],
+      answer: 0,
+      why: "Check the midpoint: present → fault is downstream; absent → upstream. Splitting repeatedly narrows it to one stage in a few checks."
+    },
+    {
+      q: "An audio probe lets you…",
+      options: [
+        "Hear the signal at each point in the circuit",
+        "Measure resistance without a meter",
+        "Power the circuit from your amp"
+      ],
+      answer: 0,
+      why: "A cap-on-a-wire to your amp lets you listen along the signal path — clean at one point and gone at the next means the fault is right between them."
+    }
+  ]);
+</script>
+</body>
+</html>

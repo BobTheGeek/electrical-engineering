@@ -68,6 +68,16 @@
   Use for: Lesson 24. Bias, coupling, and the input stage in pedal terms (by a respected builder).
 - [GuitarPedalX: Clipping Diodes primer](https://www.guitarpedalx.com/news/a-brief-hobbyist-primer-on-clipping-diodes) · [Tone Stacks primer](https://www.guitarpedalx.com/news/a-brief-hobbyist-primer-on-key-tone-stack-types-and-circuit-eq-configurations---in-collaboration-with-master-builder-adrian-thorpy-thorpe)
   Use for: Lessons 26 & 27. Hobbyist primers on diode choices and tone-control topologies.
+- [ElectroSmash: MXR Distortion+ analysis](https://www.electrosmash.com/mxr-distortion-plus-analysis) · [Wampler DIY: MXR Distortion+ analysis](https://wamplerdiy.com/blogs/news/mxr-distortion-pedal-circuit-analysis)
+  Use for: Lesson 31 (build-along). Verified component values for the Distortion+/DOD 250 overdrive.
+
+### Bench skills (multimeter, debugging, noise)
+- [SparkFun Learn: How to Use a Multimeter](https://learn.sparkfun.com/tutorials/how-to-use-a-multimeter/all)
+  Use for: Lesson 30. The four functions with clear photos. (Resolves the earlier multimeter gap.)
+- [GEOFEX: Guitar Effects Debugging (R.G. Keen)](http://www.geofex.com/fxdebug/fxdebug.htm) · [DIYstompboxes: Simple Circuit Debugging](https://www.diystompboxes.com/pedals/debug.html)
+  Use for: Lesson 32. The systematic debugging mindset and the audio-probe technique.
+- [Strymon: Noise & Ground Loops](https://www.strymon.net/noise-ground-loops-signal-chain/) · [Premier Guitar: Power Supply Noise](https://www.premierguitar.com/pro-advice/state-of-the-stomp/guitar-pedal-power-supply-noise) · [Walrus Audio: Clean Isolated Power](https://www.walrusaudio.com/blogs/news/why-clean-isolated-power-is-important)
+  Use for: Lesson 33. Grounding, ground loops, and clean/isolated power.
 
 ## Wisdom (Communities)
 
@@ -85,5 +95,5 @@
 ## Gaps
 - _(resolved)_ Relays / mains safety — covered by Random Nerd Tutorials + DroneBotWorkshop.
 - _(resolved)_ Connectivity (Wi-Fi / HTTP / MQTT / Home Assistant) — covered by RNT, HiveMQ, ESPHome, HA docs (Lessons 19–22).
-- Could use a good **multimeter basics** resource (measuring voltage/continuity to debug builds) — likely useful for a future "debugging your circuit" lesson.
-- Could use a trusted **soldering / perfboard** resource for when projects graduate off the breadboard (currently out of scope per MISSION).
+- _(resolved)_ Multimeter / debugging / noise — covered by SparkFun, GEOFEX, DIYstompboxes, Strymon (Lessons 30–33).
+- Could use a trusted **soldering / perfboard / enclosure** resource for when projects graduate off the breadboard (currently out of scope per MISSION — likely the next scope expansion when the learner wants permanent builds / boxed pedals).
