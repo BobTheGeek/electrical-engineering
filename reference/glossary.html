@@ -91,9 +91,79 @@
     <dd>An electrically-controlled switch. Lets a small, safe signal (from your microcontroller)
         switch a much larger load (like a household lamp). Central to home automation — and to be
         treated with respect when mains power is involved.</dd>
+
+    <dt id="transistor">Transistor</dt>
+    <dd>An electrically-controlled switch (or valve): a small current/voltage at the
+        <em>base</em> controls a much larger current between the other two terminals. Lets a weak pin
+        drive a strong load. <strong>BJT</strong> (e.g. 2N2222) for small loads; <strong>MOSFET</strong>
+        (logic-level type) for hungry loads like motors and LED strips.</dd>
+
+    <dt id="capacitor">Capacitor</dt>
+    <dd>Stores a small amount of charge; used to smooth supply voltage and "decouple" noise.
+        Think of a tiny rechargeable buffer that steadies the flow.</dd>
+
+    <dt id="diode">Diode</dt>
+    <dd>A one-way valve for current — flows one direction, blocks the other. An <em>LED</em> is a diode
+        that emits light. A <span class="term">flyback diode</span> is one placed across a coil/motor to
+        absorb the voltage spike when it switches off (protects the transistor).</dd>
   </dl>
 
-  <p style="margin-top:3rem"><a href="../lessons/0001-what-is-a-circuit.html">← Back to Lesson 1</a></p>
+  <h2>Schematics &amp; reading circuits</h2>
+  <dl class="glossary">
+    <dt id="schematic">Schematic</dt>
+    <dd>A diagram of <em>what's connected to what</em> — a map, not a picture. Lines are wires; symbols
+        are parts with letter labels (R, C, D, Q, U, SW). See the
+        <a href="schematic-symbols.html">symbol cheat-sheet</a>.</dd>
+
+    <dt id="node">Node (net)</dt>
+    <dd>A set of points all joined by wire — electrically the <em>same</em> point. Everything on one
+        node is at the same voltage.</dd>
+  </dl>
+
+  <h2>Microcontroller &amp; signals</h2>
+  <dl class="glossary">
+    <dt id="logic-level">Logic level</dt>
+    <dd>The voltage a board treats as HIGH or LOW. Common values: <strong>3.3V</strong> (ESP32) and
+        <strong>5V</strong> (Arduino Uno). Mixing them on signal lines needs a
+        <span class="term">logic level converter</span> to avoid damage.</dd>
+
+    <dt id="floating">Floating</dt>
+    <dd>An input pin connected to neither HIGH nor LOW — it drifts and reads random noise. Fixed with a
+        pull resistor.</dd>
+
+    <dt id="pull-resistor">Pull-up / pull-down resistor</dt>
+    <dd>A resistor (~10 kΩ) that weakly ties a pin to <code>+</code> (pull-up) or <code>GND</code>
+        (pull-down), giving it a definite default state. Many boards have built-in pull-ups
+        (<code>INPUT_PULLUP</code>).</dd>
+
+    <dt id="debounce">Debounce</dt>
+    <dd>Smoothing out the brief mechanical "bounce" of a button so one press registers once, not several.
+        Done in code or with a small capacitor.</dd>
+  </dl>
+
+  <h2>Switching &amp; isolation</h2>
+  <dl class="glossary">
+    <dt id="relay-module">Relay module</dt>
+    <dd>A ready-made board carrying a relay plus its driver transistor, flyback diode, and often an
+        optocoupler — so you can switch it straight from a microcontroller pin. The beginner-safe way to
+        use a relay.</dd>
+
+    <dt id="isolation">Isolation</dt>
+    <dd>A deliberate lack of electrical connection between two parts of a circuit (e.g. the low-voltage
+        control side and the mains side of a relay). The barrier that makes safe control of dangerous
+        loads possible.</dd>
+
+    <dt id="optocoupler">Optocoupler</dt>
+    <dd>A part that passes a signal across an isolation barrier using light instead of a wire — adds
+        safety between control and load sides.</dd>
+
+    <dt id="com-no-nc">COM / NO / NC</dt>
+    <dd>A relay's switch terminals. <strong>COM</strong> = common pole; <strong>NO</strong> (normally
+        open) is disconnected until the relay activates; <strong>NC</strong> (normally closed) is
+        connected until it activates. Wire loads through COM→NO so they default to <em>off</em>.</dd>
+  </dl>
+
+  <p style="margin-top:3rem"><a href="../index.html">← Course home</a></p>
 </div>
 </body>
 </html>

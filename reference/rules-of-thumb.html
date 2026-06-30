@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rules of Thumb — Electronics for Building Things</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  .rot { border-left: 3px solid var(--accent); padding: 0.3rem 0 0.3rem 1rem; margin: 0.9rem 0; }
+  .rot .r { font-weight: 600; }
+  .rot .why { font-size: 0.85rem; color: var(--muted); display: block; margin-top: 0.15rem; font-family: -apple-system, sans-serif; }
+  .rot a { font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Reference · The compressed essence</p>
+  <h1>Rules of Thumb</h1>
+  <p class="subtitle">Every actionable rule from the course, on one page. Print me; tape me to the bench.</p>
+
+  <div class="callout">
+    These are heuristics, not laws — they keep beginners out of trouble without math. When a project
+    pushes a limit, that's the time to dig into the detail (or ask your teacher).
+  </div>
+
+  <h2>Current &amp; protection</h2>
+  <div class="rot"><span class="r">An LED always needs a series resistor.</span>
+    <span class="why">~220–330 Ω on a 5V pin. The LED can't limit its own current and will burn out.</span>
+    <a href="../lessons/0001-what-is-a-circuit.html">Lesson 1</a></div>
+  <div class="rot"><span class="r">Keep current under control = the whole game.</span>
+    <span class="why">Most "magic smoke" is an accidental short — a near-zero-resistance loop.</span>
+    <a href="../lessons/0001-what-is-a-circuit.html">Lesson 1</a></div>
+
+  <h2>Schematics &amp; breadboards</h2>
+  <div class="rot"><span class="r">To read any schematic, trace the loop from + to −.</span>
+    <span class="why">Name each part you pass. Lines are wires; joined points are one node.</span>
+    <a href="../lessons/0002-schematics-and-breadboards.html">Lesson 2</a></div>
+  <div class="rot"><span class="r">Breadboard: columns of 5 connect up-down; rails connect along the edges.</span>
+    <span class="why">The center gap splits each column. Put power/ground on the rails.</span>
+    <a href="../lessons/0002-schematics-and-breadboards.html">Lesson 2</a></div>
+
+  <h2>Series &amp; parallel</h2>
+  <div class="rot"><span class="r">Series = same current, voltage splits. Parallel = same voltage, current splits.</span>
+    <span class="why">Power your modules in parallel so each gets full voltage and works independently.</span>
+    <a href="../lessons/0003-series-and-parallel.html">Lesson 3</a></div>
+
+  <h2>Power &amp; safety (low-voltage)</h2>
+  <div class="rot"><span class="r">Know your board's voltage before wiring its pins.</span>
+    <span class="why">ESP32 = 3.3V, Arduino Uno = 5V. 5V into a 3.3V pin can destroy it — use a level converter.</span>
+    <a href="../lessons/0004-power-and-powering-safely.html">Lesson 4</a></div>
+  <div class="rot"><span class="r">A pin gives ~20–40 mA — enough for an LED, not a motor.</span>
+    <span class="why">Hungry loads get their own supply + a transistor or relay.</span>
+    <a href="../lessons/0004-power-and-powering-safely.html">Lesson 4</a></div>
+  <div class="rot"><span class="r">All grounds tie together.</span>
+    <span class="why">Multiple + supplies are fine, but every part shares one common GND.</span>
+    <a href="../lessons/0004-power-and-powering-safely.html">Lesson 4</a></div>
+
+  <h2>Inputs</h2>
+  <div class="rot"><span class="r">Never leave an input pin floating — use a pull resistor.</span>
+    <span class="why">~10 kΩ pull-up/pull-down, or the built-in INPUT_PULLUP. A floating pin reads random noise.</span>
+    <a href="../lessons/0005-buttons-and-inputs.html">Lesson 5</a></div>
+  <div class="rot"><span class="r">If a button "double-fires," it's contact bounce.</span>
+    <span class="why">Debounce in code (ignore changes for ~20–50 ms) or with a small capacitor.</span>
+    <a href="../lessons/0005-buttons-and-inputs.html">Lesson 5</a></div>
+
+  <h2>Driving loads</h2>
+  <div class="rot"><span class="r">Use a transistor to let a pin switch a big current.</span>
+    <span class="why">Pin → base through ~1 kΩ. Load on its own supply. MOSFET for hungry loads.</span>
+    <a href="../lessons/0006-driving-bigger-loads.html">Lesson 6</a></div>
+  <div class="rot"><span class="r">Coil or motor? Add a flyback diode.</span>
+    <span class="why">Absorbs the turn-off voltage spike that would kill your transistor.</span>
+    <a href="../lessons/0006-driving-bigger-loads.html">Lesson 6</a></div>
+
+  <h2>Mains (treat with respect)</h2>
+  <div class="rot" style="border-left-color:var(--bad)"><span class="r">Mains can kill — power off and unplugged before touching it, always.</span>
+    <span class="why">Switch the hot wire only. Everything in an enclosure, never on a breadboard.</span>
+    <a href="../lessons/0007-relays-and-mains-safety.html">Lesson 7</a></div>
+  <div class="rot" style="border-left-color:var(--bad)"><span class="r">Use a relay module; check its contact rating exceeds your load.</span>
+    <span class="why">It bundles the driver, flyback diode, and isolation. Unsure? Use a certified smart plug.</span>
+    <a href="../lessons/0007-relays-and-mains-safety.html">Lesson 7</a></div>
+
+  <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a></p>
+</div>
+</body>
+</html>

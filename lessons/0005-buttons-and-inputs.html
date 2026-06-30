@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 5 — Buttons &amp; Inputs</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 5</p>
+  <h1>Buttons &amp; Inputs</h1>
+  <p class="subtitle">Why a button needs a resistor, and the "floating pin" gremlin.</p>
+
+  <p>So far we've pushed current <em>out</em> to light an LED. Now we read the world <em>in</em> — the
+  first half of any home-automation gadget (a button, a switch, a motion sensor). It seems like you
+  should just wire a button to a pin… and that's exactly the trap this lesson defuses.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand why a bare button gives garbage readings, and you can wire one that reads reliably
+    every time — using a pull-up or pull-down resistor.
+  </div>
+
+  <h2>The floating pin problem</h2>
+  <p>A microcontroller input pin reads voltage: near the supply voltage it reads <code>HIGH</code>, near
+  ground it reads <code>LOW</code>. The danger is <em>in between</em>. If a pin isn't firmly connected to
+  either, it's <span class="term">floating</span> — and it'll drift, picking up electrical noise from the
+  air and reading randomly HIGH or LOW
+  <a href="https://learn.sparkfun.com/tutorials/pull-up-resistors/all">(SparkFun: Pull-up Resistors)</a>.</p>
+
+  <p>A simple button is just a gap that closes when pressed. Wire one between a pin and 3.3V and you've
+  only defined <em>one</em> state: pressed connects the pin to 3.3V (HIGH). <strong>Released leaves the
+  pin connected to nothing — floating.</strong> Your code can't trust it.</p>
+
+  <h2>The fix: a pull resistor gives a default</h2>
+  <p>A <span class="term">pull-up</span> (or <span class="term">pull-down</span>) resistor weakly ties
+  the pin to a known voltage, so it has a definite state when the button <em>isn't</em> pressed.</p>
+
+  <figure>
+    <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pull-up resistor with a button.">
+      <g font-family="sans-serif" font-size="11" fill="#1a1a1a">
+        <text x="150" y="16">3.3V</text>
+        <line x1="165" y1="20" x2="165" y2="36" stroke="#c62828" stroke-width="2"/>
+        <!-- resistor -->
+        <polyline points="165,36 159,42 171,48 159,54 171,60 159,66 165,72"
+                  fill="none" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="178" y="56" fill="#6b6b6b">10kΩ pull-up</text>
+        <!-- node to pin -->
+        <line x1="165" y1="72" x2="165" y2="100" stroke="#1f6f8b" stroke-width="2"/>
+        <line x1="165" y1="86" x2="250" y2="86" stroke="#1f6f8b" stroke-width="2"/>
+        <text x="255" y="90" fill="#1f6f8b">→ to input pin</text>
+        <!-- button to ground -->
+        <line x1="165" y1="100" x2="165" y2="112" stroke="#1a1a1a" stroke-width="2"/>
+        <circle cx="165" cy="116" r="4" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="178" y="120" fill="#6b6b6b">button</text>
+        <line x1="165" y1="120" x2="165" y2="138" stroke="#1a1a1a" stroke-width="2"/>
+        <!-- ground -->
+        <line x1="153" y1="138" x2="177" y2="138" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="157" y1="143" x2="173" y2="143" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="161" y1="148" x2="169" y2="148" stroke="#1a1a1a" stroke-width="2"/>
+      </g>
+    </svg>
+    <figcaption>Pull-up wiring: the resistor holds the pin HIGH by default; pressing the button connects
+    it to ground, pulling it LOW. The pin is never floating.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Pull-up:</strong> resistor from pin to <code>+</code>. Default reads HIGH; pressing
+    (button to GND) reads LOW. This "pressed = LOW" is called <span class="term">active-low</span> and is
+    extremely common.</li>
+    <li><strong>Pull-down:</strong> resistor from pin to <code>GND</code>. Default LOW; pressing
+    (button to <code>+</code>) reads HIGH.</li>
+    <li><strong>Value:</strong> ~<strong>10 kΩ</strong> is the go-to. Big enough to waste almost no
+    current, small enough to hold the pin firmly.</li>
+  </ul>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb (and a shortcut)</span>
+    Most microcontrollers, including the ESP32, have <strong>built-in pull-up resistors</strong> you
+    enable in code (<code>INPUT_PULLUP</code>). Use them — wire the button between the pin and
+    <code>GND</code>, enable the internal pull-up, and you skip the external resistor entirely.
+  </div>
+
+  <h2>One more gremlin: bounce</h2>
+  <p>Mechanical buttons don't make clean contact — the metal physically <em>bounces</em> for a few
+  milliseconds, so one press can register as several. The cure, called <span class="term">debouncing</span>,
+  is usually a few lines of code (ignore further changes for ~20–50 ms after a press) or a small
+  capacitor. Just know the word — when a button "double-fires," bounce is the culprit.</p>
+
+  <h2>Check yourself</h2>
+  <p>Recall first.</p>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/pull-up-resistors/all">SparkFun — Pull-up Resistors</a>.
+    The definitive beginner explanation of floating pins and how a pull resistor fixes them.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> "Pull-up or pull-down? Internal or external?"
+    is worth asking for your specific button or sensor — bring it to me.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0004-power-and-powering-safely.html">Lesson 4</a></span>
+    <span><a href="0006-driving-bigger-loads.html">Lesson 6</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "A pin connected to neither HIGH nor LOW is called floating, which means it…",
+      options: [
+        "Reads randomly from noise",
+        "Stays safely at zero",
+        "Cannot be damaged ever"
+      ],
+      answer: 0,
+      why: "A floating pin drifts and picks up noise, reading HIGH or LOW unpredictably. A pull resistor gives it a definite default state."
+    },
+    {
+      q: "A pull-up resistor holds an unpressed button's pin at…",
+      options: [
+        "A default HIGH state",
+        "A default LOW state",
+        "A floating middle state"
+      ],
+      answer: 0,
+      why: "Pull-up ties the pin weakly to +, so it reads HIGH by default; pressing connects it to ground and it reads LOW (active-low)."
+    },
+    {
+      q: "A typical, sensible value for a pull-up resistor is about…",
+      options: [
+        "10 kΩ",
+        "10 Ω",
+        "10 MΩ"
+      ],
+      answer: 0,
+      why: "~10 kΩ wastes almost no current yet holds the pin firmly. 10 Ω wastes current; 10 MΩ is too weak to beat noise reliably."
+    },
+    {
+      q: "When one button press registers as several, the likely cause is…",
+      options: [
+        "Contact bounce",
+        "Too much voltage",
+        "A missing ground"
+      ],
+      answer: 0,
+      why: "Mechanical contacts bounce for a few milliseconds. Debouncing — in code or with a capacitor — smooths it into one clean press."
+    }
+  ]);
+</script>
+</body>
+</html>

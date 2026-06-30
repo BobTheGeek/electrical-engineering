@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2 — Reading a Schematic &amp; Your Breadboard</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 2</p>
+  <h1>Reading a Schematic &amp; Your Breadboard</h1>
+  <p class="subtitle">A schematic is a map, not a picture — and the breadboard is where you walk it.</p>
+
+  <p>In <a href="0001-what-is-a-circuit.html">Lesson 1</a> you learned a circuit is a loop. Now you'll
+  learn to read the <em>map</em> of that loop — the schematic — and lay it down on a real breadboard.
+  Almost every guide you'll follow shows a schematic; being able to read one turns "copy this exactly"
+  into "I see what they're doing."</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    By the end you can take a simple schematic and point to the <em>exact breadboard holes</em>
+    where each part goes — and explain why those holes are connected.
+  </div>
+
+  <h2>A schematic is a map of connections</h2>
+
+  <p>A <span class="term">schematic</span> doesn't show what parts look like or where they sit. It shows
+  only one thing: <strong>what is connected to what.</strong> Two rules unlock 90% of it
+  <a href="https://learn.sparkfun.com/tutorials/how-to-read-a-schematic/all">(SparkFun's guide covers the rest)</a>:</p>
+
+  <ul>
+    <li><strong>Lines are wires.</strong> Any components joined by a line are electrically the same
+    point — a <span class="term">node</span> (or "net"). It doesn't matter how long or bendy the line is.</li>
+    <li><strong>Symbols are parts.</strong> Each has a letter label: <code>R</code> resistor,
+    <code>C</code> capacitor, <code>D</code> diode/LED, <code>U</code> chip, <code>SW</code> switch.
+    Numbers make them unique (R1, R2…).</li>
+  </ul>
+
+  <figure>
+    <svg viewBox="0 0 360 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Common schematic symbols.">
+      <g stroke="#1a1a1a" stroke-width="2" fill="none" font-family="sans-serif">
+        <!-- resistor -->
+        <polyline points="10,35 22,35 26,25 34,45 42,25 50,45 54,35 66,35"/>
+        <text x="22" y="62" font-size="11" fill="#6b6b6b" stroke="none">resistor</text>
+        <!-- LED -->
+        <g transform="translate(110,35)">
+          <polygon points="0,-10 0,10 16,0" fill="#1a1a1a"/>
+          <line x1="16" y1="-10" x2="16" y2="10"/>
+          <line x1="-14" y1="0" x2="0" y2="0"/>
+          <line x1="16" y1="0" x2="30" y2="0"/>
+          <line x1="6" y1="-14" x2="12" y2="-20"/><line x1="11" y1="-14" x2="17" y2="-20"/>
+        </g>
+        <text x="104" y="62" font-size="11" fill="#6b6b6b" stroke="none">LED</text>
+        <!-- battery -->
+        <g transform="translate(190,35)">
+          <line x1="0" y1="-12" x2="0" y2="12"/>
+          <line x1="10" y1="-6" x2="10" y2="6"/>
+          <line x1="-14" y1="0" x2="0" y2="0"/><line x1="10" y1="0" x2="24" y2="0"/>
+        </g>
+        <text x="178" y="62" font-size="11" fill="#6b6b6b" stroke="none">battery</text>
+        <!-- ground -->
+        <g transform="translate(285,22)">
+          <line x1="0" y1="0" x2="0" y2="14"/>
+          <line x1="-10" y1="14" x2="10" y2="14"/>
+          <line x1="-6" y1="19" x2="6" y2="19"/>
+          <line x1="-2" y1="24" x2="2" y2="24"/>
+        </g>
+        <text x="268" y="62" font-size="11" fill="#6b6b6b" stroke="none">ground</text>
+      </g>
+    </svg>
+    <figcaption>A few symbols you'll meet constantly. The full set lives in the
+    <a href="../reference/schematic-symbols.html">symbol cheat-sheet</a>.</figcaption>
+  </figure>
+
+  <div class="callout rule">
+    <span class="label">Reading trick</span>
+    Trace the loop with your finger, start at the power source's <strong>+</strong>, and name each
+    part you pass until you return to <strong>−</strong>. If you can narrate the loop, you can read the
+    schematic.
+  </div>
+
+  <h2>How a breadboard is wired inside</h2>
+
+  <p>A breadboard looks like a grid of identical holes, but hidden metal strips connect certain holes
+  together. Knowing the hidden pattern is the whole skill
+  <a href="https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard/all">(SparkFun: How to Use a Breadboard)</a>:</p>
+
+  <figure>
+    <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Breadboard internal connections.">
+      <rect x="5" y="5" width="370" height="190" rx="6" fill="#f4f2ec" stroke="#e2e0d8"/>
+      <!-- power rails -->
+      <rect x="20" y="18" width="340" height="2" fill="#c62828"/>
+      <text x="8" y="22" font-size="9" fill="#c62828">+</text>
+      <rect x="20" y="30" width="340" height="2" fill="#1f6f8b"/>
+      <text x="8" y="34" font-size="9" fill="#1f6f8b">−</text>
+      <text x="20" y="46" font-size="9" fill="#6b6b6b">↑ power rails run the WHOLE length (left–right)</text>
+
+      <!-- center gap -->
+      <line x1="190" y1="60" x2="190" y2="160" stroke="#cfcabd" stroke-width="2" stroke-dasharray="3 3"/>
+      <text x="150" y="112" font-size="9" fill="#6b6b6b" transform="rotate(-90 160 112)">center gap</text>
+
+      <!-- column groups: vertical strips of 5 -->
+      <g fill="#1f6f8b">
+        <!-- left block, a few columns -->
+        <rect x="60" y="60" width="2" height="44"/>
+        <rect x="80" y="60" width="2" height="44"/>
+        <rect x="100" y="60" width="2" height="44"/>
+        <!-- right block -->
+        <rect x="240" y="116" width="2" height="44"/>
+        <rect x="260" y="116" width="2" height="44"/>
+        <rect x="280" y="116" width="2" height="44"/>
+      </g>
+      <text x="55" y="120" font-size="9" fill="#6b6b6b">columns of 5 connect ↕ (up–down), stop at the gap</text>
+    </svg>
+    <figcaption>Two patterns: long <strong>power rails</strong> along the edges (connected left-to-right),
+    and short <strong>columns of 5</strong> in the middle (connected top-to-bottom, and the two halves are
+    split by the center gap).</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>The center gap matters.</strong> It splits each column so the top half and bottom half
+    are <em>separate</em>. This is exactly the right width to straddle a chip — each pin lands in its own column.</li>
+    <li><strong>Holes in the same column-of-5 are one node.</strong> Plug two legs into the same column
+    and you've wired them together — no wire needed.</li>
+    <li><strong>Rails are for power.</strong> Run <code>+</code> and <code>GND</code> along the rails so
+    every part can reach them. (Tip: many boards split the rail in the middle — bridge it with a wire if needed.)</li>
+  </ul>
+
+  <h2>Translating: schematic → board</h2>
+  <p>Here's the recipe, every time:</p>
+  <ol>
+    <li>Put power on the rails: source <code>+</code> to the red rail, <code>−/GND</code> to the blue rail.</li>
+    <li>For each <em>node</em> in the schematic, pick one empty column to represent it.</li>
+    <li>Plug each component's legs into the columns for the nodes it connects. A resistor between node A
+    and node B: one leg in column-A, the other in column-B.</li>
+    <li>Use short jumper wires to bridge a column to a rail, or one column to another.</li>
+  </ol>
+
+  <p>That's it — the breadboard is just a convenient way to make the schematic's nodes physical.</p>
+
+  <h2>Check yourself</h2>
+  <p>Recall first — don't scroll up.</p>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/how-to-read-a-schematic/all">SparkFun — How to Read a Schematic</a>,
+    paired with <a href="https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard/all">How to Use a Breadboard</a>.
+    Between them they show every symbol and the exact hidden wiring of the board.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Send me a photo of a schematic or your
+    breadboard and I'll help you trace the nodes. That back-and-forth is where this clicks.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0001-what-is-a-circuit.html">Lesson 1</a></span>
+    <span><a href="0003-series-and-parallel.html">Lesson 3</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/schematic-symbols.html">Symbol cheat-sheet</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "On a schematic, a line drawn between two components means they are…",
+      options: [
+        "Electrically the same point",
+        "Placed close on the board",
+        "The same type of part"
+      ],
+      answer: 0,
+      why: "A wire/line means one electrical node — those points are connected, no matter how the line is drawn. Position on the page means nothing."
+    },
+    {
+      q: "Holes in the same short column on a breadboard are…",
+      options: [
+        "Connected to each other",
+        "Always left disconnected",
+        "Only for power supply"
+      ],
+      answer: 0,
+      why: "Each column of five holes is joined by a hidden metal strip — plug two legs into one column and they're wired together. The center gap splits top from bottom."
+    },
+    {
+      q: "The long strips along the edges of a breadboard are best used for…",
+      options: [
+        "Power and ground rails",
+        "Holding a single chip",
+        "Signal between two pins"
+      ],
+      answer: 0,
+      why: "The edge rails run the whole length, so they're ideal for distributing + and GND to every part on the board."
+    },
+    {
+      q: "The best first move when reading any schematic is to…",
+      options: [
+        "Trace the loop from + to −",
+        "Count how many parts exist",
+        "Measure the line lengths"
+      ],
+      answer: 0,
+      why: "Following the loop from the source's + back to its − and naming each part you pass is how you understand what the circuit does."
+    }
+  ]);
+</script>
+</body>
+</html>

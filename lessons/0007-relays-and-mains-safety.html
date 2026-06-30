@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 7 — Relays &amp; Switching Mains Safely</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 7</p>
+  <h1>Relays &amp; Switching Mains Safely</h1>
+  <p class="subtitle">The home-automation payoff — and the lesson where safety comes first.</p>
+
+  <p>This is what we've been building toward: making your ESP32 switch a <em>real</em> household device —
+  a lamp, a fan, a heater. The hero is the <span class="term">relay</span>. But this lesson carries a
+  warning the others didn't, because for the first time we're near voltages that can <strong>injure or
+  kill</strong>. Read the safety section as carefully as the technical one.</p>
+
+  <div class="callout danger">
+    <span class="label">Read this first</span>
+    <strong>Mains voltage (120V/230V AC) can kill you and can start fires.</strong> Do not wire mains
+    until you understand this lesson and are confident. If you're unsure at any point, stop and ask —
+    or use a commercial smart plug (which is a relay in a safe, certified box). There is no shame in
+    that; it's the same circuit, professionally enclosed.
+  </div>
+
+  <h2>What a relay is</h2>
+  <p>A relay is an <strong>electrically-controlled switch with a wall between the two sides.</strong> A
+  small current energizes a coil, the coil's magnetism physically pulls a metal switch closed, and that
+  switch is a <em>completely separate</em> circuit — it can carry mains power your microcontroller never
+  touches
+  <a href="https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/">(Random Nerd Tutorials: Relay guide)</a>.</p>
+
+  <div class="callout rule">
+    <span class="label">The key idea: isolation</span>
+    The control side (your 3.3V/5V signal) and the switched side (mains) are <span class="term">isolated</span> —
+    physically separate, no electrical connection. That barrier is what lets a tiny safe signal command a
+    dangerous load. Protecting that barrier is the whole safety game.
+  </div>
+
+  <h2>Use a relay module, not a bare relay</h2>
+  <p>A bare relay coil is an inductive load — it needs the transistor and flyback diode from
+  <a href="0006-driving-bigger-loads.html">Lesson 6</a> just to drive it. A <span class="term">relay
+  module</span> (a little board) bundles all of that for you: the driver transistor, the flyback diode,
+  often an <span class="term">optocoupler</span> for extra isolation, and screw terminals for the load.
+  You feed it power, ground, and one control pin from the ESP32.</p>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    As a beginner, <strong>always use a relay module</strong>, and check its <strong>contact rating</strong>
+    (printed on the relay, e.g. "10A 250VAC") comfortably exceeds your load. The module handles the
+    Lesson-6 details so you can focus on wiring safely.
+  </div>
+
+  <h2>The three contact terminals: COM, NO, NC</h2>
+  <ul>
+    <li><strong>COM</strong> (common) — the pole the switch moves to and from.</li>
+    <li><strong>NO</strong> (normally open) — disconnected until the relay activates. Use this so your
+    device is <em>off</em> by default (the safe choice).</li>
+    <li><strong>NC</strong> (normally closed) — connected until the relay activates.</li>
+  </ul>
+  <p>For a lamp you want on-demand: wire it through <strong>COM → NO</strong>, so a dead or unprogrammed
+  board leaves the lamp off.</p>
+
+  <h2>Mains safety rules — non-negotiable</h2>
+  <p>These come straight from experienced makers who teach this
+  <a href="https://dronebotworkshop.com/ac-arduino/">(DroneBotWorkshop: Control AC Devices Safely)</a>:</p>
+
+  <div class="callout danger">
+    <span class="label">The safety checklist</span>
+    <ul style="margin:0.4rem 0 0; padding-left:1.1rem">
+      <li><strong>Power off and unplugged</strong> before touching any mains wiring. Always.</li>
+      <li><strong>Switch the hot/live wire only</strong> — never the neutral or ground.</li>
+      <li><strong>Relay rating must exceed the load</strong> (voltage and current), with margin.</li>
+      <li><strong>Everything in an enclosure.</strong> No exposed mains conductors — ever. Use proper
+      strain relief and the right wire gauge.</li>
+      <li><strong>No breadboards for mains.</strong> Breadboards are for the low-voltage side only;
+      mains connections must be screw terminals or soldered and insulated.</li>
+      <li><strong>When in doubt, stop.</strong> Use a certified smart plug, or consult a licensed
+      electrician. Mains is the one place "let's just try it" is the wrong instinct.</li>
+    </ul>
+  </div>
+
+  <h2>The whole picture</h2>
+  <p>Putting the course together: a sensor or button (<a href="0005-buttons-and-inputs.html">Lesson 5</a>)
+  tells your ESP32 something; your code decides; a pin drives the relay module's control input; the module
+  safely switches the mains device — with isolation, a flyback diode, and a rated contact doing the
+  dangerous work behind a barrier. That's a home-automation gadget.</p>
+
+  <h2>Check yourself</h2>
+  <p>Recall first — the safety answers especially.</p>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary sources)</span>
+    <a href="https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/">Random Nerd Tutorials — Relay Module Guide</a>
+    for the wiring, and <a href="https://dronebotworkshop.com/ac-arduino/">DroneBotWorkshop — Control AC Devices Safely</a>
+    for the safety practices. Read both before going near mains.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything, and please do before your first mains build.</strong>
+    Walk me through your plan and I'll help you check ratings, wiring, and whether a smart plug is the
+    smarter call. This is the lesson to over-ask on.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0006-driving-bigger-loads.html">Lesson 6</a></span>
+    <span>You've reached the end of the study pack 🎉</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "The feature of a relay that lets a tiny signal control mains is…",
+      options: [
+        "Isolation between the two sides",
+        "A very high coil voltage",
+        "Storing charge in the coil"
+      ],
+      answer: 0,
+      why: "The control side and switched side are physically isolated — no electrical connection. That barrier is what makes safe control of a dangerous load possible."
+    },
+    {
+      q: "As a beginner switching mains, you should always reach for a…",
+      options: [
+        "Ready-made relay module",
+        "Bare relay and pin",
+        "Higher-voltage pin mode"
+      ],
+      answer: 0,
+      why: "A relay module bundles the driver transistor, flyback diode, and isolation, and gives you rated screw terminals — far safer and easier than a bare relay."
+    },
+    {
+      q: "When wiring a mains device through a relay, you switch the…",
+      options: [
+        "Hot/live wire only",
+        "Neutral wire only",
+        "Ground wire only"
+      ],
+      answer: 0,
+      why: "Always switch the hot/live conductor, never neutral or ground — and always with power disconnected first."
+    },
+    {
+      q: "Breadboards in a mains project should be used for…",
+      options: [
+        "Only the low-voltage side",
+        "The mains connections too",
+        "Carrying the load current"
+      ],
+      answer: 0,
+      why: "Breadboards are strictly low-voltage. Mains must use screw terminals or soldered, insulated joints inside an enclosure — never a breadboard."
+    }
+  ]);
+</script>
+</body>
+</html>

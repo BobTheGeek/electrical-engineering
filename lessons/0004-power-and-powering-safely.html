@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 4 — Power &amp; Powering Things Safely</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 4</p>
+  <h1>Power &amp; Powering Things Safely</h1>
+  <p class="subtitle">Volts, amps, watts — and the two rules that stop you frying your board.</p>
+
+  <p>This lesson is the one that protects your hardware. Most beginner disasters — dead pins, smoked
+  boards, mystery resets — come from misunderstanding power. Three ideas and two hard rules will keep
+  your home-automation gear alive.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You can answer two questions for any project: <em>"Will this voltage damage my board?"</em> and
+    <em>"Can this pin supply enough current to drive that thing?"</em>
+  </div>
+
+  <h2>Watts: how much work is being done</h2>
+  <p><span class="term">Power</span>, measured in <span class="term">watts (W)</span>, is just voltage
+  times current: <code>P = V × I</code>. In plain terms — <strong>power is how much electrical work is
+  happening per second.</strong> It's what makes things bright, hot, or move. A device's power tells
+  you how much current it'll pull at a given voltage. That's all you need from the formula.</p>
+
+  <h2>Rule 1 — Match the voltage (3.3V vs 5V)</h2>
+  <p>Different boards run at different <em>logic voltages</em>. A classic Arduino Uno uses
+  <strong>5V</strong>. The <strong>ESP32</strong> — your likely home-automation brain, because of its
+  built-in WiFi — runs at <strong>3.3V</strong>. This difference is the single biggest "magic smoke"
+  trap for beginners
+  <a href="https://learn.sparkfun.com/tutorials/logic-levels/all">(SparkFun: Logic Levels)</a>.</p>
+
+  <div class="callout danger">
+    <span class="label">The trap</span>
+    Feeding a <strong>5V signal into a 3.3V pin</strong> (like an ESP32's) can permanently damage it.
+    A 5V sensor's output wired straight to a 3.3V input is a common way to kill a board. When mixing
+    3.3V and 5V parts, you need a <span class="term">logic level converter</span> (a cheap little board)
+    between them.
+  </div>
+
+  <ul>
+    <li>Going the other way is usually fine for <em>power</em> but check each part's datasheet for
+    signals — many 5V devices won't reliably read a 3.3V "HIGH."</li>
+    <li>Rule of thumb: <strong>know your board's voltage before you wire anything to its pins.</strong>
+    Write it on a sticky note: "ESP32 = 3.3V."</li>
+  </ul>
+
+  <h2>Rule 2 — Respect the current limit of a pin</h2>
+  <p>A microcontroller pin is a <em>signal</em>, not a power supply. It can source only a tiny current —
+  roughly <strong>20–40 mA</strong> per pin, with a total budget across all pins. That's enough to light
+  an LED. It is <em>nowhere near</em> enough to run a motor, a relay coil, a strip of LEDs, or a pump.</p>
+
+  <div class="callout danger">
+    <span class="label">The trap</span>
+    Wiring a motor or relay coil directly to a pin will, at best, brown out your board (random resets)
+    and at worst destroy the pin. <strong>Bigger loads need their own power and a "helper" switch</strong>
+    — a transistor or relay — which is exactly where Lessons 6 and 7 go.
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pin drives small load directly, big load needs separate power.">
+      <text x="10" y="20" font-size="12" fill="#2e7d32">✓ small load (LED + resistor)</text>
+      <g stroke="#b3461f" stroke-width="2" fill="none"><path d="M20 35 H120"/></g>
+      <text x="125" y="39" font-size="11" fill="#6b6b6b">~20 mA — fine from a pin</text>
+
+      <text x="10" y="80" font-size="12" fill="#c62828">✗ motor / relay / LED strip</text>
+      <g stroke="#b3461f" stroke-width="2" fill="none"><path d="M20 95 H120"/></g>
+      <text x="125" y="99" font-size="11" fill="#6b6b6b">needs its own supply + a transistor/relay</text>
+    </svg>
+    <figcaption>A pin can flick a small load directly; anything hungry needs separate power and a helper switch.</figcaption>
+  </figure>
+
+  <h2>The golden wiring rule: common ground</h2>
+  <p>When your project has more than one power source (say, USB into the ESP32 plus a separate 5V supply
+  for a motor), their <strong>grounds must be connected together.</strong> Current needs a complete loop
+  (Lesson 1!) — without a shared <code>GND</code> reference, signals have nothing to measure against and
+  nothing works, or behaves erratically.</p>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    <strong>All grounds tie together.</strong> Separate <code>+</code> supplies are fine and often
+    necessary — but every part of the project must share one common <code>GND</code>.
+  </div>
+
+  <h2>Where your project's power comes from</h2>
+  <ul>
+    <li><strong>USB</strong> (5V) powers the board and gets regulated down on-board to 3.3V for an ESP32.</li>
+    <li><strong>A separate supply</strong> (a "wall wart" / DC adapter) for hungry loads — sized to the
+    load's voltage and at least its current draw.</li>
+    <li><strong>Regulators</strong> step one voltage down to another cleanly. The "3V3" pin on an ESP32
+    board is a regulated output you can borrow small amounts from.</li>
+  </ul>
+
+  <h2>Check yourself</h2>
+  <p>Recall first.</p>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/logic-levels/all">SparkFun — Logic Levels</a>.
+    The clearest explanation of why 3.3V and 5V parts need care when they meet.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Before you connect a new module, paste me its
+    name and your board, and I'll sanity-check the voltage and current. Cheap insurance against smoke.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0003-series-and-parallel.html">Lesson 3</a></span>
+    <span><a href="0005-buttons-and-inputs.html">Lesson 5</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "An ESP32's pins run at 3.3V. Feeding a 5V signal straight into one will likely…",
+      options: [
+        "Damage the input pin",
+        "Charge it up faster",
+        "Make it run cooler"
+      ],
+      answer: 0,
+      why: "5V into a 3.3V pin can permanently damage it. Mixing voltages needs a logic level converter between the parts."
+    },
+    {
+      q: "A single microcontroller pin can safely supply roughly…",
+      options: [
+        "A few tens of mA",
+        "Several whole amps",
+        "Any load you attach"
+      ],
+      answer: 0,
+      why: "Pins source only ~20–40 mA — enough for an LED, not a motor or relay. Hungry loads need their own supply and a helper switch."
+    },
+    {
+      q: "When a project uses two separate power supplies, you must always…",
+      options: [
+        "Tie their grounds together",
+        "Keep their grounds apart",
+        "Join their plus rails too"
+      ],
+      answer: 0,
+      why: "A shared common ground gives signals a reference and completes the loop. Separate + rails are fine; grounds must be common."
+    },
+    {
+      q: "To drive a motor from an ESP32, the right approach is to…",
+      options: [
+        "Use separate power and a helper switch",
+        "Wire the motor right to a pin",
+        "Raise the pin to a higher voltage"
+      ],
+      answer: 0,
+      why: "Motors pull far more current than a pin can give. Power the motor from its own supply and switch it with a transistor or relay (Lessons 6–7)."
+    }
+  ]);
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 6 — Driving Bigger Loads</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 6</p>
+  <h1>Driving Bigger Loads</h1>
+  <p class="subtitle">The transistor as a switch — letting a tiny signal control a big current.</p>
+
+  <p>In <a href="0004-power-and-powering-safely.html">Lesson 4</a> we learned a pin can't power hungry
+  things directly. This lesson is the fix, and it's one of the most useful ideas in all of electronics:
+  a <strong>transistor</strong> lets a weak control signal switch a much larger current. It's the bridge
+  to relays, motors, and bright lights — the "output" muscle of your gadget.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand the transistor-as-a-switch: a small current at the control terminal turns a big
+    current on and off — and you know the one extra part (a diode) that protects everything.
+  </div>
+
+  <h2>A transistor is an electrically-controlled valve</h2>
+  <p>Back to the water analogy. A <span class="term">transistor</span> is a valve in a big pipe, opened
+  by a small control input. A little signal at the <span class="term">base</span> (the control terminal)
+  lets a large flow pass between the other two terminals
+  <a href="https://learn.sparkfun.com/tutorials/transistors/all">(SparkFun: Transistors)</a>.</p>
+
+  <figure>
+    <svg viewBox="0 0 360 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NPN transistor switching a load low-side.">
+      <g font-family="sans-serif" font-size="11" fill="#1a1a1a">
+        <!-- supply top -->
+        <text x="200" y="14">+ supply (load's own)</text>
+        <line x1="240" y1="18" x2="240" y2="40" stroke="#c62828" stroke-width="2"/>
+        <!-- load -->
+        <rect x="218" y="40" width="44" height="26" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="226" y="57" font-size="10">LOAD</text>
+        <line x1="240" y1="66" x2="240" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+        <!-- transistor body -->
+        <circle cx="240" cy="110" r="20" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+        <line x1="226" y1="100" x2="226" y2="120" stroke="#1a1a1a" stroke-width="3"/>
+        <line x1="226" y1="104" x2="240" y2="92" stroke="#1a1a1a" stroke-width="2"/>  <!-- collector -->
+        <line x1="226" y1="116" x2="244" y2="128" stroke="#1a1a1a" stroke-width="2"/> <!-- emitter -->
+        <!-- base from pin via resistor -->
+        <line x1="190" y1="110" x2="210" y2="110" stroke="#1f6f8b" stroke-width="2"/>
+        <polyline points="170,110 165,105 160,115 155,105 150,115 148,110" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+        <line x1="120" y1="110" x2="148" y2="110" stroke="#1f6f8b" stroke-width="2"/>
+        <line x1="210" y1="110" x2="226" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+        <text x="60" y="106" fill="#1f6f8b">pin →</text>
+        <text x="150" y="100" font-size="9" fill="#6b6b6b">base resistor</text>
+        <!-- emitter to ground -->
+        <line x1="244" y1="128" x2="244" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="232" y1="150" x2="256" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="236" y1="155" x2="252" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+        <line x1="240" y1="160" x2="248" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+      </g>
+    </svg>
+    <figcaption>"Low-side" switch: the pin drives the transistor's base through a resistor; the
+    transistor connects the load to ground when told to. The load gets its own supply.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Pin → base, through a resistor.</strong> The base needs only a small current; a
+    <strong>~1 kΩ</strong> resistor protects the pin. (Like the LED, the base can't limit its own current.)</li>
+    <li><strong>The load gets its own power.</strong> The transistor just opens/closes the path to ground.
+    Pin HIGH → transistor on → load runs. Pin LOW → off.</li>
+    <li><strong>Common ground.</strong> The transistor's emitter and your board share GND (Lesson 4's
+    golden rule).</li>
+  </ul>
+
+  <h2>BJT vs MOSFET — the two-second version</h2>
+  <p>You'll see two families. A <span class="term">BJT</span> (e.g. the classic 2N2222) is fine for small
+  loads. A <span class="term">MOSFET</span> (e.g. a "logic-level" one) handles bigger currents more
+  efficiently and is the modern default for motors and LED strips. For now: <em>both are switches; pick a
+  MOSFET when the load is hungry.</em></p>
+
+  <h2>The must-have part for coils &amp; motors: the flyback diode</h2>
+  <p>Anything with a coil — a motor, a relay — stores energy in a magnetic field. When you switch it
+  <em>off</em>, that energy snaps back as a brief high-voltage spike that can destroy your transistor.</p>
+
+  <div class="callout danger">
+    <span class="label">Rule you must not skip</span>
+    When switching a motor or relay coil, place a <span class="term">flyback diode</span> across the
+    coil (backwards to normal current) to absorb that spike. Without it, you'll kill transistors. Most
+    ready-made relay <em>modules</em> already include it — one reason we'll prefer them next lesson.
+  </div>
+
+  <h2>Check yourself</h2>
+  <p>Recall first.</p>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/transistors/all">SparkFun — Transistors</a>,
+    especially the "as a switch" section. It extends the same water-valve picture we used here.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Tell me the load you want to switch (its voltage
+    and current) and I'll help you pick a transistor and whether you need a flyback diode.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0005-buttons-and-inputs.html">Lesson 5</a></span>
+    <span><a href="0007-relays-and-mains-safety.html">Lesson 7</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "The job of a transistor used as a switch is to let a small signal…",
+      options: [
+        "Control a much larger current",
+        "Increase the supply voltage",
+        "Store energy for later use"
+      ],
+      answer: 0,
+      why: "A transistor is an electrically-controlled valve: a small base current switches a large current between the other terminals on and off."
+    },
+    {
+      q: "Between the microcontroller pin and the transistor's base you should put a…",
+      options: [
+        "Base resistor (~1 kΩ)",
+        "Large capacitor bank",
+        "Second power supply"
+      ],
+      answer: 0,
+      why: "Like an LED, the base can't limit its own current. A ~1 kΩ resistor protects the pin while still turning the transistor on."
+    },
+    {
+      q: "When switching a motor or relay coil, you must add a flyback diode to…",
+      options: [
+        "Absorb the turn-off voltage spike",
+        "Boost the motor's top speed",
+        "Smooth the supply ripple"
+      ],
+      answer: 0,
+      why: "Coils kick back a high-voltage spike when switched off. The flyback diode safely absorbs it, protecting the transistor."
+    },
+    {
+      q: "For a hungry load like a motor or LED strip, the modern default switch is a…",
+      options: [
+        "Logic-level MOSFET",
+        "Tiny signal BJT",
+        "Plain bare wire"
+      ],
+      answer: 0,
+      why: "MOSFETs handle larger currents efficiently. Small BJTs are fine for light loads; pick a logic-level MOSFET when the load is hungry."
+    }
+  ]);
+</script>
+</body>
+</html>

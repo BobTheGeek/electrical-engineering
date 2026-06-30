@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 3 — Series &amp; Parallel</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 3</p>
+  <h1>Series &amp; Parallel</h1>
+  <p class="subtitle">Two ways to connect things — and the rules of thumb that tell you what happens.</p>
+
+  <p>Every multi-part circuit connects its pieces in one of two arrangements, or a mix. Knowing which
+  is which lets you <em>predict behavior at a glance</em> — without algebra. This is the difference
+  between guessing and reasoning when you wire up several LEDs, sensors, or power connections.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    Look at two components and instantly say whether current is <em>shared</em> (series) or <em>split</em>
+    (parallel) — and what that means for your project.
+  </div>
+
+  <h2>Series: one single-file path</h2>
+  <p><span class="term">Series</span> means components are in a line, one after another, on a single
+  path. There's only one road for current to take, so it must pass through every part in turn.</p>
+
+  <figure>
+    <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two parts in series, one loop.">
+      <g fill="none" stroke="#b3461f" stroke-width="2.5">
+        <path d="M30 45 H120"/><path d="M180 45 H230"/><path d="M290 45 H300 V75 H20 V45 H30"/>
+      </g>
+      <rect x="120" y="36" width="60" height="18" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="142" y="49" font-size="11">A</text>
+      <rect x="230" y="36" width="60" height="18" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="252" y="49" font-size="11">B</text>
+      <circle cx="20" cy="60" r="3" fill="#1a1a1a"/>
+    </svg>
+    <figcaption>Series: A then B on one loop. The same current flows through both.</figcaption>
+  </figure>
+
+  <p>Rules of thumb for series:</p>
+  <ul>
+    <li><strong>Same current through everything.</strong> One path means one flow rate, shared by all.</li>
+    <li><strong>Voltage splits up</strong> among the parts (remember from
+    <a href="0001-what-is-a-circuit.html">Lesson 1</a>: each component "uses up" some pressure).</li>
+    <li><strong>Resistances add.</strong> Two resistors in series = their values summed. More parts in
+    line → more total resistance → less current. <em>(That's the only arithmetic here.)</em></li>
+    <li><strong>Break one, break all.</strong> Old Christmas lights in series: one bulb dies, the whole
+    string goes dark — the loop is broken.</li>
+  </ul>
+
+  <h2>Parallel: side-by-side paths</h2>
+  <p><span class="term">Parallel</span> means components are connected across the <em>same two points</em>,
+  giving current multiple roads. Each part is its own branch between the same node pair.</p>
+
+  <figure>
+    <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two parts in parallel.">
+      <g fill="none" stroke="#b3461f" stroke-width="2.5">
+        <path d="M40 20 H280"/><path d="M40 110 H280"/>
+        <path d="M40 20 V110"/><path d="M280 20 V110"/>
+      </g>
+      <rect x="110" y="20" width="18" height="50" fill="#fff" stroke="#1a1a1a" stroke-width="2" transform="translate(0,18)"/>
+      <text x="116" y="72" font-size="11">A</text>
+      <rect x="200" y="38" width="18" height="50" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="206" y="72" font-size="11">B</text>
+      <circle cx="40" cy="20" r="3" fill="#1a1a1a"/><circle cx="280" cy="20" r="3" fill="#1a1a1a"/>
+    </svg>
+    <figcaption>Parallel: A and B each bridge the same top and bottom nodes. They share voltage; current splits between them.</figcaption>
+  </figure>
+
+  <p>Rules of thumb for parallel:</p>
+  <ul>
+    <li><strong>Same voltage across each branch.</strong> Both ends touch the same two nodes, so each
+    part feels the full source voltage.</li>
+    <li><strong>Current splits</strong> between branches and re-joins after. Add a branch, draw more
+    total current from the source.</li>
+    <li><strong>Independent.</strong> Unplug one branch and the others keep working — they each have
+    their own path. (Your home's outlets are wired in parallel for exactly this reason.)</li>
+  </ul>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb for your projects</span>
+    Power your modules <strong>in parallel</strong>: run every board/sensor's power pin to the
+    <code>+</code> rail and every ground to the <code>GND</code> rail. Each gets the full voltage and
+    works independently. You almost never want to put whole modules in series.
+  </div>
+
+  <div class="callout">
+    <span class="label">The big exception: LEDs</span>
+    Each LED still needs its <em>own</em> series resistor. Putting several LEDs in parallel on a single
+    shared resistor leads to uneven brightness and trouble — give each LED branch its own current limit.
+  </div>
+
+  <h2>Check yourself</h2>
+  <p>Recall first.</p>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all">SparkFun — Series and Parallel Circuits</a>.
+    Same ideas with more worked examples; skip the heavier math, keep the intuition.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> "Should these be series or parallel?" is one of
+    the most useful questions you can bring me about a real build. Ask away.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0002-schematics-and-breadboards.html">Lesson 2</a></span>
+    <span><a href="0004-power-and-powering-safely.html">Lesson 4</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "In a series connection, the thing that is the same through every part is the…",
+      options: [
+        "Current flowing through",
+        "Voltage across each one",
+        "Resistance of each one"
+      ],
+      answer: 0,
+      why: "One single-file path means one shared current. The voltage divides among the parts instead."
+    },
+    {
+      q: "In a parallel connection, the thing that is the same across every branch is the…",
+      options: [
+        "Voltage across each one",
+        "Current through each one",
+        "Length of each branch"
+      ],
+      answer: 0,
+      why: "Parallel branches share the same two nodes, so each feels the same voltage. The current splits between them."
+    },
+    {
+      q: "You should wire your sensor modules' power connections in…",
+      options: [
+        "Parallel to the power rails",
+        "Series down a single line",
+        "A separate loop for each"
+      ],
+      answer: 0,
+      why: "Parallel gives every module the full supply voltage and lets each work independently — the standard way to power multiple boards."
+    },
+    {
+      q: "If one bulb fails in a string wired in series, the rest will…",
+      options: [
+        "All go dark together",
+        "Keep glowing as before",
+        "Glow only a bit dimmer"
+      ],
+      answer: 0,
+      why: "Series is one loop — break it anywhere and current stops everywhere. Parallel branches, by contrast, are independent."
+    }
+  ]);
+</script>
+</body>
+</html>

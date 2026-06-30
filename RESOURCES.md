@@ -14,6 +14,18 @@
   Huge library of project-based guides, strong on ESP32/Arduino and home automation. Use for: hands-on build guides once a concept is understood.
 - [Starting Electronics: Voltage, Current, and Resistance](https://startingelectronics.org/voltage-current-and-resistance/)
   A second, concise take on the fundamentals. Use for: a different phrasing if the SparkFun version doesn't click.
+- [SparkFun Learn: Series and Parallel Circuits](https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all)
+  Use for: Lesson 3. The two connection patterns with worked examples (skip the heavier math).
+- [SparkFun Learn: Logic Levels](https://learn.sparkfun.com/tutorials/logic-levels/all)
+  Use for: Lesson 4. Why 3.3V and 5V parts need care when they meet.
+- [SparkFun Learn: Pull-up Resistors](https://learn.sparkfun.com/tutorials/pull-up-resistors/all)
+  Use for: Lesson 5. Floating pins and how pull-up/pull-down resistors fix them.
+- [SparkFun Learn: Transistors](https://learn.sparkfun.com/tutorials/transistors/all)
+  Use for: Lesson 6. The transistor-as-a-switch via the water-valve analogy.
+- [Random Nerd Tutorials: Relay Module with Arduino](https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/)
+  Use for: Lesson 7. Practical relay-module wiring (COM/NO/NC, control side).
+- [DroneBotWorkshop: Control AC Devices with Arduino — SAFELY](https://dronebotworkshop.com/ac-arduino/)
+  Use for: Lesson 7. The mains-safety practices. High-trust hobbyist source with a strong safety stance.
 
 ## Wisdom (Communities)
 
@@ -25,4 +37,6 @@
   Use for: ESP32/board-specific and home-automation questions.
 
 ## Gaps
-- Need a high-trust, beginner-friendly resource specifically on **relays and safely switching mains-powered devices** (the riskiest part of the home-automation mission). To find before that lesson.
+- _(resolved)_ Relays / mains safety — now covered by Random Nerd Tutorials + DroneBotWorkshop above.
+- Need a trusted resource on **WiFi / connecting an ESP32 to a network or Home Assistant / MQTT** — the connectivity half of the home-automation mission, not yet taught. To find before a networking lesson.
+- Could use a good **multimeter basics** resource (measuring voltage/continuity to debug builds).

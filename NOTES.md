@@ -19,3 +19,12 @@ Every lesson should connect back to "something I'd build for the home."
 ## Safety flag
 The mission involves mains voltage (relays switching household power). When we get there, safety
 must be front-and-center. Keep early lessons on safe low-voltage (3.3V/5V) territory.
+→ Lesson 7 now covers mains safety explicitly. Keep reinforcing: walk plans past the teacher before
+  any real mains build; a certified smart plug is a legitimate, encouraged fallback.
+
+## Status (as of last session)
+- Lessons 1–7 published; a six-lesson "study pack" (2–7) was generated in advance for an offline trip.
+- Lessons are self-contained and work offline (local assets) — learner can open files directly.
+- Site is live at https://ee.bobthegeek.com (GitHub Pages, repo BobTheGeek/electrical-engineering).
+- **Next session:** verify retention via retrieval before advancing (see learning-record 0002).
+  Probable next topic: ESP32 WiFi / connectivity (the mission's other half) — resources gap to fill first.
