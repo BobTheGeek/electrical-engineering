@@ -59,6 +59,16 @@
 - [ESPHome](https://esphome.io/) · [Home Assistant: MQTT integration](https://www.home-assistant.io/integrations/mqtt/)
   Use for: Lesson 22. The two paths to connect an ESP32 to Home Assistant.
 
+### Guitar effects (analog audio)
+- [Beavis Audio Research](https://beavisaudio.com/) · [The Hacker's Guide to the Beavis Board (PDF)](https://beavisaudio.com/beavisboard/docs/HackersGuideToTheBeavisBoard.pdf)
+  Use for: Lessons 23 & 29. The friendliest guide to breadboarding effects and the guitar→breadboard→amp rig.
+- [ElectroSmash](https://www.electrosmash.com/) — analyses of [Tube Screamer](https://www.electrosmash.com/tube-screamer-analysis) (soft clip), [Boss DS-1](https://www.electrosmash.com/boss-ds1-analysis) (hard clip), [PT2399](https://www.electrosmash.com/pt2399-analysis) (delay)
+  Use for: Lessons 25–28. Gold-standard, component-by-component analysis of famous pedals.
+- [Wampler: How to design a basic distortion pedal](https://www.wamplerpedals.com/blog/lifestyle-hobby/2024/08/how-to-design-a-basic-distortion-pedal-circuit/)
+  Use for: Lesson 24. Bias, coupling, and the input stage in pedal terms (by a respected builder).
+- [GuitarPedalX: Clipping Diodes primer](https://www.guitarpedalx.com/news/a-brief-hobbyist-primer-on-clipping-diodes) · [Tone Stacks primer](https://www.guitarpedalx.com/news/a-brief-hobbyist-primer-on-key-tone-stack-types-and-circuit-eq-configurations---in-collaboration-with-master-builder-adrian-thorpy-thorpe)
+  Use for: Lessons 26 & 27. Hobbyist primers on diode choices and tone-control topologies.
+
 ## Wisdom (Communities)
 
 - [Arduino Forum — General Electronics](https://forum.arduino.cc/c/using-arduino/general-electronics/9)
@@ -67,6 +77,10 @@
   Use for: project critique, "why isn't this working" troubleshooting, component selection second opinions.
 - [Adafruit Forums](https://forums.adafruit.com/)
   Use for: ESP32/board-specific and home-automation questions.
+- [DIYstompboxes forum](https://www.diystompboxes.com/smfforum/) and [r/diypedals](https://reddit.com/r/diypedals)
+  Use for: guitar-effect circuit help, breadboard debugging, build/mod feedback. The core DIY-pedal communities.
+- [freestompboxes.org](https://www.freestompboxes.org/) · [PedalPCB forum](https://forum.pedalpcb.com/)
+  Use for: deeper pedal-circuit discussion and PCB/build questions when projects mature.
 
 ## Gaps
 - _(resolved)_ Relays / mains safety — covered by Random Nerd Tutorials + DroneBotWorkshop.

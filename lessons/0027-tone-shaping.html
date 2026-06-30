@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 27 — Tone Shaping (Filters &amp; EQ)</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 27 · Guitar Effects on a Breadboard</p>
+  <h1>Tone Shaping (Filters &amp; EQ)</h1>
+  <p class="subtitle">Cut treble or bass with nothing but a capacitor and a resistor.</p>
+
+  <p>Gain makes a signal bigger; clipping makes it dirty; <span class="term">filters</span> decide which
+  <em>frequencies</em> survive. Tone controls — and the voicing that makes a Tube Screamer sound different
+  from a Big Muff — are mostly simple resistor-and-capacitor filters. You already have every part you need.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand how an RC filter cuts highs or lows, and how that becomes a tone knob in your circuit.
+  </div>
+
+  <h2>Capacitors treat high and low frequencies differently</h2>
+  <p>Here's the one new intuition: <strong>a capacitor passes high frequencies more easily than low ones.</strong>
+  Pair a capacitor with a resistor and you get a <span class="term">filter</span> — a circuit that lets some
+  frequencies through and weakens others, with the changeover at a <span class="term">cutoff frequency</span>
+  you set by the part values <a href="https://www.guitarpedalx.com/news/a-brief-hobbyist-primer-on-key-tone-stack-types-and-circuit-eq-configurations---in-collaboration-with-master-builder-adrian-thorpy-thorpe">(GuitarPedalX: tone stacks primer)</a>.</p>
+
+  <table>
+    <thead><tr><th>Filter</th><th>Keeps</th><th>Cuts</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Low-pass</strong></td><td>Lows</td><td>Highs</td><td>Tame fizz/treble — the classic "tone" knob</td></tr>
+      <tr><td><strong>High-pass</strong></td><td>Highs</td><td>Lows</td><td>Tighten flubby bass before distortion</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout rule">
+    <span class="label">The intuition (no math)</span>
+    For a given filter, a <strong>bigger capacitor → lower cutoff</strong> (acts sooner, cuts more). Want to
+    shave just the harsh top end? Use a small cap. Want to roll off a lot of treble? Use a bigger one. Swap
+    values on the breadboard and listen.
+  </div>
+
+  <h2>The tone knob</h2>
+  <p>A guitar/pedal <strong>tone control is usually a low-pass filter</strong>: a capacitor sends the high
+  frequencies to ground, and a potentiometer sets <em>how much</em> gets dumped. Turn it down and the treble
+  bleeds away, leaving a darker sound. One cap + one pot = a working tone knob.</p>
+
+  <div class="callout">
+    <span class="label">A passive trade-off</span>
+    A simple passive tone filter works by <em>throwing signal away</em> to ground, so it also reduces volume
+    as you cut. That's normal and fine — but it's why many pedals add a gain stage after the tone control to
+    make up the level.
+  </div>
+
+  <h2>Placement changes everything</h2>
+  <p>Where a filter sits in the chain matters as much as the filter itself:</p>
+  <ul>
+    <li><strong>Before clipping:</strong> rolling off bass first keeps the distortion tight and clear (a key
+    part of the Tube Screamer's famous mid-focused voice).</li>
+    <li><strong>After clipping:</strong> a low-pass smooths the harsh, fizzy harmonics that clipping created —
+    the "tone" knob on most dirt pedals.</li>
+  </ul>
+  <p>Tone shaping is the other half of designing an effect: clipping makes the harmonics, filters decide
+  which ones you keep.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://www.guitarpedalx.com/news/a-brief-hobbyist-primer-on-key-tone-stack-types-and-circuit-eq-configurations---in-collaboration-with-master-builder-adrian-thorpy-thorpe">GuitarPedalX — Hobbyist Primer on Tone Stacks &amp; EQ</a>.
+    Shows the common tone-control topologies you'll meet in pedals.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Tell me your dirt pedal sounds too harsh or too
+    muddy and I'll help you pick a filter (and where to put it) to fix it.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0026-overdrive-and-distortion.html">Lesson 26</a></span>
+    <span><a href="0028-delay-and-modulation.html">Lesson 28</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/guitar-effects.html">Guitar effects building blocks</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "A low-pass filter in a tone control…",
+      options: [
+        "Keeps lows and cuts highs",
+        "Keeps highs and cuts lows",
+        "Boosts every frequency"
+      ],
+      answer: 0,
+      why: "Low-pass passes low frequencies and rolls off the highs — exactly what a darkening 'tone' knob does."
+    },
+    {
+      q: "For a given filter, using a bigger capacitor moves the cutoff…",
+      options: [
+        "Lower (cuts more)",
+        "Higher (cuts less)",
+        "It has no effect"
+      ],
+      answer: 0,
+      why: "Bigger cap → lower cutoff frequency → it starts cutting sooner. Swapping cap values on the breadboard is how you dial in the voice by ear."
+    },
+    {
+      q: "A simple passive tone control also reduces volume because it…",
+      options: [
+        "Dumps signal to ground",
+        "Adds gain to the lows",
+        "Reverses the signal"
+      ],
+      answer: 0,
+      why: "Passive filters work by throwing unwanted frequencies away to ground, which lowers overall level — often made up by a later gain stage."
+    },
+    {
+      q: "Rolling off bass *before* a clipping stage tends to make the distortion…",
+      options: [
+        "Tighter and clearer",
+        "Muddier and looser",
+        "Completely clean"
+      ],
+      answer: 0,
+      why: "Cutting lows before clipping keeps the dirt tight and defined (a hallmark of the Tube Screamer). Placement in the chain is as important as the filter itself."
+    }
+  ]);
+</script>
+</body>
+</html>

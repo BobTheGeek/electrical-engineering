@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guitar Effects Building Blocks — Quick Reference</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Reference · Quick lookup</p>
+  <h1>Guitar Effects Building Blocks</h1>
+  <p class="subtitle">The analog-audio toolkit, on one page. Print me.</p>
+
+  <div class="callout">
+    The compressed essence of the <a href="../index.html">Guitar Effects track</a> (Lessons 23–29).
+    Components carry over from the rest of the course; the new idea is shaping an <strong>AC waveform</strong>.
+  </div>
+
+  <h2>The standard signal chain</h2>
+  <p style="text-align:center; font-family:-apple-system,sans-serif; font-size:0.9rem; color:var(--accent)">
+    input (high-Z + coupling cap + bias) → gain → clipping → tone → volume → output
+  </p>
+
+  <h2>Foundations (Lessons 23–24)</h2>
+  <ul>
+    <li>Guitar = small, weak, high-impedance <strong>AC signal</strong>; effects reshape its waveform.</li>
+    <li>Single 9 V supply → <strong>bias to ~4.5 V</strong> (virtual ground / Vref) so AC can swing both ways.</li>
+    <li><strong>Coupling cap</strong> = in-line, passes AC + blocks DC (vs decoupling cap across power).</li>
+    <li><strong>High input impedance</strong> (~1 MΩ) or a buffer avoids "tone suck."</li>
+  </ul>
+
+  <h2>Gain (Lesson 25)</h2>
+  <ul>
+    <li>Gain = output ÷ input size. Unity (1) = buffer; &gt;1 = boost.</li>
+    <li><strong>Op-amp</strong> non-inverting: two resistors set gain; make one a pot = drive knob.</li>
+    <li>Transistor stages also amplify (vintage character; basis of fuzz).</li>
+  </ul>
+
+  <h2>Clipping = dirt (Lesson 26)</h2>
+  <table>
+    <thead><tr><th></th><th>Soft = overdrive</th><th>Hard = distortion</th></tr></thead>
+    <tbody>
+      <tr><td>Diodes</td><td>In op-amp feedback loop</td><td>To ground, after the amp</td></tr>
+      <tr><td>Peaks</td><td>Rounded</td><td>Squared</td></tr>
+      <tr><td>Example</td><td>Tube Screamer</td><td>Boss DS-1 / MXR Dist+</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.85rem;color:var(--muted);font-family:-apple-system,sans-serif">
+    Diode flavor: germanium (~0.3 V, warm/compressed) · silicon (~0.7 V, tight) · LED (~1.7 V+, loud/open).
+    Asymmetric diodes add even harmonics.</p>
+
+  <h2>Tone / filters (Lesson 27)</h2>
+  <ul>
+    <li>Cap passes highs more than lows → pair with a resistor = <strong>filter</strong>.</li>
+    <li><strong>Low-pass</strong> = tone knob (cut highs); <strong>high-pass</strong> = tighten bass.</li>
+    <li>Bigger cap → lower cutoff. Passive filters lose some volume (dump signal to ground).</li>
+    <li>Before clipping = tighter dirt; after clipping = tames fizz.</li>
+  </ul>
+
+  <h2>Time-based (Lesson 28)</h2>
+  <ul>
+    <li><strong>Delay/echo</strong>: store &amp; replay. Chips: BBD (analog) or <strong>PT2399</strong> (DIY go-to, ~30–340 ms).</li>
+    <li><strong>Modulation</strong> via an <strong>LFO</strong> (slow wave): tremolo (volume), chorus/vibrato (delay time), phaser (filter sweep).</li>
+    <li>More advanced — build dirt first, then layer these on the same fundamentals.</li>
+  </ul>
+
+  <div class="callout danger">
+    <span class="label">Bench habits</span>
+    Start amp volume low · common ground throughout · check power polarity · build &amp; test one stage at a time.
+  </div>
+
+  <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a> · <a href="rules-of-thumb.html">Rules of thumb</a></p>
+</div>
+</body>
+</html>

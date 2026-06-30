@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 24 — Power, Bias &amp; Coupling</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 24 · Guitar Effects on a Breadboard</p>
+  <h1>Power, Bias &amp; Coupling</h1>
+  <p class="subtitle">The single most important trick in analog audio: making an AC signal live on one battery.</p>
+
+  <p>This is the foundational lesson of the whole track. A guitar signal swings <em>negative</em>, but a 9 V
+  battery only offers 0 V to 9 V — no negatives. Solving that puzzle (and protecting the delicate signal)
+  is what biasing and coupling do. Almost every pedal starts with these moves.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand why effects need a "virtual ground" bias and coupling capacitors — the setup that lets a
+    real AC signal pass through a single-supply circuit unharmed.
+  </div>
+
+  <h2>The problem: negatives on a positive-only supply</h2>
+  <p>Your AC signal (from <a href="0023-shaping-sound.html">Lesson 23</a>) needs to swing both above and
+  below a center. But a 9 V supply has no voltage below 0 V. If the center is 0 V, the entire bottom half of
+  your waveform gets chopped off the moment it tries to go negative.</p>
+
+  <h2>The fix: bias to half-supply (a "virtual ground")</h2>
+  <p>The trick is to <strong>shift the signal's center up to the middle of the supply</strong> — about
+  <strong>4.5 V</strong> on a 9 V rail. Now the wiggle can swing up toward 9 V and down toward 0 V with room
+  to spare. You create this reference, called <span class="term">Vref</span> or a
+  <span class="term">virtual ground</span>, with two equal resistors splitting the supply (a
+  <a href="0008-resistors-in-depth.html">voltage divider</a>!), plus a capacitor to steady it
+  <a href="https://www.wamplerpedals.com/blog/lifestyle-hobby/2024/08/how-to-design-a-basic-distortion-pedal-circuit/">(Wampler: designing a distortion pedal)</a>.</p>
+
+  <figure>
+    <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Signal centered at 4.5V swinging within 0 to 9V.">
+      <line x1="10" y1="20" x2="310" y2="20" stroke="#cfcabd" stroke-dasharray="3 3"/>
+      <text x="270" y="17" font-size="9" fill="#6b6b6b" font-family="sans-serif">9V</text>
+      <line x1="10" y1="55" x2="310" y2="55" stroke="#1f6f8b" stroke-width="1"/>
+      <text x="250" y="52" font-size="9" fill="#1f6f8b" font-family="sans-serif">4.5V (bias)</text>
+      <line x1="10" y1="90" x2="310" y2="90" stroke="#cfcabd" stroke-dasharray="3 3"/>
+      <text x="278" y="103" font-size="9" fill="#6b6b6b" font-family="sans-serif">0V</text>
+      <path d="M10 55 Q 45 25 80 55 T 150 55 T 220 55 T 290 55" fill="none" stroke="#b3461f" stroke-width="2.5"/>
+    </svg>
+    <figcaption>Biased to 4.5 V, the AC signal has headroom to swing both ways without hitting the 0 V floor or 9 V ceiling.</figcaption>
+  </figure>
+
+  <h2>Coupling capacitors: pass the wiggle, block the DC</h2>
+  <p>There's a catch: you want the <em>AC wiggle</em> to move between stages, but <em>not</em> the DC bias
+  voltages, which differ from stage to stage. A <span class="term">coupling capacitor</span> does exactly
+  this — it <strong>passes AC and blocks DC</strong>. Put one at the input and output of a stage and the
+  signal flows through while each stage keeps its own bias.</p>
+
+  <div class="callout rule">
+    <span class="label">Two capacitor jobs — don't confuse them</span>
+    A <strong>coupling cap</strong> sits <em>in line</em> with the signal to pass AC and block DC. A
+    <strong>decoupling cap</strong> (<a href="0009-capacitors-in-depth.html">Lesson 9</a>) sits across power
+    and ground to steady the supply. Same part, different placement and purpose.
+  </div>
+
+  <h2>Don't load the guitar: input impedance</h2>
+  <p>That weak, high-impedance guitar signal is easily "loaded down," which dulls the tone — players call it
+  <span class="term">tone suck</span>. The fix is a <strong>high input impedance</strong>: the input bias
+  resistor is usually large (around <strong>1 MΩ</strong>) so the circuit sips the signal gently. A
+  dedicated <span class="term">buffer</span> stage (a unity-gain op-amp or transistor) is the cleanest way to
+  present a friendly high impedance and drive the rest of the circuit.</p>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    Almost every pedal begins: <strong>high-impedance input → coupling cap → biased to ~4.5 V</strong>, and
+    ends with a <strong>coupling cap → output</strong>. Learn this skeleton and most schematics suddenly
+    make sense.
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://www.wamplerpedals.com/blog/lifestyle-hobby/2024/08/how-to-design-a-basic-distortion-pedal-circuit/">Wampler Pedals — How to design a basic distortion pedal circuit</a>.
+    Walks through bias, coupling, and the input stage in pedal terms.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Send me a pedal schematic and I'll point out the
+    bias network and coupling caps — once you can spot them, the rest of the circuit opens up.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0023-shaping-sound.html">Lesson 23</a></span>
+    <span><a href="0025-boost-and-gain.html">Lesson 25</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/guitar-effects.html">Guitar effects building blocks</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "On a single 9 V supply, an audio signal is biased to about 4.5 V so that…",
+      options: [
+        "It can swing both up and down",
+        "It uses less battery power",
+        "It becomes a DC signal"
+      ],
+      answer: 0,
+      why: "A 9 V supply has no negative voltage. Centering the signal at half-supply gives the AC waveform room to swing both ways without clipping on the rails."
+    },
+    {
+      q: "A coupling capacitor in the signal path…",
+      options: [
+        "Passes AC and blocks DC",
+        "Passes DC and blocks AC",
+        "Blocks both AC and DC"
+      ],
+      answer: 0,
+      why: "Coupling caps let the AC signal move between stages while blocking each stage's DC bias from following it. That keeps biases independent."
+    },
+    {
+      q: "A high input impedance (~1 MΩ) at a pedal's input prevents…",
+      options: [
+        "Loading down the guitar (tone suck)",
+        "The signal from being AC",
+        "The supply from reaching 9 V"
+      ],
+      answer: 0,
+      why: "The guitar's weak, high-impedance signal is easily loaded down, dulling tone. A high input impedance (or a buffer) sips it gently and preserves it."
+    },
+    {
+      q: "A coupling cap and a decoupling cap differ in that the decoupling cap…",
+      options: [
+        "Sits across power and ground",
+        "Sits in line with the signal",
+        "Blocks the AC waveform"
+      ],
+      answer: 0,
+      why: "Decoupling caps steady the supply (across power/ground); coupling caps sit in the signal path to pass AC and block DC. Same part, different job."
+    }
+  ]);
+</script>
+</body>
+</html>

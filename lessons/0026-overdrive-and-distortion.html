@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 26 — Overdrive &amp; Distortion (Clipping)</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 26 · Guitar Effects on a Breadboard</p>
+  <h1>Overdrive &amp; Distortion (Clipping)</h1>
+  <p class="subtitle">Where "dirt" comes from — and the small choices that make it sing or roar.</p>
+
+  <p>This is the lesson you came for. Overdrive, distortion, and fuzz are all the same core trick:
+  <span class="term">clipping</span> the waveform. Once you understand clipping, you understand the soul of
+  most effects pedals — and you can shape your own flavor of dirt.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand how clipping creates distortion, the difference between soft (overdrive) and hard
+    (distortion) clipping, and how diode choices change the character.
+  </div>
+
+  <h2>Clipping: when the wiggle can't fit</h2>
+  <p>From <a href="0025-boost-and-gain.html">Lesson 25</a>: crank the gain and the waveform grows until its
+  peaks can't fit between the supply rails (or run into diodes). The tops and bottoms get <strong>flattened
+  off</strong> — clipped. That flattening adds new <span class="term">harmonics</span> the original note
+  didn't have, and harmonics are what your ear hears as <em>distortion</em>.</p>
+
+  <figure>
+    <svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A sine wave with flattened tops and bottoms.">
+      <line x1="10" y1="50" x2="310" y2="50" stroke="#cfcabd" stroke-width="1"/>
+      <line x1="10" y1="22" x2="310" y2="22" stroke="#c62828" stroke-dasharray="3 3"/>
+      <line x1="10" y1="78" x2="310" y2="78" stroke="#c62828" stroke-dasharray="3 3"/>
+      <path d="M10 50 C 25 22 35 22 50 22 L 70 22 C 85 22 95 78 110 78 L 130 78 C 145 78 155 22 170 22 L 190 22 C 205 22 215 78 230 78 L 250 78 C 265 78 275 22 290 22"
+            fill="none" stroke="#b3461f" stroke-width="2.5"/>
+      <text x="220" y="18" font-size="9" fill="#c62828" font-family="sans-serif">clipping ceiling</text>
+    </svg>
+    <figcaption>The peaks are flattened against limits. The flatter and squarer the wave, the more harmonics
+    — and the more aggressive the distortion.</figcaption>
+  </figure>
+
+  <p>Less clipping (gently rounded peaks) = mild, warm <span class="term">overdrive</span>. More clipping
+  (peaks squared off hard) = aggressive <span class="term">distortion</span>. Push a transistor stage to the
+  extreme and you get <span class="term">fuzz</span>.</p>
+
+  <h2>Soft vs hard clipping — the two architectures</h2>
+  <p>You control clipping with <a href="0011-diodes-in-depth.html">diodes</a> — a diode conducts once the
+  signal exceeds its forward voltage, so it "catches" the peak at that level. <em>Where</em> you place the
+  diodes defines the pedal's whole character
+  <a href="https://www.electrosmash.com/tube-screamer-analysis">(ElectroSmash analyses)</a>:</p>
+
+  <table>
+    <thead><tr><th></th><th>Soft clipping</th><th>Hard clipping</th></tr></thead>
+    <tbody>
+      <tr><td>Diodes placed</td><td>In the op-amp's <strong>feedback loop</strong></td><td><strong>To ground</strong>, after the op-amp</td></tr>
+      <tr><td>Result</td><td>Rounded peaks — smooth</td><td>Squared peaks — aggressive</td></tr>
+      <tr><td>Sound</td><td><strong>Overdrive</strong></td><td><strong>Distortion</strong></td></tr>
+      <tr><td>Classic example</td><td>Tube Screamer</td><td>Boss DS-1, MXR Distortion+</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Diode choice = flavor</h2>
+  <p>Which diodes you use changes the taste of the dirt:</p>
+  <ul>
+    <li><strong>Germanium</strong> (forward voltage ~0.3 V): clips early and soft, extra compression — vintage, warm.</li>
+    <li><strong>Silicon</strong> (~0.7 V): clips a bit higher, tighter and more aggressive — the common default.</li>
+    <li><strong>LEDs</strong> (~1.7 V+): clip much later, so louder with more headroom — open, dynamic.</li>
+    <li><strong>Symmetric vs asymmetric:</strong> matching diodes on each side clip evenly; using a different
+    count on one side (asymmetric) clips the halves differently, adding even harmonics for a distinct voice.</li>
+  </ul>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb (and why breadboarding rocks here)</span>
+    Clipping is <strong>made for experimenting</strong>. Build a gain stage, then socket different diodes
+    into the clipping spot and listen: germanium vs silicon vs LED, two vs three diodes, feedback vs to
+    ground. Your ears are the instrument — this is the funnest afternoon in the whole course.
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://www.electrosmash.com/tube-screamer-analysis">ElectroSmash — Tube Screamer</a> (soft clipping)
+    and <a href="https://www.electrosmash.com/boss-ds1-analysis">Boss DS-1</a> (hard clipping). Seeing both
+    side by side makes the architectures click.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Describe the tone you're chasing (warm and smooth?
+    tight and aggressive? open and loud?) and I'll suggest a clipping setup and diodes to try.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0025-boost-and-gain.html">Lesson 25</a></span>
+    <span><a href="0027-tone-shaping.html">Lesson 27</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/guitar-effects.html">Guitar effects building blocks</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "Distortion is created when the waveform's peaks are…",
+      options: [
+        "Flattened (clipped), adding harmonics",
+        "Delayed by a few milliseconds",
+        "Shifted up to 4.5 V bias"
+      ],
+      answer: 0,
+      why: "Clipping flattens the peaks when the signal is too big to fit. That flattening adds harmonics, which your ear hears as distortion."
+    },
+    {
+      q: "Soft clipping (overdrive) typically places the diodes…",
+      options: [
+        "In the op-amp's feedback loop",
+        "Directly across the battery",
+        "After the output jack"
+      ],
+      answer: 0,
+      why: "Diodes in the feedback loop round the peaks gently — soft clipping, i.e. overdrive (e.g. Tube Screamer). Diodes to ground give harder distortion."
+    },
+    {
+      q: "Compared with silicon, germanium clipping diodes tend to sound…",
+      options: [
+        "Warmer, with more compression",
+        "Tighter and more aggressive",
+        "Louder with more headroom"
+      ],
+      answer: 0,
+      why: "Germanium's low forward voltage (~0.3 V) clips early and soft, adding compression and warmth. Silicon (~0.7 V) is tighter; LEDs clip late and loud."
+    },
+    {
+      q: "Hard clipping, with diodes to ground after the amp, gives a sound that's…",
+      options: [
+        "Aggressive (distortion)",
+        "Clean (a buffer)",
+        "Quieter than the input"
+      ],
+      answer: 0,
+      why: "Diodes to ground square off the peaks hard, producing aggressive distortion — the architecture of pedals like the Boss DS-1 and MXR Distortion+."
+    }
+  ]);
+</script>
+</body>
+</html>

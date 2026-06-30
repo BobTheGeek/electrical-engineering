@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 29 — Your First Pedal, Step by Step</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 29 · Guitar Effects on a Breadboard</p>
+  <h1>Your First Pedal, Step by Step</h1>
+  <p class="subtitle">Assemble everything you've learned into a real overdrive you can play.</p>
+
+  <p>Time to make sound. This lesson stitches the building blocks from this track into a complete
+  <strong>op-amp overdrive</strong> on your breadboard — the same skeleton as a Tube Screamer. Don't worry
+  about perfect values; the whole point of breadboarding is to build, plug in, and tweak by ear.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You build a working overdrive on the breadboard, hear it, and modify it — turning all this theory into a
+    sound coming out of your amp.
+  </div>
+
+  <h2>The signal chain (everything you've learned, in order)</h2>
+  <p style="text-align:center; font-family:-apple-system,sans-serif; font-size:0.9rem; color:var(--accent)">
+    guitar → <strong>input</strong> (high-Z, coupling cap, bias) → <strong>op-amp gain</strong> (with drive knob) →
+    <strong>soft clipping</strong> (diodes) → <strong>tone</strong> (low-pass) → <strong>volume</strong> →
+    <strong>output</strong> → amp
+  </p>
+  <p>Every block traces to a lesson: input (<a href="0024-power-bias-coupling.html">24</a>), gain
+  (<a href="0025-boost-and-gain.html">25</a>), clipping (<a href="0026-overdrive-and-distortion.html">26</a>),
+  tone (<a href="0027-tone-shaping.html">27</a>).</p>
+
+  <h2>What you'll need</h2>
+  <ul>
+    <li>Breadboard rig with input/output jacks and 9 V power (<a href="0023-shaping-sound.html">Lesson 23</a>)</li>
+    <li>A dual op-amp (a TL072 is the classic, easy choice)</li>
+    <li>Resistors and capacitors from your kit; a couple of potentiometers (drive, volume)</li>
+    <li>A pair of diodes for clipping (start with two silicon 1N4148s)</li>
+  </ul>
+  <p>(For an exact, vetted schematic with values, follow a published beginner build — see the source below.
+  The values here are <em>starting points to experiment with</em>, not gospel.)</p>
+
+  <h2>Build it in stages — test as you go</h2>
+  <ol>
+    <li><strong>Power &amp; bias.</strong> Set up the 9 V rails and a 4.5 V bias point (two equal resistors,
+    e.g. 10k, plus a small cap to steady it). This is your virtual ground from
+    <a href="0024-power-bias-coupling.html">Lesson 24</a>.</li>
+    <li><strong>Input.</strong> Guitar signal → a coupling cap → a high-value input resistor (~1 MΩ) to bias.
+    This presents a friendly high impedance.</li>
+    <li><strong>Gain stage.</strong> Wire the op-amp as a non-inverting amp with its "+" at 4.5 V bias. Use a
+    resistor + a <strong>drive potentiometer</strong> to set gain (<a href="0025-boost-and-gain.html">Lesson 25</a>).
+    Test here first — you should hear a clean boost.</li>
+    <li><strong>Add clipping.</strong> Put two diodes (back-to-back) in the op-amp's <strong>feedback loop</strong>
+    for soft clipping (<a href="0026-overdrive-and-distortion.html">Lesson 26</a>). Now it's an overdrive.</li>
+    <li><strong>Tone.</strong> Add a low-pass (cap + pot) after the clipping to tame fizz
+    (<a href="0027-tone-shaping.html">Lesson 27</a>).</li>
+    <li><strong>Volume &amp; output.</strong> A volume pot, then a coupling cap to the output jack → amp.</li>
+  </ol>
+
+  <div class="callout rule">
+    <span class="label">Build one block at a time</span>
+    Power on with the <strong>amp volume low</strong>, and test after each stage. If stage 3 (clean boost)
+    works before you add clipping, you've cut your debugging in half — a habit straight from
+    <a href="0002-schematics-and-breadboards.html">reading schematics</a> and good engineering practice.
+  </div>
+
+  <h2>Then: mod it (the fun part)</h2>
+  <ul>
+    <li>Swap the clipping diodes: silicon → germanium → LEDs → asymmetric. Hear the character change.</li>
+    <li>Change the tone cap value to move the brightness.</li>
+    <li>Move clipping from the feedback loop (soft) to ground (hard) and compare overdrive vs distortion.</li>
+  </ul>
+
+  <div class="callout danger">
+    <span class="label">If it doesn't work — debug, don't panic</span>
+    No sound or weird noise? Check: common ground everywhere, power polarity, the bias point actually sitting
+    near 4.5 V (measure with your multimeter), op-amp oriented by pin 1 (<a href="0012-integrated-circuits.html">Lesson 12</a>),
+    and every coupling cap in line. Bring me what you measure and we'll trace it together.
+  </div>
+
+  <h2>🎸 You can build effects now</h2>
+  <p>From "a guitar is an AC signal" to a working, modifiable overdrive — you've crossed from theory into
+  making real tones. The same skeleton, re-voiced, is most dirt pedals in existence. Next, pick a published
+  circuit you love and breadboard it; you now have the vocabulary to understand every part of it.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://beavisaudio.com/beavisboard/docs/HackersGuideToTheBeavisBoard.pdf">The Hacker's Guide to the Beavis Board</a>
+    for step-by-step breadboard builds, and <a href="https://www.electrosmash.com/tube-screamer-analysis">ElectroSmash's Tube Screamer analysis</a> for the reference overdrive.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> This is the best lesson to build <em>with</em> me —
+    tell me what parts you have and we'll choose values and wire it stage by stage, then troubleshoot what
+    you hear.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0028-delay-and-modulation.html">Lesson 28</a></span>
+    <span>End of the Guitar Effects track 🎸</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/guitar-effects.html">Guitar effects building blocks</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "Why build and test the circuit one stage at a time?",
+      options: [
+        "It isolates problems and eases debugging",
+        "It uses less battery power overall",
+        "It makes the pedal louder"
+      ],
+      answer: 0,
+      why: "Testing after each block (e.g. confirming a clean boost before adding clipping) localizes any fault, halving your debugging effort."
+    },
+    {
+      q: "In this overdrive, the diodes that create the dirt go…",
+      options: [
+        "In the op-amp's feedback loop (soft clipping)",
+        "Across the 9 V battery terminals",
+        "Between the two power rails"
+      ],
+      answer: 0,
+      why: "Diodes in the feedback loop give soft clipping — overdrive. (Moving them to ground would give harder distortion, a great mod to try.)"
+    },
+    {
+      q: "If you get no sound, a good first check is whether…",
+      options: [
+        "Everything shares a common ground",
+        "The amp is set to maximum",
+        "The diodes are germanium"
+      ],
+      answer: 0,
+      why: "Missing common ground (plus power polarity, bias near 4.5 V, op-amp orientation, and coupling caps) are the usual culprits. Measure with your multimeter."
+    },
+    {
+      q: "To turn this overdrive into a harder distortion, you would…",
+      options: [
+        "Move the clipping diodes to ground",
+        "Remove the input coupling cap",
+        "Lower the input impedance"
+      ],
+      answer: 0,
+      why: "Clipping to ground after the gain stage squares the peaks harder — distortion instead of overdrive. It's one of the easiest, most dramatic mods."
+    }
+  ]);
+</script>
+</body>
+</html>

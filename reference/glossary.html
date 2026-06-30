@@ -314,6 +314,59 @@
         matching entities — no manual per-device setup.</dd>
   </dl>
 
+  <h2>Analog audio &amp; guitar effects</h2>
+  <dl class="glossary">
+    <dt id="ac-signal">AC signal / waveform</dt>
+    <dd>A voltage that swings above and below a center over time (alternating current). A guitar pickup
+        produces one; its size is loudness and its shape is tone. Effects reshape it. See
+        <a href="../lessons/0023-shaping-sound.html">Lesson 23</a>.</dd>
+
+    <dt id="bias-vref">Bias / Vref / virtual ground</dt>
+    <dd>A reference voltage at about half the supply (~4.5 V on 9 V), made with two equal resistors + a cap,
+        so an AC signal can swing both ways on a single-supply circuit. See
+        <a href="../lessons/0024-power-bias-coupling.html">Lesson 24</a>.</dd>
+
+    <dt id="coupling-cap">Coupling capacitor</dt>
+    <dd>A capacitor in the signal path that passes AC and blocks DC — lets the audio move between stages while
+        each keeps its own bias. (Contrast <a href="#decoupling">decoupling cap</a>, which steadies power.)</dd>
+
+    <dt id="impedance">Impedance / input impedance</dt>
+    <dd>A signal's "resistance to being drawn from." A guitar is high-impedance and easily loaded down
+        (<span class="term">tone suck</span>); a high input impedance (~1 MΩ) or a <span class="term">buffer</span>
+        preserves the tone.</dd>
+
+    <dt id="gain">Gain</dt>
+    <dd>How many times bigger the output is than the input. Unity (1) = a buffer; greater than 1 = a boost.
+        Set by two resistors around an op-amp. See <a href="../lessons/0025-boost-and-gain.html">Lesson 25</a>.</dd>
+
+    <dt id="op-amp">Op-amp (operational amplifier)</dt>
+    <dd>An IC that amplifies the difference between its two inputs; with a couple of resistors it becomes a
+        predictable amplifier — the workhorse of most pedals.</dd>
+
+    <dt id="clipping">Clipping</dt>
+    <dd>Flattening a waveform's peaks when it's too big to fit. Adds harmonics = distortion.
+        <strong>Soft</strong> (diodes in the op-amp feedback loop) → overdrive; <strong>hard</strong> (diodes
+        to ground) → distortion. See <a href="../lessons/0026-overdrive-and-distortion.html">Lesson 26</a>.</dd>
+
+    <dt id="overdrive-distortion">Overdrive / distortion / fuzz</dt>
+    <dd>Degrees of clipping: gentle (overdrive), heavy (distortion), extreme transistor clipping (fuzz).
+        Diode material (germanium ~0.3 V, silicon ~0.7 V, LED ~1.7 V+) flavors the sound.</dd>
+
+    <dt id="filter">Filter (low-pass / high-pass) &amp; cutoff</dt>
+    <dd>A resistor + capacitor that passes some frequencies and weakens others, with the changeover at a
+        <span class="term">cutoff frequency</span> set by the values. Low-pass = tone (cut highs); high-pass =
+        tighten bass. Bigger cap → lower cutoff. See <a href="../lessons/0027-tone-shaping.html">Lesson 27</a>.</dd>
+
+    <dt id="lfo">LFO (low-frequency oscillator)</dt>
+    <dd>A slow wave (well below hearing) that continuously modulates part of a circuit — volume (tremolo),
+        delay time (chorus/vibrato), or a filter (phaser).</dd>
+
+    <dt id="bbd-pt2399">BBD / PT2399</dt>
+    <dd>Delay chips. <strong>BBD</strong> (bucket-brigade): classic analog delay. <strong>PT2399</strong>:
+        cheap, through-hole digital delay chip (~30–340 ms) that's the DIY favorite. See
+        <a href="../lessons/0028-delay-and-modulation.html">Lesson 28</a>.</dd>
+  </dl>
+
   <p style="margin-top:3rem"><a href="../index.html">← Course home</a></p>
 </div>
 </body>

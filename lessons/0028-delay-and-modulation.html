@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 28 — Delay &amp; Modulation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 28 · Guitar Effects on a Breadboard</p>
+  <h1>Delay &amp; Modulation</h1>
+  <p class="subtitle">Time-based effects — echo, chorus, tremolo — and the chips that create them.</p>
+
+  <p>Boost, clipping, and filters all act on the signal <em>instantly</em>. Time-based effects are a
+  different beast: they involve <em>delaying</em> or <em>continuously changing</em> the signal. These are
+  more advanced than a distortion, so this lesson maps the territory and points you to the right building
+  blocks rather than every detail.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand how echo, chorus, and tremolo work in principle, and which chips and circuits you'd reach
+    for to build them.
+  </div>
+
+  <h2>Delay: hear it again, a moment later</h2>
+  <p>A <span class="term">delay</span> stores the signal and replays it a short time later; feed some of the
+  output back to the input and the echoes repeat and fade. Doing this in pure analog is hard — you can't
+  easily "hold" a waveform with resistors and caps. Two technologies solve it:</p>
+  <ul>
+    <li><strong>BBD (bucket-brigade device):</strong> the classic analog approach — a chip that passes the
+    signal through hundreds of tiny capacitor "buckets," each handing it to the next, so it comes out later.
+    Warm, lo-fi, the sound of vintage analog delay/chorus.</li>
+    <li><strong>PT2399:</strong> the modern hobby favorite — a cheap, through-hole chip that delays digitally
+    (it samples the signal into memory and plays it back) yet sounds pleasingly analog. Delay times ~30–340 ms,
+    runs at 5 V, very mod-friendly <a href="https://www.electrosmash.com/pt2399-analysis">(ElectroSmash: PT2399 analysis)</a>.</li>
+  </ul>
+
+  <div class="callout rule">
+    <span class="label">Rule of thumb</span>
+    For a DIY delay/echo on the breadboard, the <strong>PT2399</strong> is the go-to chip — well documented,
+    forgiving, and surrounded by published circuits. It's an <a href="0012-integrated-circuits.html">IC</a>:
+    give it power, ground, the datasheet's typical circuit, and a couple of pots for delay time and repeats.
+  </div>
+
+  <h2>Modulation: a slow wobble via an LFO</h2>
+  <p>Chorus, vibrato, tremolo, and phasers all share one engine: a <span class="term">low-frequency
+  oscillator (LFO)</span> — a slow, steady wave (well below hearing, like 1–10 cycles per second) that
+  <em>continuously changes</em> some part of the circuit:</p>
+  <ul>
+    <li><strong>Tremolo:</strong> the LFO modulates <em>volume</em> up and down → a pulsing sound. The
+    simplest modulation effect to build.</li>
+    <li><strong>Chorus / vibrato:</strong> the LFO modulates a short <em>delay time</em> (often a BBD or
+    PT2399) → pitch wavers slightly, thickening the sound.</li>
+    <li><strong>Phaser:</strong> the LFO sweeps a set of filters → the familiar whoosh.</li>
+  </ul>
+
+  <h2>Where this fits your journey</h2>
+  <p>These are great <em>next</em> builds, not first ones — they layer an IC (PT2399) or an LFO on top of the
+  exact fundamentals you now own: gain stages, coupling, bias, and filters all reappear around the delay or
+  modulation core. Start with dirt (it's simpler and immediate), then graduate to a PT2399 delay or a
+  tremolo once the basics feel natural.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://www.electrosmash.com/pt2399-analysis">ElectroSmash — PT2399 Analysis</a> for delay, and
+    skim <a href="https://www.electrosmash.com/">ElectroSmash's pedal analyses</a> for modulation circuits.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> When you're ready for your first time-based effect,
+    tell me whether you want echo or wobble and I'll point you to a beginner-friendly circuit.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0027-tone-shaping.html">Lesson 27</a></span>
+    <span><a href="0029-your-first-pedal.html">Lesson 29</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/guitar-effects.html">Guitar effects building blocks</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "A delay effect works by…",
+      options: [
+        "Storing the signal and replaying it later",
+        "Clipping the signal's peaks",
+        "Raising the supply voltage"
+      ],
+      answer: 0,
+      why: "Delay stores the signal and plays it back a short time later; feeding output back to input makes repeating, fading echoes."
+    },
+    {
+      q: "The popular DIY chip for a breadboard delay/echo is the…",
+      options: [
+        "PT2399",
+        "TB6612FNG",
+        "ATmega328"
+      ],
+      answer: 0,
+      why: "The PT2399 is a cheap, through-hole, well-documented delay chip (~30–340 ms) that's forgiving and mod-friendly — the hobby go-to."
+    },
+    {
+      q: "Tremolo, chorus, and phaser all rely on a slow…",
+      options: [
+        "Low-frequency oscillator (LFO)",
+        "High-pass clipping diode",
+        "Voltage regulator"
+      ],
+      answer: 0,
+      why: "An LFO (a wave well below hearing) continuously modulates something — volume for tremolo, delay time for chorus, filter sweep for phaser."
+    },
+    {
+      q: "The simplest modulation effect to build is tremolo because its LFO modulates…",
+      options: [
+        "Volume",
+        "Delay time",
+        "Supply polarity"
+      ],
+      answer: 0,
+      why: "Tremolo just varies the volume up and down with the LFO — no delay line needed, making it the most approachable modulation effect."
+    }
+  ]);
+</script>
+</body>
+</html>

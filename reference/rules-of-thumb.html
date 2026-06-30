@@ -138,6 +138,29 @@
     <span class="why">Both make your gadget an entity you can automate. HA runs locally — private, no cloud.</span>
     <a href="../lessons/0022-home-assistant.html">Lesson 22</a></div>
 
+  <h2>Guitar effects</h2>
+  <div class="rot"><span class="r">A guitar signal is small, weak AC — handle it gently; start amp volume low.</span>
+    <span class="why">Rig: guitar → input jack → breadboard → output jack → amp, on 9 V. Common ground throughout.</span>
+    <a href="../lessons/0023-shaping-sound.html">Lesson 23</a></div>
+  <div class="rot"><span class="r">On 9 V, bias the signal to ~4.5 V and use coupling caps (pass AC, block DC).</span>
+    <span class="why">High input impedance (~1 MΩ) avoids tone suck. This input skeleton starts almost every pedal.</span>
+    <a href="../lessons/0024-power-bias-coupling.html">Lesson 24</a></div>
+  <div class="rot"><span class="r">Gain = output ÷ input; an op-amp's two resistors set it (one as a pot = drive knob).</span>
+    <span class="why">Modest gain = clean boost; too much gain → clipping → dirt.</span>
+    <a href="../lessons/0025-boost-and-gain.html">Lesson 25</a></div>
+  <div class="rot"><span class="r">Clipping makes dirt: diodes in feedback = soft (overdrive); to ground = hard (distortion).</span>
+    <span class="why">Diode flavor: germanium (warm) · silicon (tight) · LED (loud). Asymmetric = even harmonics. Socket &amp; experiment.</span>
+    <a href="../lessons/0026-overdrive-and-distortion.html">Lesson 26</a></div>
+  <div class="rot"><span class="r">Tone = RC filter: low-pass cuts highs (the tone knob); bigger cap → lower cutoff.</span>
+    <span class="why">Before clipping = tighter dirt; after = tames fizz. Passive filters lose some volume.</span>
+    <a href="../lessons/0027-tone-shaping.html">Lesson 27</a></div>
+  <div class="rot"><span class="r">Delay/echo → PT2399 chip; modulation (tremolo/chorus) → an LFO.</span>
+    <span class="why">Time-based effects are more advanced — build dirt first, then layer these on the same fundamentals.</span>
+    <a href="../lessons/0028-delay-and-modulation.html">Lesson 28</a></div>
+  <div class="rot"><span class="r">Build a pedal one stage at a time, testing as you go.</span>
+    <span class="why">Confirm a clean boost before adding clipping. No sound? Check ground, polarity, bias ~4.5 V, op-amp pin 1.</span>
+    <a href="../lessons/0029-your-first-pedal.html">Lesson 29</a></div>
+
   <p style="margin-top:2.5rem"><a href="../index.html">← Course home</a> · <a href="glossary.html">Glossary</a></p>
 </div>
 </body>

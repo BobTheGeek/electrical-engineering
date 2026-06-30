@@ -1,26 +1,31 @@
 # Mission: Electronics for Building Things
 
 ## Why
-I want to build my own home-automation gadgets — devices that sense or control things
-around my home (lights, switches, sensors), driven by an Arduino/ESP32 and connected over
-WiFi. I've dabbled (blinked an LED, followed kit tutorials) but I don't actually understand
-*why* the circuits work. I want a solid, durable mental model so I can design and debug my
-own projects with confidence instead of copying wiring diagrams blindly.
+I want to build my own electronics projects and understand *why* the circuits work — not just copy
+wiring diagrams. I have two concrete passions driving this:
+1. **Home-automation gadgets** — devices that sense or control things around my home (lights, switches,
+   sensors), driven by an Arduino/ESP32 and connected over Wi-Fi.
+2. **Guitar effects pedals** — breadboarding analog audio effects (boost, overdrive, distortion, tone,
+   delay) that I can run my guitar through, into my amp.
+
+Both share one foundation: a solid, intuitive grasp of components and circuits so I can design and debug
+my own builds with confidence.
 
 ## Success looks like
-- I can look at a schematic or breadboard photo and explain what each part does and where current flows.
-- I can choose the right component (resistor value, relay type, power supply) for a job using rules of thumb, not heavy math.
-- I can wire up a sensor + a microcontroller + an output (relay/LED/display) and know why it works.
-- I can safely build a gadget that controls a real household device, understanding the danger points.
-- I can diagnose a circuit that isn't working by reasoning about voltage and current.
+- I can read a schematic or breadboard photo and explain what each part does and where current/signal flows.
+- I can choose the right component for a job using rules of thumb, not heavy math.
+- **Home automation:** wire a sensor + microcontroller + output (relay/motor/servo), get it on Wi-Fi, and
+  report into Home Assistant — safely, including mains-aware builds.
+- **Guitar effects:** breadboard an effect (e.g. an overdrive), run my guitar through it into my amp, and
+  modify it by ear — understanding how each component shapes the sound.
+- I can diagnose a circuit that isn't working by reasoning about voltage, current, and signal.
 
 ## Constraints
-- **Minimal math.** Favor intuition, analogies (water/pipes), and rules of thumb over equations. A little arithmetic is fine; calculus and heavy algebra are not.
+- **Minimal math.** Favor intuition, analogies (water/pipes, waveforms), and rules of thumb over equations.
 - Learning in short sessions — lessons must be small and give one concrete win.
 - Practical and hands-on: every concept should connect to something I'd actually build.
 
 ## Out of scope (for now)
-- PCB design and manufacturing.
-- Deep semiconductor physics / analog circuit theory.
-- Advanced RF, signal processing, control theory.
-- Soldering technique (revisit once breadboard fundamentals are solid).
+- PCB design and manufacturing; soldering technique (revisit once breadboard fundamentals are solid).
+- Deep semiconductor physics; advanced RF, DSP, control theory.
+- (Guitar) deep amp-building / tube/valve high-voltage work.

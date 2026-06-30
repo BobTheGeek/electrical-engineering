@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 25 — Boost &amp; Gain (the Op-Amp)</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 25 · Guitar Effects on a Breadboard</p>
+  <h1>Boost &amp; Gain (the Op-Amp)</h1>
+  <p class="subtitle">Making the waveform bigger — the building block under boosts, overdrives, and fuzz.</p>
+
+  <p>With the signal biased and coupled (<a href="0024-power-bias-coupling.html">Lesson 24</a>), the next
+  move is to make it <em>bigger</em>. That's <span class="term">gain</span> — amplification — and it's the
+  engine inside a clean boost and, when pushed too far, every overdrive and distortion. Meet the workhorse
+  that does it: the op-amp.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand gain as "how many times bigger," and how an op-amp's two resistors set it — the basis of
+    a boost pedal.
+  </div>
+
+  <h2>Gain = how much bigger</h2>
+  <p><span class="term">Gain</span> is simply the ratio of output size to input size. A gain of 1 (unity)
+  leaves the signal the same size — useful for a <a href="0024-power-bias-coupling.html">buffer</a>. A gain
+  of 10 makes the waveform ten times taller — a boost. No tricky math: <em>bigger gain, bigger wiggle,
+  louder (and eventually dirtier) signal.</em></p>
+
+  <figure>
+    <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A small waveform amplified to a larger one.">
+      <line x1="10" y1="45" x2="310" y2="45" stroke="#cfcabd" stroke-width="1"/>
+      <path d="M10 45 Q 30 35 50 45 T 90 45" fill="none" stroke="#6b6b6b" stroke-width="2"/>
+      <text x="20" y="70" font-size="9" fill="#6b6b6b" font-family="sans-serif">small in</text>
+      <text x="150" y="49" font-size="14" fill="#1a1a1a">→</text>
+      <path d="M190 45 Q 215 8 240 45 T 290 45" fill="none" stroke="#b3461f" stroke-width="2.5"/>
+      <text x="210" y="80" font-size="9" fill="#b3461f" font-family="sans-serif">big out (×gain)</text>
+    </svg>
+    <figcaption>Gain scales the whole waveform. The shape is preserved — until it gets so big it slams into
+    the supply rails (that's the next lesson).</figcaption>
+  </figure>
+
+  <h2>The op-amp: the amplifier you'll use most</h2>
+  <p>An <span class="term">op-amp</span> (operational amplifier) is an <a href="0012-integrated-circuits.html">IC</a>
+  built to amplify the difference between its two inputs. With a couple of resistors around it, it becomes a
+  precise, predictable amplifier — the heart of countless pedals (the Tube Screamer, Klon, and many more).</p>
+
+  <div class="callout rule">
+    <span class="label">The key idea (minimal math)</span>
+    In the common <strong>non-inverting</strong> setup, <strong>two resistors set the gain</strong> as a
+    ratio. Roughly: gain ≈ 1 + (one resistor ÷ another). Swap one for a <strong>potentiometer</strong>
+    (<a href="0010-potentiometers.html">Lesson 10</a>) and you've got a <em>gain knob</em> — the "drive" or
+    "boost" control. You don't compute it every time; you turn the knob and listen.
+  </div>
+
+  <p>On a single 9 V supply, the op-amp's "+" input is tied to the <strong>4.5 V bias</strong> from Lesson 24,
+  so the amplified signal stays centered with room to swing
+  <a href="https://www.electrosmash.com/tube-screamer-analysis">(ElectroSmash: Tube Screamer analysis)</a>.</p>
+
+  <h2>Transistors amplify too</h2>
+  <p>Back in <a href="0006-driving-bigger-loads.html">Lesson 6</a> you used a transistor as a <em>switch</em>.
+  Bias it differently and the same part becomes an <strong>amplifier</strong> — a small input wiggle controls
+  a larger output wiggle. Classic boosts (like the LPB-1) and fuzz pedals are built from a transistor stage
+  or two. Op-amps are easier to predict; transistors give a particular vintage character.</p>
+
+  <h2>A boost is just clean gain</h2>
+  <p>Put it together: high-impedance input → bias → coupling cap → an amplifier with a gain knob → coupling
+  cap → output. Keep the gain modest and the signal stays clean but louder — a <strong>boost pedal</strong>.
+  Crank the gain until the waveform can't fit between the rails, and it starts to <em>clip</em>… which is
+  exactly where overdrive and distortion begin, in the next lesson.</p>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://www.electrosmash.com/tube-screamer-analysis">ElectroSmash — Tube Screamer Circuit Analysis</a>.
+    See a real op-amp gain stage (with a drive pot) in one of the most famous pedals ever.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Want to build a clean boost first? Tell me and I'll
+    sketch an op-amp gain stage with a drive knob you can put on the breadboard.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0024-power-bias-coupling.html">Lesson 24</a></span>
+    <span><a href="0026-overdrive-and-distortion.html">Lesson 26</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/guitar-effects.html">Guitar effects building blocks</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "Gain of 10 means the output waveform is…",
+      options: [
+        "Ten times bigger than the input",
+        "Ten times quieter than the input",
+        "Delayed by ten milliseconds"
+      ],
+      answer: 0,
+      why: "Gain is the ratio of output to input size. Gain 10 makes the wiggle ten times taller — a boost. Gain 1 (unity) leaves it unchanged (a buffer)."
+    },
+    {
+      q: "In a non-inverting op-amp stage, the gain is set by…",
+      options: [
+        "Two resistors (a ratio)",
+        "The supply voltage alone",
+        "The coupling capacitor"
+      ],
+      answer: 0,
+      why: "Two resistors set the gain ratio. Replace one with a pot and you get a drive/boost knob — turn and listen, no math needed each time."
+    },
+    {
+      q: "On a 9 V supply, the op-amp's + input is connected to 4.5 V because…",
+      options: [
+        "It keeps the signal biased to swing",
+        "It doubles the available gain",
+        "It blocks the DC supply"
+      ],
+      answer: 0,
+      why: "Tying it to the half-supply bias (Lesson 24) keeps the amplified signal centered with headroom to swing both ways."
+    },
+    {
+      q: "A transistor that was a switch in Lesson 6 can also be an…",
+      options: [
+        "Amplifier, when biased differently",
+        "Antenna, when biased differently",
+        "Inductor, when biased differently"
+      ],
+      answer: 0,
+      why: "Biased into its active region, a transistor amplifies — a small input controls a larger output. Classic boosts and fuzzes use transistor gain stages."
+    }
+  ]);
+</script>
+</body>
+</html>

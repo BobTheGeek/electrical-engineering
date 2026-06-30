@@ -6,9 +6,10 @@
 - Comfortable with computers and code (works in software). Analogies to programming/computing are likely to land.
 - Wants short sessions, one concrete win per lesson.
 
-## Mission anchor
-Building home-automation gadgets (Arduino/ESP32, WiFi, controlling household devices, sensors, relays).
-Every lesson should connect back to "something I'd build for the home."
+## Mission anchor (TWO domains, one course — confirmed by learner)
+1. Home-automation gadgets (Arduino/ESP32, WiFi, household devices, sensors, relays).
+2. Guitar effect pedals (breadboarded analog audio: boost/overdrive/distortion/tone/delay; guitar→breadboard→amp).
+Both share the electronics foundation. Tie lessons back to whichever domain fits; see MISSION.md.
 
 ## Teaching approach
 - Lessons: short, beautiful (Tufte-ish), one tangible win, retrieval-practice quiz at the end.
@@ -23,13 +24,17 @@ must be front-and-center. Keep early lessons on safe low-voltage (3.3V/5V) terri
   any real mains build; a certified smart plug is a legitimate, encouraged fallback.
 
 ## Status (as of last session)
-- Lessons 1–22 published — the FULL mission arc is now covered (SENSE→DECIDE→ACT→REPORT):
-  foundations (1–7), Components in Depth (8–12), The Microcontroller (13–15),
-  Motion & the Physical World (16–18), Connectivity (19–22).
-- References: glossary, schematic-symbols, component-field-guide, signals-and-buses, connectivity, rules-of-thumb.
+- Lessons 1–29 published across TWO mission arcs:
+  Home automation (1–22): foundations (1–7), Components (8–12), Microcontroller (13–15),
+  Motion/Physical World (16–18), Connectivity (19–22).
+  Guitar effects (23–29): audio mindset, bias/coupling, gain, clipping, tone, delay, capstone build.
+- References: glossary, schematic-symbols, component-field-guide, signals-and-buses, connectivity,
+  guitar-effects, rules-of-thumb.
 - Lessons are self-contained and work offline (local assets) — learner can open files directly.
 - Site is live at https://ee.bobthegeek.com (GitHub Pages, repo BobTheGeek/electrical-engineering).
-- **Next session — shift from coverage to application.** The foundational curriculum is complete; the
-  highest-value next step is a guided, hands-on "build your first real gadget end-to-end" project
-  (e.g. temp reporter or phone-controlled relay into Home Assistant). Also: verify retention via
-  retrieval (records 0002–0005), and consider a mission check-in on whether to build vs go deeper.
+  NOTE: Pages build queue has hiccuped before — if a push doesn't go live, force a build via
+  `gh api -X POST repos/BobTheGeek/electrical-engineering/pages/builds`.
+- **Next session — shift from coverage to application** in EITHER domain. Both arcs are now complete enough
+  to build a real project: a home-automation gadget (sensor→ESP32→Home Assistant) or a breadboard pedal
+  (Lesson 29 overdrive). Best done *with* the learner. Also verify retention (records 0002–0006) and ask
+  which domain they want to pursue next.

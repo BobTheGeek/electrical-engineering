@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 23 — From Switching DC to Shaping Sound</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Electronics for Building Things · Lesson 23 · Guitar Effects on a Breadboard</p>
+  <h1>From Switching DC to Shaping Sound</h1>
+  <p class="subtitle">A new mindset: your guitar is an AC signal, and an effect reshapes its waveform.</p>
+
+  <p>Welcome to a new track. Everything you've built so far switched things on and off or read steady
+  levels. Guitar effects are different — and exciting — because you're manipulating a living
+  <em>waveform</em>. The good news: your whole component toolkit (resistors, capacitors, diodes,
+  transistors, breadboards) carries straight over. Only the way you <em>think</em> about the signal changes.</p>
+
+  <div class="callout">
+    <span class="label">The one win</span>
+    You understand what a guitar signal actually is, and how to set up a safe "guitar → breadboard → amp"
+    rig so you can hear your circuits.
+  </div>
+
+  <h2>Your guitar makes a tiny AC signal</h2>
+  <p>Pluck a string and the pickup produces a voltage that <em>wiggles</em> up and down in time with the
+  string — an <span class="term">AC signal</span> (alternating current). Unlike the steady DC you've used,
+  it swings positive and negative around zero, and its shape — the <span class="term">waveform</span> — is
+  the sound.</p>
+
+  <figure>
+    <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A sine-like AC waveform around a center line.">
+      <line x1="10" y1="45" x2="310" y2="45" stroke="#cfcabd" stroke-width="1"/>
+      <path d="M10 45 Q 40 5 70 45 T 130 45 T 190 45 T 250 45 T 310 45" fill="none" stroke="#b3461f" stroke-width="2.5"/>
+      <text x="14" y="20" font-size="10" fill="#6b6b6b" font-family="sans-serif">+ (above center)</text>
+      <text x="14" y="80" font-size="10" fill="#6b6b6b" font-family="sans-serif">− (below center)</text>
+    </svg>
+    <figcaption>An AC audio signal swings above and below a center line. Two things define it: how big it
+    swings (loudness) and its shape over time (tone). Effects change one or both.</figcaption>
+  </figure>
+
+  <p>Two facts shape everything that follows:</p>
+  <ul>
+    <li><strong>It's small and weak.</strong> A guitar signal is a fraction of a volt and "high impedance" —
+    easily loaded down. Circuits must treat it gently (more in <a href="0024-power-bias-coupling.html">Lesson 24</a>).</li>
+    <li><strong>An effect is a waveform transformation.</strong> Make it bigger → boost. Flatten its peaks →
+    distortion. Filter parts of it → tone change. Repeat it later → delay. Every pedal is some operation on
+    that wiggle.</li>
+  </ul>
+
+  <h2>The breadboard rig</h2>
+  <p>Here's the setup that lets you <em>hear</em> what you build — the whole reason this is so fun
+  <a href="https://beavisaudio.com/">(Beavis Audio Research has a kit built exactly for this)</a>:</p>
+  <p style="text-align:center; font-family:-apple-system,sans-serif; font-size:0.95rem; color:var(--accent)">
+    guitar → input jack → <strong>breadboard circuit</strong> → output jack → amp
+  </p>
+  <ul>
+    <li>An <strong>input jack</strong> brings the guitar's signal (tip = signal, sleeve = ground) onto the breadboard.</li>
+    <li>Your circuit sits on the breadboard.</li>
+    <li>An <strong>output jack</strong> sends the result to your amp.</li>
+    <li>Power is a <strong>9 V battery or supply</strong> — the same voltage real pedals use.</li>
+  </ul>
+
+  <div class="callout danger">
+    <span class="label">Safety &amp; gear care (different risks than mains)</span>
+    A 9 V breadboard circuit is <strong>low-voltage and safe to touch</strong> — the danger here is to your
+    <em>ears and amp</em>, not you. Always <strong>start with the amp volume low</strong>: a wiring mistake
+    can produce a loud pop or squeal. Share a <strong>common ground</strong> between guitar, circuit, and
+    amp (Lesson 4's rule), and double-check power polarity before connecting.
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz" data-quiz></div>
+
+  <div class="primary-source">
+    <span class="label">Read this next (primary source)</span>
+    <a href="https://beavisaudio.com/beavisboard/docs/HackersGuideToTheBeavisBoard.pdf">The Hacker's Guide to the Beavis Board</a> (free PDF)
+    — the friendliest intro to breadboarding effects and running your guitar through them.
+  </div>
+
+  <div class="ask-teacher">
+    <strong>I'm your teacher — ask me anything.</strong> Tell me what gear you have (amp, any jacks, a 9 V
+    supply) and I'll help you assemble a safe breadboard rig before you build a single circuit.
+  </div>
+
+  <nav class="lesson-nav">
+    <span>← <a href="0022-home-assistant.html">Lesson 22</a></span>
+    <span><a href="0024-power-bias-coupling.html">Lesson 24</a> →</span>
+  </nav>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.8rem;color:#6b6b6b;margin-top:2rem">
+    See also: <a href="../reference/glossary.html">Glossary</a> · <a href="../reference/guitar-effects.html">Guitar effects building blocks</a> · <a href="../reference/rules-of-thumb.html">Rules of thumb</a>
+  </p>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.querySelector('[data-quiz]'), [
+    {
+      q: "A guitar's signal differs from the DC you've used so far because it…",
+      options: [
+        "Swings positive and negative (AC)",
+        "Stays at a fixed voltage",
+        "Carries no information"
+      ],
+      answer: 0,
+      why: "A pickup makes an AC signal that wiggles above and below zero. Its size is loudness and its shape is tone — and effects reshape that waveform."
+    },
+    {
+      q: "In the rig, what brings the guitar's signal onto the breadboard?",
+      options: [
+        "An input jack (tip = signal)",
+        "The 9 V power supply",
+        "The amp's speaker"
+      ],
+      answer: 0,
+      why: "An input jack carries the guitar signal (tip) and ground (sleeve) onto the board; an output jack sends the result to the amp."
+    },
+    {
+      q: "The main safety habit when testing a breadboard effect is to…",
+      options: [
+        "Start with the amp volume low",
+        "Use mains voltage directly",
+        "Disconnect all grounds"
+      ],
+      answer: 0,
+      why: "9 V is safe to touch; the risk is loud pops/squeals into your amp and ears. Start quiet, and keep a common ground throughout."
+    },
+    {
+      q: "Adding distortion to a guitar means, in waveform terms…",
+      options: [
+        "Reshaping the waveform (flattening peaks)",
+        "Removing the ground wire",
+        "Lowering the supply to 0 V"
+      ],
+      answer: 0,
+      why: "Every effect is an operation on the waveform. Distortion flattens/clips the peaks; boost makes it bigger; tone filters parts of it (later lessons)."
+    }
+  ]);
+</script>
+</body>
+</html>
